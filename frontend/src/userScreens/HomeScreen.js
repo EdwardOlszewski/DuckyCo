@@ -2,10 +2,8 @@ import React from 'react'
 import { Box, Grid, makeStyles } from '@material-ui/core'
 
 // Components
-import Nav from '../components/Nav'
-import Footer from '../components/Footer'
+import PageWrapper from '../components/PageWrapper'
 import Product from '../components/Product'
-import Meta from '../components/Meta'
 
 const useStyles = makeStyles((theme) => ({
   productCont: {
@@ -41,11 +39,7 @@ export default function Home() {
   const classes = useStyles()
 
   return (
-    <>
-      <Meta title='Home' />
-
-      <Nav />
-
+    <PageWrapper title={'Home'}>
       <Grid className={classes.productCont} container spacing={5}>
         {products.map((product) => (
           <Grid key={product.imgURL} item xs={4}>
@@ -60,8 +54,6 @@ export default function Home() {
           </Grid>
         ))}
       </Grid>
-
-      <Footer />
-    </>
+    </PageWrapper>
   )
 }

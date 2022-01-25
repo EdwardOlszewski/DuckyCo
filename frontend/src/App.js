@@ -5,14 +5,16 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import HomeScreen from './userScreens/HomeScreen'
 import LoginScreen from './userScreens/LoginScreen'
 import RegisterScreen from './userScreens/RegisterScreen'
+import ProfileScreen from './userScreens/ProfileScreen'
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/login' element={<LoginScreen />} />
         <Route path='/' element={<HomeScreen />} />
+        <Route path='/login' element={<LoginScreen />} />
         <Route path='/register' element={<RegisterScreen />} />
+        <Route path='/profile' element={<ProfileScreen />} />
       </Routes>
     </Router>
   )

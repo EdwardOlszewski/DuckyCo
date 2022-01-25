@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
   },
   icons: {
-    fontSize: 40,
+    fontSize: 20,
     marginLeft: 40,
     backgroundColor: '#7e7e7e',
     borderRadius: 100,
