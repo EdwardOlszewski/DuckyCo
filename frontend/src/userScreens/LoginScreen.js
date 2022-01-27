@@ -1,7 +1,10 @@
+// React/Redux
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+
+// Components
 import {
   Container,
   Typography,
@@ -12,17 +15,17 @@ import {
   IconButton,
   Grid,
 } from '@material-ui/core'
+import Meta from '../components/Meta'
+import Message from '../components/Message'
+import Loader from '../components/Loader'
+
+// Icons
 import { FaEye } from 'react-icons/fa'
 import { FaEyeSlash } from 'react-icons/fa'
 import useStyles from '../styles/MainStyleSheet'
 
 // Actions
 import { login } from '../actions/userActions'
-
-// Components
-import Meta from '../components/Meta'
-import Message from '../components/Message'
-import Loader from '../components/Loader'
 
 export default function Signin() {
   // Mui Style Sheet

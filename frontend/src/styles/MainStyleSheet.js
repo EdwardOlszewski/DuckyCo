@@ -12,8 +12,13 @@ const useStyles = makeStyles((theme) => ({
   formCont: {
     textAlign: 'center',
     margin: 'auto',
-    paddingTop: '5rem',
+    paddingTop: '3rem',
     width: '30rem',
+  },
+  productEditCont: {
+    textAlign: 'center',
+    margin: 'auto',
+    width: '70%',
   },
 
   // Form Section
@@ -55,6 +60,12 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       color: '#b3b3b3',
     },
+  },
+
+  // title
+  title: {
+    paddingTop: '2rem',
+    paddingBottom: '5rem',
   },
 }))
 

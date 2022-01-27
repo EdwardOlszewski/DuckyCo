@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Box, Typography, makeStyles } from '@material-ui/core'
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   displayIMG: {
@@ -7,31 +8,66 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       cursor: 'pointer',
     },
+    overflow: 'hidden',
+  },
+  imgShirt: {
+    '&:hover': {
+      transform: 'scale(3.5) translate(-10%, 20%)',
+    },
+  },
+  imgHat: {
+    '&:hover': {
+      transform: 'scale(1.5) translate(0%, -20%)',
+    },
+  },
+  link: {
+    textDecoration: 'none',
+    color: 'inherit',
   },
 }))
 
-const Product = ({ imgURL, zoomImgURL, itemName, itemPrice }) => {
+const Product = ({ product }) => {
   const classes = useStyles()
-
-  const [newImgURL, setImgURL] = useState(imgURL)
 
   return (
     <>
-      <Box className={classes.displayIMG}>
-        <img
-          src={newImgURL}
-          alt={newImgURL}
-          onMouseOver={(e) => setImgURL(zoomImgURL)}
-          onMouseOut={(e) => setImgURL(imgURL)}
-          height='100%'
-          width='100%'
-          layout={'responsive'}
-        />
-      </Box>
-
+      <Link to={`/product/${product._id}`} className={classes.link}>
+        <Box className={classes.displayIMG}>
+          {product.category === 'Hat' ? (
+            <img
+              className={classes.imgHat}
+              src={product.image}
+              alt={product.name}
+              height='100%'
+              width='100%'
+              layout={'responsive'}
+            />
+          ) : product.category === 'Shirt' ? (
+            <img
+              className={classes.imgShirt}
+              src={product.image}
+              alt={product.name}
+              height='100%'
+              width='100%'
+              layout={'responsive'}
+            />
+          ) : (
+            <img
+              className={classes.imgShirt}
+              src={product.image}
+              alt={product.name}
+              height='100%'
+              width='100%'
+              layout={'responsive'}
+            />
+          )}
+        </Box>
+      </Link>
       <Box>
-        <Typography variant='h5'>{itemName}</Typography>
-        <Typography variant='h6'>${itemPrice}</Typography>
+        <Link to={`/product/${product._id}`} className={classes.link}>
+          <Typography variant='h5'>{product.name}</Typography>
+          <Typography variant='h6'>${product.price}</Typography>
+        </Link>
       </Box>
     </>
   )

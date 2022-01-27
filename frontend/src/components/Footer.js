@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     minHeight: '30vh',
     flexDirection: 'column',
-    marginTop: 150,
+    marginTop: 200,
   },
   cont: {
     marginTop: 50,

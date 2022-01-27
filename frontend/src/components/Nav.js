@@ -13,9 +13,9 @@ import {
   makeStyles,
   Menu,
   MenuItem,
-  ListItemIcon,
   ListItemText,
   withStyles,
+  Divider,
 } from '@material-ui/core'
 
 // Actions
@@ -23,19 +23,19 @@ import { logout } from '../actions/userActions'
 
 // Icons
 import { VscAccount } from 'react-icons/vsc'
-import { IoCartOutline, IoShirtOutline } from 'react-icons/io5'
-import { MdManageAccounts } from 'react-icons/md'
+import { IoCartOutline, IoShirtOutline, IoSettings } from 'react-icons/io5'
+import { MdExpandMore, MdExpandLess } from 'react-icons/md'
 import { GoPackage } from 'react-icons/go'
 import { CgLogOut } from 'react-icons/cg'
+import { GrUserSettings } from 'react-icons/gr'
+import { FiUsers } from 'react-icons/fi'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '9rem',
+    height: '7.5rem',
     padding: '.5rem 5rem 0 5rem',
     boxShadow: 'none',
     backgroundColor: 'white',
-    boxShadow:
-      'rgba(27, 31, 35, 0.04) 0px 1px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px inset',
   },
   imgCont: {
     textAlign: 'left',
@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
 const StyledMenu = withStyles({
   paper: {
     border: '1px solid #d3d4d5',
-    width: '8rem',
+    width: '9rem',
   },
 })((props) => (
   <Menu
@@ -105,17 +105,13 @@ const ResponsiveAppBar = () => {
   const dispatch = useDispatch()
 
   const [anchorEl, setAnchorEl] = useState(null)
+  const open = Boolean(anchorEl)
+
+  const [anchorEl2, setAnchorEl2] = useState(null)
+  const open2 = Boolean(anchorEl2)
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
-
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
 
   const logoutHandler = () => {
     dispatch(logout())
@@ -127,14 +123,15 @@ const ResponsiveAppBar = () => {
         <Container className={classes.imgCont}>
           <img
             src='/images/DuckyLogo.png'
-            width='150'
-            height='120'
+            alt='Duckylogo'
+            width='120'
+            height='100'
             layout='responsive'
           />
         </Container>
 
         <Box className={classes.btnBox}>
-          <Link to='/' style={{ textDecoration: 'none' }}>
+          <Link to='/apparel' style={{ textDecoration: 'none' }}>
             <Button startIcon={<IoShirtOutline />} className={classes.btn}>
               Apparel
             </Button>
@@ -147,22 +144,27 @@ const ResponsiveAppBar = () => {
           {userInfo ? (
             <>
               <Button
+                id='user-btn'
                 startIcon={<VscAccount />}
-                onClick={handleClick}
+                onClick={(e) => setAnchorEl(e.currentTarget)}
                 className={classes.btn}
+                endIcon={anchorEl ? <MdExpandLess /> : <MdExpandMore />}
               >
-                {userInfo.firstName + ' ' + userInfo.lastName}
+                {userInfo.firstName}
               </Button>
               <StyledMenu
                 id='customized-menu'
                 anchorEl={anchorEl}
                 keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
+                open={open}
+                onClose={() => setAnchorEl(null)}
               >
-                <Link to='/profile' style={{ textDecoration: 'none' }}>
+                <Link
+                  to='/profile'
+                  style={{ textDecoration: 'none', color: 'black' }}
+                >
                   <StyledMenuItem>
-                    <MdManageAccounts className={classes.icon} />
+                    <GrUserSettings className={classes.icon} />
                     <ListItemText primary='Profile' />
                   </StyledMenuItem>
                 </Link>
@@ -172,6 +174,8 @@ const ResponsiveAppBar = () => {
                   <ListItemText primary='Orders' />
                 </StyledMenuItem>
 
+                <Divider />
+
                 <StyledMenuItem onClick={logoutHandler}>
                   <CgLogOut className={classes.icon} />
                   <ListItemText primary='Logout' />
@@ -180,25 +184,29 @@ const ResponsiveAppBar = () => {
 
               {userInfo.isAdmin && (
                 <>
-                  {' '}
                   <Button
-                    startIcon={<VscAccount />}
-                    onClick={handleClick}
+                    style={{ color: '#eb5202' }}
+                    startIcon={<IoSettings />}
+                    onClick={(e) => setAnchorEl2(e.currentTarget)}
                     className={classes.btn}
+                    endIcon={anchorEl2 ? <MdExpandLess /> : <MdExpandMore />}
                   >
                     Admin
                   </Button>
                   <StyledMenu
-                    id='customized-menu'
-                    anchorEl={anchorEl}
+                    id='customized-menu2'
+                    anchorEl={anchorEl2}
                     keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
+                    open={open2}
+                    onClose={() => setAnchorEl2(null)}
                   >
-                    <Link to='/profile' style={{ textDecoration: 'none' }}>
+                    <Link
+                      to='/admin/productlist'
+                      style={{ textDecoration: 'none', color: 'black' }}
+                    >
                       <StyledMenuItem>
-                        <MdManageAccounts className={classes.icon} />
-                        <ListItemText primary='Profile' />
+                        <IoShirtOutline className={classes.icon} />
+                        <ListItemText primary='Products' />
                       </StyledMenuItem>
                     </Link>
 
@@ -207,9 +215,9 @@ const ResponsiveAppBar = () => {
                       <ListItemText primary='Orders' />
                     </StyledMenuItem>
 
-                    <StyledMenuItem onClick={logoutHandler}>
-                      <CgLogOut className={classes.icon} />
-                      <ListItemText primary='Logout' />
+                    <StyledMenuItem>
+                      <FiUsers className={classes.icon} />
+                      <ListItemText primary='Users' />
                     </StyledMenuItem>
                   </StyledMenu>
                 </>
@@ -217,11 +225,7 @@ const ResponsiveAppBar = () => {
             </>
           ) : (
             <Link to='/login' style={{ textDecoration: 'none' }}>
-              <Button
-                startIcon={<VscAccount />}
-                onClick={handleClick}
-                className={classes.btn}
-              >
+              <Button startIcon={<VscAccount />} className={classes.btn}>
                 Login
               </Button>
             </Link>

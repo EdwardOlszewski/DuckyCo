@@ -9,11 +9,30 @@ import {
   userUpdateReducer,
 } from './reducers/userReducers'
 
+import {
+  productCreateReducer,
+  productDetailsReducer,
+  productUpdateReducer,
+  productListReducer,
+  productDeleteReducer,
+} from './reducers/productReducers'
+
+import { uploadImageReducer } from './reducers/imageReducers'
+
 const reducer = combineReducers({
+  // Users
   userRegister: userRegisterReducer,
   userLogin: userLoginReducer,
   userDetails: userDetailsReducer,
   userUpdate: userUpdateReducer,
+  // Products
+  productCreate: productCreateReducer,
+  productDetails: productDetailsReducer,
+  productUpdate: productUpdateReducer,
+  productList: productListReducer,
+  productDelete: productDeleteReducer,
+  // Image
+  imageUpload: uploadImageReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')

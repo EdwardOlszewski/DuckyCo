@@ -1,5 +1,4 @@
-import React from 'react'
-
+import { Box } from '@material-ui/core'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import Meta from '../components/Meta'
@@ -9,7 +8,7 @@ const pageWrapper = ({ children, title }) => {
     <>
       <Meta title={title} />
       <Nav />
-      {children}
+      <Box style={{ minHeight: '55vh' }}>{children}</Box>
       <Footer />
     </>
   )

@@ -45,7 +45,7 @@ export default function Register() {
 
   // Go to userDetails in state and pull out information
   const userDetails = useSelector((state) => state.userDetails)
-  const { loading, error, user } = userDetails
+  const { loading, user } = userDetails
 
   // Go to userLogin in state and pull out userInfo
   const userLogin = useSelector((state) => state.userLogin)
@@ -103,7 +103,7 @@ export default function Register() {
       setLastName(user.lastName)
       setEmail(user.email)
     }
-  }, [history, userInfo, user, updateSuccess, password, confirmPass])
+  }, [history, dispatch, userInfo, user, updateSuccess, password, confirmPass])
 
   return (
     <PageWrapper title={'profile'}>
