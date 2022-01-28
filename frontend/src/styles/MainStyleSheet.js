@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     width: '70%',
   },
+  imageCont: {
+    backgroundColor: '#fafafa',
+  },
 
   // Form Section
   form: {

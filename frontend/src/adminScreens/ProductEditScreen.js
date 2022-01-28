@@ -15,6 +15,11 @@ import {
   Checkbox,
   FormControlLabel,
   Box,
+  IconButton,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
 } from '@material-ui/core'
 import { DropzoneDialog } from 'material-ui-dropzone'
 import useStyles from '../styles/MainStyleSheet'
@@ -24,6 +29,8 @@ import Loader from '../components/Loader'
 // Icons
 import { MdAttachMoney } from 'react-icons/md'
 import { FaFileUpload } from 'react-icons/fa'
+import { GoPlus } from 'react-icons/go'
+import { GiPlasticDuck } from 'react-icons/gi'
 // Actions
 import { UPLOAD_IMAGE_RESET } from '../types/imageTypes'
 import { PRODUCT_UPDATE_RESET, PRODUCT_LIST_RESET } from '../types/productTypes'
@@ -63,7 +70,8 @@ export default function Register({ match }) {
   // Declare new state variables using useState hook
   const [name, setName] = useState('')
   const [price, setPrice] = useState(0)
-  const [description, setDescription] = useState('')
+  const [description, setDescription] = useState([])
+  const [addDesc, setNewDesc] = useState('')
   const [category, setCategory] = useState('')
   const [isPublished, setIsPublished] = useState(false)
 
@@ -76,6 +84,11 @@ export default function Register({ match }) {
     const file = files[0]
     dispatch(uploadImage(file))
     setImgUpload(false)
+  }
+
+  const handleNewDesc = () => {
+    setDescription((description) => [...description, addDesc])
+    console.log(description)
   }
 
   // function to be called on submit
@@ -102,9 +115,11 @@ export default function Register({ match }) {
     if (!product || product._id != productId) {
       dispatch(listProductDetails(productId))
     } else {
+      for (let i = 0; i < product.description.length; i++) {
+        description.push(product.description[i])
+      }
       setName(product.name)
       setPrice(product.price)
-      setDescription(product.description)
       setCategory(product.category)
       setImage(product.image)
       setIsPublished(product.isPublished)
@@ -221,12 +236,45 @@ export default function Register({ match }) {
                 }}
                 label='Description'
                 variant='outlined'
-                multiline
-                rows={5}
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                value={addDesc}
+                onChange={(e) => setNewDesc(e.target.value)}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position='end'>
+                      <IconButton
+                        onClick={handleNewDesc}
+                        style={{
+                          color: 'black',
+                          height: '100%',
+                          paddingTop: '1.5rem',
+                          paddingBottom: '1.5rem',
+                        }}
+                      >
+                        <GoPlus />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
             </FormControl>
+
+            <Typography
+              style={{
+                marginTop: '2rem',
+                textAlign: 'left',
+                marginBottom: '-1rem',
+              }}
+            >
+              Description:
+            </Typography>
+            <List>
+              {description.map((desc) => (
+                <ListItem style={{ marginBottom: '-1rem' }}>
+                  <GiPlasticDuck style={{ marginRight: '.5rem' }} />
+                  <ListItemText primary={desc} />
+                </ListItem>
+              ))}
+            </List>
           </Grid>
 
           <Grid item xs={12} md={6}>
@@ -253,7 +301,7 @@ export default function Register({ match }) {
               </Button>
               <DropzoneDialog
                 open={Boolean(imgUpload)}
-                acceptedFiles={['image/png']}
+                acceptedFiles={['image/png', 'image/svg']}
                 onSave={uploadFileHandler}
                 filesLimit={1}
                 onClose={(e) => setImgUpload(false)}

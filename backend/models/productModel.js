@@ -15,15 +15,6 @@ const reviewSchema = mongoose.Schema(
     timestamps: true,
   }
 )
-
-const colorSchema = mongoose.Schema({
-  color: { type: String, required: true },
-  image: {
-    type: String,
-    required: true,
-  },
-})
-
 const productSchema = mongoose.Schema(
   {
     user: {
@@ -39,10 +30,12 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    description: {
-      type: String,
-      required: true,
-    },
+    description: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
     category: {
       type: String,
       required: true,
@@ -55,7 +48,6 @@ const productSchema = mongoose.Schema(
     isPublished: {
       type: Boolean,
     },
-    colors: [colorSchema],
     reviews: [reviewSchema],
     rating: {
       type: Number,

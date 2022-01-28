@@ -11,7 +11,7 @@ import { TiSocialInstagram } from 'react-icons/ti'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: '#111111',
+    backgroundColor: '#272829',
     display: 'flex',
     minHeight: '30vh',
     flexDirection: 'column',
@@ -77,10 +77,7 @@ const Footer = () => {
           <Grid item xs={12} md={6}>
             <Box className={classes.connectBox}>
               <Typography variant='h4'>Connect With Us</Typography>
-              <Typography variant='subtitle1'>
-                Reach us at support@Ducky&Co.com or call <br />
-                us at (708) 904-8915.
-              </Typography>
+              <Typography variant='subtitle1'></Typography>
             </Box>
           </Grid>
 

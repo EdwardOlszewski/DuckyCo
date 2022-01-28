@@ -55,7 +55,7 @@ export default function ApparelScreen() {
             {products
               .filter((product) => product.category.includes('Hat'))
               .map((filteredProduct) => (
-                <Grid key={filteredProduct._id} item xs={4}>
+                <Grid key={filteredProduct._id} item xs={3}>
                   <Product
                     key={filteredProduct._id}
                     product={filteredProduct}
@@ -71,7 +71,7 @@ export default function ApparelScreen() {
             {products
               .filter((product) => product.category.includes('Shirt'))
               .map((filteredProduct) => (
-                <Grid key={filteredProduct._id} item xs={4}>
+                <Grid key={filteredProduct._id} item xs={3}>
                   <Product
                     key={filteredProduct._id}
                     product={filteredProduct}
@@ -87,7 +87,7 @@ export default function ApparelScreen() {
             {products
               .filter((product) => product.category.includes('Hoodie'))
               .map((filteredProduct) => (
-                <Grid key={filteredProduct._id} item xs={4}>
+                <Grid key={filteredProduct._id} item xs={3}>
                   <Product
                     key={filteredProduct._id}
                     product={filteredProduct}

@@ -9,6 +9,8 @@ import ProfileScreen from './userScreens/ProfileScreen'
 // User Poduct Screens
 import ApparelScreen from './userScreens/ApparelScreen'
 import ProductScreen from './userScreens/ProductScreen'
+// User Cart Screen
+import CartScreen from './userScreens/CartScreen'
 
 // Admin Screens
 import ProductListScreen from './adminScreens/ProductListScreen'
@@ -37,6 +39,11 @@ function App() {
           element={<ProductListScreen />}
         />
         <Route path='/admin/product/:id/edit' element={<ProductEditScreen />} />
+
+        {/* Cart Routes */}
+        <Route path='/cart' element={<CartScreen />} />
+
+        {/* Order Routes */}
       </Routes>
     </Router>
   )
