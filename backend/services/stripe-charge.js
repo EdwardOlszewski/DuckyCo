@@ -3,6 +3,8 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
+console.log(process.env.SECRET_KEY)
+
 const stripe = new Stripe(process.env.SECRET_KEY)
 
 const createCharge = async (req, res) => {

@@ -10,6 +10,7 @@ import userRoutes from './routes/userRoutes.js'
 import productRoutes from './routes/productRoutes.js'
 import imageUploadRoutes from './routes/imageUploadRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
+import chargeRoutes from './routes/chargeRoutes.js'
 
 dotenv.config()
 
@@ -27,6 +28,7 @@ app.use('/api/users', userRoutes)
 app.use('/api/products', productRoutes)
 app.use('/api/orders', orderRoutes)
 app.use('/api/image/upload', imageUploadRoutes)
+app.use('/api/charge', chargeRoutes)
 
 const __dirname = path.resolve()
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))

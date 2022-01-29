@@ -43,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#007E33',
     color: 'white',
     width: '100%',
+    '&:hover': {
+      backgroundColor: '#00b84a',
+    },
   },
 }))
 
@@ -193,23 +196,22 @@ export default function ProductScreen() {
                 </ListItem>
               ))}
             </List>
-            <Tooltip title={!size && 'Please Pick A Size'} disabled>
-              <Box
-                style={{
-                  width: '50%',
-                  marginTop: '2rem',
-                }}
+
+            <Box
+              style={{
+                width: '50%',
+                marginTop: '2rem',
+              }}
+            >
+              <Button
+                disabled={true && !size}
+                style={{ backgroundColor: size ? '#007E33' : '#bababa' }}
+                className={classes.btn}
+                onClick={addToCartHandler}
               >
-                <Button
-                  disabled={true && !size}
-                  style={{ backgroundColor: size ? '#007E33' : '#bababa' }}
-                  className={classes.btn}
-                  onClick={addToCartHandler}
-                >
-                  Add To Cart
-                </Button>
-              </Box>
-            </Tooltip>
+                Add To Cart
+              </Button>
+            </Box>
           </Grid>
         </Grid>
       )}

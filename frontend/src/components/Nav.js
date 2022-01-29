@@ -131,127 +131,125 @@ const ResponsiveAppBar = ({ display }) => {
   }
 
   return (
-    <HideOnScroll>
-      <AppBar className={classes.root} position='sticky'>
-        <Toolbar disableGutters>
-          <Container className={classes.imgCont}>
-            <Link to='/' style={{ textDecoration: 'none' }}>
-              <img
-                src='/images/DuckyLogo.png'
-                alt='Duckylogo'
-                width='100%'
-                height='100%'
-                layout='responsive'
-              />
-            </Link>
-          </Container>
+    <AppBar className={classes.root} position='sticky'>
+      <Toolbar disableGutters>
+        <Container className={classes.imgCont}>
+          <Link to='/' style={{ textDecoration: 'none' }}>
+            <img
+              src='/images/DuckyLogo.png'
+              alt='Duckylogo'
+              width='100%'
+              height='100%'
+              layout='responsive'
+            />
+          </Link>
+        </Container>
 
-          <Box className={classes.btnBox}>
-            <Link to='/apparel' style={{ textDecoration: 'none' }}>
-              <Button startIcon={<IoShirtOutline />} className={classes.btn}>
-                Apparel
+        <Box className={classes.btnBox}>
+          <Link to='/apparel' style={{ textDecoration: 'none' }}>
+            <Button startIcon={<IoShirtOutline />} className={classes.btn}>
+              Apparel
+            </Button>
+          </Link>
+
+          <Link to='/cart' style={{ textDecoration: 'none' }}>
+            <Button startIcon={<IoCartOutline />} className={classes.btn}>
+              Cart
+            </Button>
+          </Link>
+
+          {userInfo ? (
+            <>
+              <Button
+                id='user-btn'
+                startIcon={<VscAccount />}
+                onClick={(e) => setAnchorEl(e.currentTarget)}
+                className={classes.btn}
+                endIcon={anchorEl ? <MdExpandLess /> : <MdExpandMore />}
+              >
+                {userInfo.firstName}
               </Button>
-            </Link>
-
-            <Link to='/cart' style={{ textDecoration: 'none' }}>
-              <Button startIcon={<IoCartOutline />} className={classes.btn}>
-                Cart
-              </Button>
-            </Link>
-
-            {userInfo ? (
-              <>
-                <Button
-                  id='user-btn'
-                  startIcon={<VscAccount />}
-                  onClick={(e) => setAnchorEl(e.currentTarget)}
-                  className={classes.btn}
-                  endIcon={anchorEl ? <MdExpandLess /> : <MdExpandMore />}
+              <StyledMenu
+                id='customized-menu'
+                anchorEl={anchorEl}
+                keepMounted
+                open={open}
+                onClose={() => setAnchorEl(null)}
+              >
+                <Link
+                  to='/profile'
+                  style={{ textDecoration: 'none', color: 'black' }}
                 >
-                  {userInfo.firstName}
-                </Button>
-                <StyledMenu
-                  id='customized-menu'
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={open}
-                  onClose={() => setAnchorEl(null)}
-                >
-                  <Link
-                    to='/profile'
-                    style={{ textDecoration: 'none', color: 'black' }}
-                  >
-                    <StyledMenuItem>
-                      <GrUserSettings className={classes.icon} />
-                      <ListItemText primary='Profile' />
-                    </StyledMenuItem>
-                  </Link>
-
                   <StyledMenuItem>
-                    <GoPackage className={classes.icon} />
-                    <ListItemText primary='Orders' />
+                    <GrUserSettings className={classes.icon} />
+                    <ListItemText primary='Profile' />
                   </StyledMenuItem>
+                </Link>
 
-                  <Divider />
+                <StyledMenuItem>
+                  <GoPackage className={classes.icon} />
+                  <ListItemText primary='Orders' />
+                </StyledMenuItem>
 
-                  <StyledMenuItem onClick={logoutHandler}>
-                    <CgLogOut className={classes.icon} />
-                    <ListItemText primary='Logout' />
-                  </StyledMenuItem>
-                </StyledMenu>
+                <Divider />
 
-                {userInfo.isAdmin && (
-                  <>
-                    <Button
-                      style={{ color: '#eb5202' }}
-                      startIcon={<IoSettings />}
-                      onClick={(e) => setAnchorEl2(e.currentTarget)}
-                      className={classes.btn}
-                      endIcon={anchorEl2 ? <MdExpandLess /> : <MdExpandMore />}
+                <StyledMenuItem onClick={logoutHandler}>
+                  <CgLogOut className={classes.icon} />
+                  <ListItemText primary='Logout' />
+                </StyledMenuItem>
+              </StyledMenu>
+
+              {userInfo.isAdmin && (
+                <>
+                  <Button
+                    style={{ color: '#eb5202' }}
+                    startIcon={<IoSettings />}
+                    onClick={(e) => setAnchorEl2(e.currentTarget)}
+                    className={classes.btn}
+                    endIcon={anchorEl2 ? <MdExpandLess /> : <MdExpandMore />}
+                  >
+                    Admin
+                  </Button>
+                  <StyledMenu
+                    id='customized-menu2'
+                    anchorEl={anchorEl2}
+                    keepMounted
+                    open={open2}
+                    onClose={() => setAnchorEl2(null)}
+                  >
+                    <Link
+                      to='/admin/productlist'
+                      style={{ textDecoration: 'none', color: 'black' }}
                     >
-                      Admin
-                    </Button>
-                    <StyledMenu
-                      id='customized-menu2'
-                      anchorEl={anchorEl2}
-                      keepMounted
-                      open={open2}
-                      onClose={() => setAnchorEl2(null)}
-                    >
-                      <Link
-                        to='/admin/productlist'
-                        style={{ textDecoration: 'none', color: 'black' }}
-                      >
-                        <StyledMenuItem>
-                          <IoShirtOutline className={classes.icon} />
-                          <ListItemText primary='Products' />
-                        </StyledMenuItem>
-                      </Link>
-
                       <StyledMenuItem>
-                        <GoPackage className={classes.icon} />
-                        <ListItemText primary='Orders' />
+                        <IoShirtOutline className={classes.icon} />
+                        <ListItemText primary='Products' />
                       </StyledMenuItem>
+                    </Link>
 
-                      <StyledMenuItem>
-                        <FiUsers className={classes.icon} />
-                        <ListItemText primary='Users' />
-                      </StyledMenuItem>
-                    </StyledMenu>
-                  </>
-                )}
-              </>
-            ) : (
-              <Link to='/login' style={{ textDecoration: 'none' }}>
-                <Button startIcon={<VscAccount />} className={classes.btn}>
-                  Login
-                </Button>
-              </Link>
-            )}
-          </Box>
-        </Toolbar>
-      </AppBar>
-    </HideOnScroll>
+                    <StyledMenuItem>
+                      <GoPackage className={classes.icon} />
+                      <ListItemText primary='Orders' />
+                    </StyledMenuItem>
+
+                    <StyledMenuItem>
+                      <FiUsers className={classes.icon} />
+                      <ListItemText primary='Users' />
+                    </StyledMenuItem>
+                  </StyledMenu>
+                </>
+              )}
+            </>
+          ) : (
+            <Link to='/login' style={{ textDecoration: 'none' }}>
+              <Button startIcon={<VscAccount />} className={classes.btn}>
+                Login
+              </Button>
+            </Link>
+          )}
+        </Box>
+      </Toolbar>
+    </AppBar>
   )
 }
 export default ResponsiveAppBar

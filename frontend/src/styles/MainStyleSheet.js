@@ -1,6 +1,10 @@
 import { makeStyles } from '@material-ui/core/'
 
 const useStyles = makeStyles((theme) => ({
+  test: {
+    borderRadius: 0,
+  },
+
   root: {
     textAlign: 'center',
   },
@@ -13,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     margin: 'auto',
     paddingTop: '3rem',
-    width: '30rem',
+    width: '40rem',
   },
   productEditCont: {
     textAlign: 'center',

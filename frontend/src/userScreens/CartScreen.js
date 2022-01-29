@@ -1,7 +1,7 @@
 // React/Redux
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 // Components
 import {
@@ -11,22 +11,13 @@ import {
   Box,
   Divider,
   Button,
-  Menu,
-  withStyles,
-  MenuItem,
   FormControl,
   Select,
 } from '@material-ui/core'
 import PageWrapper from '../components/PageWrapper'
-import Product from '../components/Product'
-import Message from '../components/Message'
-import Loader from '../components/Loader'
 
 // Actions
-import { addToCart } from '../actions/cartActions'
-
-// Icons
-import { MdExpandMore, MdExpandLess } from 'react-icons/md'
+import { addToCart, removeFromCart } from '../actions/cartActions'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,58 +58,39 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   removeBtn: {},
-}))
-
-//Menu Style
-const StyledMenu = withStyles({
-  paper: {
-    border: '1px solid #d3d4d5',
-    width: '6rem',
-  },
-})((props) => (
-  <Menu
-    elevation={0}
-    getContentAnchorEl={null}
-    anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'center',
-    }}
-    transformOrigin={{
-      vertical: 'top',
-      horizontal: 'center',
-    }}
-    {...props}
-  />
-))
-
-const StyledMenuItem = withStyles((theme) => ({
-  root: {
-    '&:focus': {
-      backgroundColor: theme.palette.primary.main,
-      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-        color: theme.palette.common.white,
-      },
+  checkoutBtn: {
+    padding: '.5rem',
+    backgroundColor: '#007E33',
+    color: 'white',
+    width: '100%',
+    fontSize: '1rem',
+    '&:hover': {
+      backgroundColor: '#00b84a',
     },
   },
-}))(MenuItem)
+}))
 
 export default function ApparelScreen() {
   // Mui Style Sheet
   const classes = useStyles()
   // Init dispatch
   const dispatch = useDispatch()
+  // Init navigate for redirect
+  const navigate = useNavigate()
+
   // Go to the cart in the state and select the cartItems
   const cart = useSelector((state) => state.cart)
   const { cartItems } = cart
 
-  const [newQty, setNewQty] = useState(1)
-  const [newSize, setNewSize] = useState('sm')
+  const total =
+    cartItems.reduce((acc, item) => acc + item.qty * item.price, 0) + 6
 
-  const [anchorEl, setAnchorEl] = useState(null)
-  const open = Boolean(anchorEl)
+  const subtotal = cartItems.reduce((acc, item) => acc + Number(item.qty), 0)
 
-  const [anchorEl2, setAnchorEl2] = useState(null)
-  const open2 = Boolean(anchorEl2)
+  // Function to remove item from cart
+  const removeFromCartHandler = (id) => {
+    dispatch(removeFromCart(id))
+  }
 
   // useEffect hook to do something
   useEffect(() => {}, [addToCart])
@@ -134,7 +106,7 @@ export default function ApparelScreen() {
                   src={product.image}
                   alt={product.name}
                   width={'100%'}
-                  height={'100%'}
+                  height={'85%'}
                 />
               </Grid>
 
@@ -157,7 +129,7 @@ export default function ApparelScreen() {
                         dispatch(
                           addToCart(
                             product.product,
-                            product.quantity,
+                            product.qty,
                             e.target.value
                           )
                         )
@@ -177,7 +149,7 @@ export default function ApparelScreen() {
                     disableUnderline
                     className={classes.select}
                     native
-                    value={product.quantity}
+                    value={product.qty}
                     onChange={(e) =>
                       dispatch(
                         addToCart(product.product, e.target.value, product.size)
@@ -192,7 +164,12 @@ export default function ApparelScreen() {
                 </Typography>
 
                 <Box className={classes.removeBtnBox}>
-                  <Button className={classes.removeBtn}> Remove</Button>
+                  <Button
+                    className={classes.removeBtn}
+                    onClick={() => dispatch(removeFromCart(product.product))}
+                  >
+                    Remove
+                  </Button>
                 </Box>
               </Grid>
               <Divider className={classes.divider} />
@@ -214,10 +191,16 @@ export default function ApparelScreen() {
 
             <Grid container style={{ paddingTop: '1rem' }}>
               <Grid item xs={10}>
-                <Typography variant='h5'>Subtotal</Typography>
+                <Typography variant='h5'>
+                  Subtotal ({subtotal}) items
+                </Typography>
               </Grid>
               <Grid item xs={2}>
-                <Typography variant='h6'>$0.00</Typography>
+                <Typography variant='h6'>
+                  {cartItems
+                    .reduce((acc, item) => acc + item.qty * item.price, 0)
+                    .toFixed(2)}
+                </Typography>
               </Grid>
             </Grid>
 
@@ -226,22 +209,31 @@ export default function ApparelScreen() {
                 <Typography variant='h5'>Shipping</Typography>
               </Grid>
               <Grid item xs={2}>
-                <Typography variant='h6'>$0.00</Typography>
+                <Typography variant='h6'>$6.00</Typography>
               </Grid>
             </Grid>
 
-            <Divider style={{ marginTop: '1rem' }} />
+            <Divider style={{ marginTop: '2rem', marginBottom: '1rem' }} />
             <Grid item xs={12}>
               <Grid container>
                 <Grid item xs={10}>
                   <Typography variant='h5'>Total</Typography>
                 </Grid>
                 <Grid item xs={2}>
-                  <Typography variant='h6'>$0.00</Typography>
+                  <Typography variant='h6'>${total.toFixed(2)}</Typography>
                 </Grid>
               </Grid>
             </Grid>
-            <Divider />
+            <Divider style={{ marginTop: '1rem', marginBottom: '1rem' }} />
+
+            <Grid item xs={12} style={{ padding: '2rem' }}>
+              <Button
+                className={classes.checkoutBtn}
+                onClick={() => navigate('/shipping', { replace: true })}
+              >
+                Checkout
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

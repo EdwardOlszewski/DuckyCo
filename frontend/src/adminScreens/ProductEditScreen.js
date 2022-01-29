@@ -114,9 +114,12 @@ export default function Register({ match }) {
     }
     if (!product || product._id != productId) {
       dispatch(listProductDetails(productId))
-    } else {
+    }
+    if (success) {
       for (let i = 0; i < product.description.length; i++) {
-        description.push(product.description[i])
+        if (description[i] != product.description[i]) {
+          description.push(product.description[i])
+        }
       }
       setName(product.name)
       setPrice(product.price)

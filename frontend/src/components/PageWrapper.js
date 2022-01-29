@@ -11,7 +11,6 @@ const PageWrapper = ({ children, title }) => {
       <Meta title={title} />
 
       <Nav />
-      <Nav2 />
 
       <Box style={{ minHeight: '55vh' }}>{children}</Box>
       <Footer />
