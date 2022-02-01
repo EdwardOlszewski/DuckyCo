@@ -40,9 +40,7 @@ export default function ApparelScreen() {
 
   // ----- use effect hook ----- //
   useEffect(() => {
-    if (order) {
-      dispatch({ type: ORDER_DETAILS_RESET })
-    }
+    dispatch({ type: ORDER_DETAILS_RESET })
     dispatch(listProducts())
   }, [dispatch])
 

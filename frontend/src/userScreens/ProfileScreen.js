@@ -122,8 +122,8 @@ export default function Register() {
     <PageWrapper title={'profile'}>
       {(loading || userUpdateLoading || loadingOrders) && <Loader />}
 
-      <Grid container className={classes.profileCont} spacing={3}>
-        <Grid container xs={12} lg={2} spacing={1}>
+      <Grid container className={classes.profileCont} spacing={5}>
+        <Grid container xs={12} lg={2} spacing={3}>
           <Typography
             variant='h4'
             style={{ margin: 'auto', textAlign: 'center', padding: '1rem' }}
@@ -211,7 +211,7 @@ export default function Register() {
         <Grid item xs={12} md={10}>
           <Typography
             variant='h4'
-            style={{ textAlign: 'center', padding: '.6rem' }}
+            style={{ textAlign: 'center', marginBottom: '.8rem' }}
           >
             My Orders
           </Typography>

@@ -79,7 +79,7 @@ export default function Signin() {
 
       <Grid
         container
-        style={{ width: '30rem' }}
+        style={{ maxWidth: '30rem' }}
         className={classes.formCont}
         spacing={3}
       >

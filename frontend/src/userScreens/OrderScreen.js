@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: 'rgba(0, 0, 0, 0.04) 0px 3px 5px',
   },
   text: {
-    fontSize: '1.2rem',
+    fontSize: '1.5rem',
     [theme.breakpoints.up('lg')]: {
       paddingLeft: '2rem',
     },
@@ -100,7 +100,7 @@ export default function ApparelScreen() {
   useEffect(() => {
     if (!userInfo) {
       navigate(`/login`, { replace: true })
-    } else if (order._id !== orderId || successDeliver) {
+    } else if (!order || order._id !== orderId || successDeliver) {
       dispatch(getOrderDetails(orderId))
     }
   }, [dispatch, orderId, order, userInfo, successDeliver])
@@ -161,9 +161,9 @@ export default function ApparelScreen() {
                 </Grid>
 
                 <Grid container>
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={6} md={6}>
                     <Grid item xs={12}>
-                      <Typography variant='h5'>Order Placed</Typography>
+                      <Typography variant='h6'>Order Placed</Typography>
                     </Grid>
                     <Grid item xs={12}>
                       <Typography
@@ -174,9 +174,9 @@ export default function ApparelScreen() {
                       </Typography>
                     </Grid>
                   </Grid>
-                  <Grid item xs={12} md={6} style={{ marginBottom: '1rem' }}>
+                  <Grid item xs={6} md={6} style={{ marginBottom: '1rem' }}>
                     <Grid item xs={12}>
-                      <Typography variant='h5'>Order Shipped</Typography>
+                      <Typography variant='h6'>Order Shipped</Typography>
                     </Grid>
                     <Grid item xs={12}>
                       {order.isDelivered ? (
@@ -193,9 +193,9 @@ export default function ApparelScreen() {
                 </Grid>
 
                 <Grid container>
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={6} md={6}>
                     <Grid item xs={12}>
-                      <Typography variant='h5'>Shipping Address</Typography>
+                      <Typography variant='h6'>Shipping Address</Typography>
                     </Grid>
                     <Grid item xs={12}>
                       <Typography variant='subtitle1'>
@@ -222,9 +222,9 @@ export default function ApparelScreen() {
                       </Typography>
                     </Grid>
                   </Grid>
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={6} md={6}>
                     <Grid item xs={12}>
-                      <Typography variant='h5'>Billing Address</Typography>
+                      <Typography variant='h6'>Billing Address</Typography>
                     </Grid>
                     <Grid item xs={12}>
                       <Typography variant='subtitle1'>

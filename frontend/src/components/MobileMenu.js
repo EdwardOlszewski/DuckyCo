@@ -90,23 +90,37 @@ export default function MobileMenu({ userInfo }) {
           </ListItem>
         </Link>
 
-        <Link to='/profile' style={{ textDecoration: 'none' }}>
-          <ListItem button onClick={toggleDrawer('left', false)}>
-            <ListItemIcon>
-              <VscAccount className={classes.btn} />
-            </ListItemIcon>
-            <ListItemText
-              primary={userInfo.firstName}
-              style={{ color: 'black' }}
-            />
-          </ListItem>
-        </Link>
+        {userInfo ? (
+          <Link to='/profile' style={{ textDecoration: 'none' }}>
+            <ListItem button onClick={toggleDrawer('left', false)}>
+              <ListItemIcon>
+                <VscAccount className={classes.btn} />
+              </ListItemIcon>
+              <ListItemText
+                primary={userInfo.firstName}
+                style={{ color: 'black' }}
+              />
+            </ListItem>
+          </Link>
+        ) : (
+          <Link to='/login' style={{ textDecoration: 'none' }}>
+            <ListItem button onClick={toggleDrawer('left', false)}>
+              <ListItemIcon>
+                <VscAccount className={classes.btn} />
+              </ListItemIcon>
+              <ListItemText primary={'Login'} style={{ color: 'black' }} />
+            </ListItem>
+          </Link>
+        )}
       </List>
 
       <Divider />
 
       <List>
-        <a to='mailto:support@duckyandco.com'>
+        <a
+          href='mailto:support@duckyandco.com'
+          style={{ textDecoration: 'none', color: 'black' }}
+        >
           <ListItem button onClick={toggleDrawer('left', false)}>
             <ListItemIcon>
               <AiOutlineMail className={classes.btn} />
@@ -115,7 +129,10 @@ export default function MobileMenu({ userInfo }) {
           </ListItem>
         </a>
 
-        <a to='tel:+7082976672'>
+        <a
+          href='tel:+7082976672'
+          style={{ textDecoration: 'none', color: 'black' }}
+        >
           <ListItem button onClick={toggleDrawer('left', false)}>
             <ListItemIcon>
               <MdOutlinePhone className={classes.btn} />

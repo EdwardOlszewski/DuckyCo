@@ -83,7 +83,7 @@ export default function Register() {
       {loading && <Loader />}
 
       <Grid
-        style={{ width: '30rem' }}
+        style={{ maxWidth: '30rem' }}
         container
         className={classes.formCont}
         spacing={3}

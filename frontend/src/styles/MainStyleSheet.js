@@ -86,6 +86,18 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 
+  btn: {
+    borderRadius: 0,
+    padding: '1rem',
+    backgroundColor: '#007E33',
+    color: 'white',
+    boxShadow:
+      ' rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px',
+    '&:hover': {
+      backgroundColor: '#00b84a',
+    },
+  },
+
   // Sign up
   newUse: {
     marginTop: 10,

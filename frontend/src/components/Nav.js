@@ -143,7 +143,7 @@ const ResponsiveAppBar = ({ display }) => {
           <Container className={classes.imgCont}>
             <Link to='/' style={{ textDecoration: 'none' }}>
               <img
-                src='/images/logo2.svg'
+                src='/images/Logo2.svg'
                 alt='Duckylogo'
                 width='100%'
                 height='100%'
@@ -157,7 +157,7 @@ const ResponsiveAppBar = ({ display }) => {
           <Container className={classes.imgCont}>
             <Link to='/' style={{ textDecoration: 'none' }}>
               <img
-                src='/images/logo2.svg'
+                src='/images/Logo2.svg'
                 alt='Duckylogo'
                 width='100%'
                 height='100%'
@@ -208,11 +208,6 @@ const ResponsiveAppBar = ({ display }) => {
                       <ListItemText primary='Profile' />
                     </StyledMenuItem>
                   </Link>
-
-                  <StyledMenuItem>
-                    <GoPackage className={classes.icon} />
-                    <ListItemText primary='Orders' />
-                  </StyledMenuItem>
 
                   <Divider />
 
