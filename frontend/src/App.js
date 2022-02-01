@@ -27,7 +27,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<HomeScreen />} />
+        <Route path='/' element={<ApparelScreen />} />
 
         {/* User routes */}
         <Route path='/login' element={<LoginScreen />} />
@@ -35,7 +35,7 @@ function App() {
         <Route path='/profile' element={<ProfileScreen />} />
 
         {/* User product routes*/}
-        <Route path='/apparel' element={<ApparelScreen />} />
+
         <Route path='/product/:id' element={<ProductScreen />} />
 
         {/* Admin Routes */}

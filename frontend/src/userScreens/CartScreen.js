@@ -289,7 +289,7 @@ export default function ApparelScreen() {
           <Box className={classes.goShopBtnCont}>
             <Button
               className={classes.goShoppingBtn}
-              onClick={() => navigate('/apparel', { replace: 'true' })}
+              onClick={() => navigate('/', { replace: 'true' })}
             >
               SHOP NOW
             </Button>

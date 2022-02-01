@@ -185,7 +185,7 @@ const ResponsiveAppBar = () => {
             </Container>
 
             <Box className={classes.btnBox}>
-              <Link to='/apparel' style={{ textDecoration: 'none' }}>
+              <Link to='/' style={{ textDecoration: 'none' }}>
                 <Button startIcon={<IoShirtOutline />} className={classes.btn}>
                   Apparel
                 </Button>
