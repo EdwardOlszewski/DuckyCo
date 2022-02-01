@@ -3,9 +3,9 @@ import mongoose from 'mongoose'
 const orderSchema = mongoose.Schema(
   {
     user: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'User',
+      _id: { type: String, required: true },
+      firstName: { type: String, required: true },
+      lastName: { type: String, required: true },
     },
     orderItems: [
       {
@@ -21,7 +21,9 @@ const orderSchema = mongoose.Schema(
       },
     ],
     shippingAddress: {
-      address: { type: String, required: true },
+      firstName: { type: String, required: true },
+      lastName: { type: String, required: true },
+      street: { type: String, required: true },
       city: { type: String, required: true },
       zipCode: { type: String, required: true },
       country: { type: String, default: 'USA' },
@@ -29,6 +31,11 @@ const orderSchema = mongoose.Schema(
     paymentMethod: {
       type: String,
       default: 'Card',
+    },
+    totalItems: {
+      type: Number,
+      required: true,
+      default: 0.0,
     },
     taxPrice: {
       type: Number,
@@ -41,6 +48,11 @@ const orderSchema = mongoose.Schema(
       default: 0.0,
     },
     totalPrice: {
+      type: Number,
+      required: true,
+      default: 0.0,
+    },
+    subTotal: {
       type: Number,
       required: true,
       default: 0.0,

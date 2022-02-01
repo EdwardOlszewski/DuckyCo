@@ -9,15 +9,20 @@ const useStyles = makeStyles((theme) => ({
       cursor: 'pointer',
     },
     overflow: 'hidden',
+    padding: '1rem',
   },
   imgShirt: {
-    '&:hover': {
-      transform: 'scale(3.5) translate(-10%, 20%)',
+    [theme.breakpoints.up('md')]: {
+      '&:hover': {
+        transform: 'scale(3.5) translate(-15%, 25%)',
+      },
     },
   },
   imgHat: {
-    '&:hover': {
-      transform: 'scale(1.5) translate(0%, -20%)',
+    [theme.breakpoints.up('md')]: {
+      '&:hover': {
+        transform: 'scale(1.5) translate(0%, -20%)',
+      },
     },
   },
   link: {
@@ -34,32 +39,38 @@ const Product = ({ product }) => {
       <Link to={`/product/${product._id}`} className={classes.link}>
         <Box className={classes.displayIMG}>
           {product.category === 'Hat' ? (
-            <img
-              className={classes.imgHat}
-              src={product.image}
-              alt={product.name}
-              height='100%'
-              width='100%'
-              layout={'responsive'}
-            />
+            <Box>
+              <img
+                className={classes.imgHat}
+                src={product.image}
+                alt={product.name}
+                height='100%'
+                width='100%'
+                layout={'responsive'}
+              />
+            </Box>
           ) : product.category === 'Shirt' ? (
-            <img
-              className={classes.imgShirt}
-              src={product.image}
-              alt={product.name}
-              height='100%'
-              width='100%'
-              layout={'responsive'}
-            />
+            <Box style={{ minHeight: '32rem' }}>
+              <img
+                className={classes.imgShirt}
+                src={product.image}
+                alt={product.name}
+                height='100%'
+                width='100%'
+                layout={'responsive'}
+              />
+            </Box>
           ) : (
-            <img
-              className={classes.imgShirt}
-              src={product.image}
-              alt={product.name}
-              height='100%'
-              width='100%'
-              layout={'responsive'}
-            />
+            <Box style={{ minHeight: '32rem' }}>
+              <img
+                className={classes.imgShirt}
+                src={product.image}
+                alt={product.name}
+                height='100%'
+                width='100%'
+                layout={'responsive'}
+              />
+            </Box>
           )}
         </Box>
       </Link>

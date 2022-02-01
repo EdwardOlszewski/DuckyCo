@@ -88,7 +88,6 @@ export default function Register({ match }) {
 
   const handleNewDesc = () => {
     setDescription((description) => [...description, addDesc])
-    console.log(description)
   }
 
   // function to be called on submit
@@ -154,13 +153,15 @@ export default function Register({ match }) {
       <Grid container className={classes.productEditCont}>
         <Grid container xs={12} md={6} spacing={3}>
           <Grid item xs={12} xl={10}>
-            <img
-              src={image}
-              alt='display image'
-              width='100%'
-              height='100%'
-              layout='responsive'
-            />
+            <Box style={{ marginTop: '5rem' }}>
+              <img
+                src={image}
+                alt='display image'
+                width='100%'
+                height='100%'
+                layout='responsive'
+              />
+            </Box>
           </Grid>
         </Grid>
 

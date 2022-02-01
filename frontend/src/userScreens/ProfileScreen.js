@@ -1,28 +1,35 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+// Components
 import {
   Typography,
-  FormControl,
   Button,
-  TextField,
   InputAdornment,
   IconButton,
   Grid,
+  Table,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Box,
 } from '@material-ui/core'
 import useStyles from '../styles/MainStyleSheet'
-import { FaEye } from 'react-icons/fa'
-import { FaEyeSlash } from 'react-icons/fa'
-
-// Components
 import PageWrapper from '../components/PageWrapper'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-
+import StyledInput from '../components/StyledInput'
+import { StyledTableCell, StyledTableRow } from '../components/StyledTable'
+import DateFormat from '../components/DateFormat'
+// Icons
+import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import { ImCross, ImCheckmark } from 'react-icons/im'
 // Types
 import { USER_UPDATE_RESET } from '../types/userTypes'
 // Actions
 import { updateUserProfile, getUserDetails } from '../actions/userActions'
+import { listMyOrders } from '../actions/orderActions'
 
 export default function Register() {
   // Mui Style Sheet
@@ -43,17 +50,22 @@ export default function Register() {
   const [severity, setSeverity] = useState('error')
   const [passVis, setPassVis] = useState('password')
 
-  // Go to userDetails in state and pull out information
   const userDetails = useSelector((state) => state.userDetails)
   const { loading, user } = userDetails
 
-  // Go to userLogin in state and pull out userInfo
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
-  // Go to userUpdateProfile in state and pull out success
   const userUpdate = useSelector((state) => state.userUpdate)
   const { loading: userUpdateLoading, success: updateSuccess } = userUpdate
+
+  const orderListMy = useSelector((state) => state.orderListMy)
+  const {
+    loading: loadingOrders,
+    success: ordersSuccess,
+    error: errorOrders,
+    orders,
+  } = orderListMy
 
   // Function to be called on submit
   const submitHandler = (e) => {
@@ -89,6 +101,7 @@ export default function Register() {
     if (!userInfo) {
       history.push('/login')
     } else if (!user) {
+      dispatch(listMyOrders())
       dispatch(getUserDetails('profile'))
     } else if (updateSuccess) {
       dispatch({ type: USER_UPDATE_RESET })
@@ -103,71 +116,48 @@ export default function Register() {
       setLastName(user.lastName)
       setEmail(user.email)
     }
-  }, [history, dispatch, userInfo, user, updateSuccess, password, confirmPass])
+  }, [history, dispatch, userInfo, user, updateSuccess])
 
   return (
     <PageWrapper title={'profile'}>
-      {loading || (userUpdateLoading && <Loader />)}
+      {(loading || userUpdateLoading || loadingOrders) && <Loader />}
 
-      <Grid container className={classes.formCont} spacing={3}>
-        <Grid item xs={12}>
-          <Typography variant='h4'> User Profile</Typography>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <FormControl className={classes.form}>
-            <TextField
-              inputProps={{
-                className: classes.input,
-              }}
-              id='outlined-basic'
+      <Grid container className={classes.profileCont} spacing={3}>
+        <Grid container xs={12} lg={2} spacing={1}>
+          <Typography
+            variant='h4'
+            style={{ margin: 'auto', textAlign: 'center', padding: '1rem' }}
+          >
+            User Profile
+          </Typography>
+          <Grid item xs={12}>
+            <StyledInput
               label='First Name'
-              variant='outlined'
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <FormControl className={classes.form}>
-            <TextField
-              inputProps={{
-                className: classes.input,
-              }}
-              id='outlined-basic'
+          </Grid>
+          <Grid item xs={12}>
+            <StyledInput
               label='Last Name'
-              variant='outlined'
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
-          </FormControl>
-        </Grid>
+          </Grid>
 
-        <Grid item xs={12}>
-          <FormControl className={classes.form}>
-            <TextField
-              inputProps={{
-                className: classes.input,
-              }}
-              id='outlined-basic'
+          <Grid item xs={12}>
+            <StyledInput
               label='Email'
               type='email'
-              variant='outlined'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-          </FormControl>
-        </Grid>
+          </Grid>
 
-        <Grid item xs={12}>
-          <FormControl className={classes.form}>
-            <TextField
-              inputProps={{
-                className: classes.input,
-              }}
-              id='outlined-basic'
+          <Grid item xs={12}>
+            <StyledInput
               label='Password'
               type={passVis}
-              variant='outlined'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               InputProps={{
@@ -184,19 +174,12 @@ export default function Register() {
                 ),
               }}
             />
-          </FormControl>
-        </Grid>
+          </Grid>
 
-        <Grid item xs={12}>
-          <FormControl className={classes.form}>
-            <TextField
-              inputProps={{
-                className: classes.input,
-              }}
-              id='outlined-basic'
+          <Grid item xs={12}>
+            <StyledInput
               label='Confirm Password'
               type={passVis}
-              variant='outlined'
               value={confirmPass}
               onChange={(e) => setConfirmPass(e.target.value)}
               InputProps={{
@@ -213,14 +196,80 @@ export default function Register() {
                 ),
               }}
             />
-          </FormControl>
+          </Grid>
+
+          <Grid item xs={12}>
+            {message && <Message severity={severity}>{message}</Message>}
+            <Button className={classes.Btn} onClick={submitHandler}>
+              Update Profile
+            </Button>
+          </Grid>
         </Grid>
 
-        <Grid item xs={12}>
-          {message && <Message severity={severity}>{message}</Message>}
-          <Button className={classes.Btn} onClick={submitHandler}>
-            Update Profile
-          </Button>
+        {/* ---------- Order Table ---------- */}
+
+        <Grid item xs={12} md={10}>
+          <Typography
+            variant='h4'
+            style={{ textAlign: 'center', padding: '.6rem' }}
+          >
+            My Orders
+          </Typography>
+          <TableContainer className={classes.root}>
+            <Table className={classes.table} aria-label='customized table'>
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell align='center'>Id</StyledTableCell>
+                  <StyledTableCell align='center'>Date</StyledTableCell>
+                  <StyledTableCell align='center'>Total</StyledTableCell>
+                  <StyledTableCell align='center'>Shipped</StyledTableCell>
+                  <StyledTableCell align='center'>options</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {orders &&
+                  orders.map((order) => (
+                    <StyledTableRow hover key={order._id}>
+                      <StyledTableCell align='center'>
+                        {order._id}
+                      </StyledTableCell>
+
+                      <StyledTableCell align='center'>
+                        {DateFormat(order.createdAt)}
+                      </StyledTableCell>
+                      <StyledTableCell align='center'>
+                        ${order.totalPrice}
+                      </StyledTableCell>
+
+                      <StyledTableCell align='center'>
+                        {order.isDelivered ? (
+                          <ImCheckmark style={{ color: '#007E33' }} />
+                        ) : (
+                          <ImCross style={{ color: '#CC0000' }} />
+                        )}
+                      </StyledTableCell>
+                      <StyledTableCell align='center'>
+                        <Link
+                          style={{ textDecoration: 'none' }}
+                          to={`/order/${order._id}`}
+                        >
+                          <Button className={classes.btn}>Details</Button>
+                        </Link>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+              </TableBody>
+            </Table>
+
+            <Box className={classes.btnBox}>
+              <Box
+                style={{
+                  display: 'inline-block',
+                  marginRight: '3rem',
+                }}
+              ></Box>
+            </Box>
+          </TableContainer>
         </Grid>
       </Grid>
     </PageWrapper>

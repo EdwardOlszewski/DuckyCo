@@ -62,8 +62,10 @@ const updateProduct = asyncHandler(async (req, res) => {
 // @route   GET /api/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
+  /*
   const pageSize = 12
-  const page = Number(req.query.pageNumber) || 1
+
+const page = Number(req.query.pageNumber) || 1
 
   const keyword = req.query.keyword
     ? {
@@ -79,8 +81,11 @@ const getProducts = asyncHandler(async (req, res) => {
     .sort({ category: 1 })
     .limit(pageSize)
     .skip(pageSize * (page - 1))
+*/
 
-  res.json({ products, page, pages: Math.ceil(count / pageSize) })
+  const products = await Product.find().sort({ name: 1 })
+
+  res.json({ products })
 })
 
 // @desc    Delete a product

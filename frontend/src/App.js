@@ -13,13 +13,15 @@ import ProductScreen from './userScreens/ProductScreen'
 import CartScreen from './userScreens/CartScreen'
 // User Order Screens
 import ShippingScreen from './userScreens/ShippingScreen'
-import PlaceOrderScreen from './userScreens/PlaceOrderScreen'
 import PaymentScreen from './userScreens/PaymentScreen'
+import OrderScreen from './userScreens/OrderScreen'
 
 // Admin Screens
 import ProductListScreen from './adminScreens/ProductListScreen'
 // Admin Product Screens
 import ProductEditScreen from './adminScreens/ProductEditScreen'
+// Admin Order Screens
+import OrderListScreen from './adminScreens/OrderListScreen'
 
 function App() {
   return (
@@ -38,6 +40,7 @@ function App() {
 
         {/* Admin Routes */}
         <Route path='/admin/productlist' element={<ProductListScreen />} />
+        <Route path='/admin/orderlist' element={<OrderListScreen />} />
         <Route
           path='/admin/productlist/:pageNumber'
           element={<ProductListScreen />}
@@ -49,8 +52,8 @@ function App() {
 
         {/* Order Routes */}
         <Route path='/shipping' element={<ShippingScreen />} />
-        <Route path='/placeorder' element={<PlaceOrderScreen />} />
-        <Route path='/payment' element={<PaymentScreen />} />
+        <Route path='/payment/:id' element={<PaymentScreen />} />
+        <Route path='/order/:id' element={<OrderScreen />} />
       </Routes>
     </Router>
   )

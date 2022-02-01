@@ -5,7 +5,9 @@ import {
   Container,
   Divider,
   makeStyles,
+  Hidden,
 } from '@material-ui/core'
+// Icons
 import { FaFacebookF, FaTwitter } from 'react-icons/fa'
 import { TiSocialInstagram } from 'react-icons/ti'
 
@@ -13,9 +15,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: '#272829',
     display: 'flex',
-    minHeight: '30vh',
+    minHeight: '23vh',
     flexDirection: 'column',
-    marginTop: 200,
+    marginTop: '15rem',
   },
   cont: {
     marginTop: 50,
@@ -25,9 +27,16 @@ const useStyles = makeStyles((theme) => ({
 
   //Connect
   connectBox: {
-    width: '50%',
     margin: 'auto',
-    textAlign: 'left',
+    [theme.breakpoints.up('xs')]: {
+      width: '100%',
+      textAlign: 'center',
+      marginBottom: '2rem',
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: '50%',
+      textAlign: 'left',
+    },
   },
 
   //Icons
@@ -36,14 +45,22 @@ const useStyles = makeStyles((theme) => ({
   },
   icons: {
     fontSize: 20,
-    marginLeft: 40,
     backgroundColor: '#7e7e7e',
     borderRadius: 100,
-    padding: 5,
     color: '#111111',
     '&:hover': {
       cursor: 'pointer',
       backgroundColor: '#5f5f5f',
+    },
+
+    [theme.breakpoints.up('xs')]: {
+      padding: 5,
+      marginLeft: 20,
+      marginRight: 20,
+    },
+    [theme.breakpoints.up('md')]: {
+      padding: 5,
+      marginLeft: 40,
     },
   },
 
@@ -74,12 +91,17 @@ const Footer = () => {
     <Box className={classes.root}>
       <Container className={classes.cont} maxWidth='xl'>
         <Grid container>
-          <Grid item xs={12} md={6}>
-            <Box className={classes.connectBox}>
-              <Typography variant='h4'>Connect With Us</Typography>
-              <Typography variant='subtitle1'></Typography>
-            </Box>
-          </Grid>
+          <Hidden smDown>
+            <Grid item xs={12} md={6}>
+              <Box className={classes.connectBox}>
+                <Typography variant='h4'>Connect With Us</Typography>
+                <Typography variant='subtitle1'>
+                  Reach us at support@duckyandco.com or call us at (708)
+                  297-6672 during our avliable hours
+                </Typography>
+              </Box>
+            </Grid>
+          </Hidden>
 
           <Grid item xs={12} md={6}>
             <Box className={classes.iconBox}>

@@ -2,166 +2,272 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-
 // Components
 import {
-  Container,
-  FormControl,
   Button,
-  TextField,
   Grid,
   Typography,
+  FormControlLabel,
+  Checkbox,
+  Container,
 } from '@material-ui/core'
 import PageWrapper from '../components/PageWrapper'
 import CheckoutSteps from '../components/CheckoutSteps'
-
+import StyledInput from '../components/StyledInput'
 // Icons
 import useStyles from '../styles/MainStyleSheet'
-
 // Actions
-import { saveShippingAddress } from '../actions/cartActions'
+import { saveShippingAddress, saveBillingAddress } from '../actions/cartActions'
+import { createOrder, getTotals } from '../actions/orderActions'
 
 export default function ShippingScreen() {
-  // Mui Style Sheet
+  // ----- init variables ----- //
   const classes = useStyles()
-  // Assign useDispatch hook to dispatch actions
   const dispatch = useDispatch()
-  // Init navigate for redirect
   const navigate = useNavigate()
 
-  // Go to the cart in the state and select the cartItems
+  // ----- get data from redux state ----- //
   const cart = useSelector((state) => state.cart)
-  const { shippingAddress } = cart
+  const { shippingAddress, cartItems } = cart
 
-  // Go to userLogin in state and pull out userInfo
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
-  // Declare new state variables using useState hook
+  const orderTotals = useSelector((state) => state.orderTotals)
+  const { totals, loading } = orderTotals
+
+  const orderCreate = useSelector((state) => state.orderCreate)
+  const { order, success, loading: orderCreateLoading, error } = orderCreate
+
+  // ----- declare state variables ----- //
   const [firstName, setFirstName] = useState(userInfo.firstName)
   const [lastName, setLastName] = useState(userInfo.lastName)
-  const [address, setAddress] = useState(shippingAddress.address)
+  const [street, setStreet] = useState(shippingAddress.street)
   const [city, setCity] = useState(shippingAddress.city)
   const [state, setState] = useState(shippingAddress.state)
   const [zipCode, setZipCode] = useState(shippingAddress.zipCode)
 
-  // Function called on submit
+  const [billingFirstName, setBillingFirstName] = useState('')
+  const [billingLastName, setBillingLastName] = useState('')
+  const [billingStreet, setBillingStreet] = useState('')
+  const [billingCity, setBillingCity] = useState('')
+  const [billingState, setBillingState] = useState('')
+  const [billingZipCode, setBillingZipCode] = useState('')
+
+  const [billingInfo, setBillingInfo] = useState(false)
+
+  // ----- function called on submit ----- //
   const submitHandler = (e) => {
     e.preventDefault()
     dispatch(
       saveShippingAddress({
         firstName,
         lastName,
-        address,
+        street,
         city,
         state,
         zipCode,
       })
     )
-    navigate('/placeorder', { replace: true })
+
+    dispatch(
+      createOrder({
+        user: {
+          _id: userInfo._id,
+          firstName: userInfo.firstName,
+          lastName: userInfo.lastName,
+        },
+        orderItems: cart.cartItems,
+        shippingAddress: {
+          firstName,
+          lastName,
+          street,
+          city,
+          zipCode,
+        },
+        paymentMethod: 'card',
+        totalItems: Number(totals.totalItems),
+        itemsPrice: Number(totals.subTotal),
+        shippingPrice: Number(totals.shippingPrice),
+        taxPrice: Number(totals.tax),
+        totalPrice: Number(totals.totalPrice),
+        subTotal: Number(totals.subTotal),
+        billingDetails: {
+          name: billingFirstName + ' ' + billingLastName,
+          email: userInfo.email,
+          address: {
+            city: billingCity,
+            line1: billingStreet,
+            state: billingState,
+            postal_code: billingZipCode,
+          },
+        },
+      })
+    )
   }
 
-  // useEffect hook called after render
-  useEffect(() => {}, [])
+  // ----- use effect hook ----- //
+  useEffect(() => {
+    if (!totals) {
+      dispatch(getTotals({ cartItems }))
+    }
+    if (success) {
+      navigate(`/payment/${order._id}`, { replace: true })
+    }
+    if (billingInfo) {
+      setBillingFirstName(firstName)
+      setBillingLastName(lastName)
+      setBillingStreet(street)
+      setBillingCity(city)
+      setBillingState(state)
+      setBillingZipCode(zipCode)
+    }
+  }, [totals, success, dispatch, billingInfo])
 
   return (
     <PageWrapper title='Login'>
-      <Container>
-        <CheckoutSteps activeStep={0} />
+      <CheckoutSteps activeStep={1} />
 
-        <Typography
-          variant='h4'
-          style={{ textAlign: 'center', marginTop: '1rem' }}
-        >
-          Shipping
-        </Typography>
+      <Typography className={classes.formTitle} variant='h3'>
+        Shipping
+      </Typography>
 
-        <Grid container className={classes.formCont} spacing={3}>
-          <Grid item xs={12} md={6}>
-            <FormControl className={classes.form}>
-              <TextField
-                id='outlined-basic'
-                label='First Name'
-                type='string'
-                variant='outlined'
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+      <Grid container className={classes.formCont} spacing={3}>
+        <Grid item xs={12} md={6}>
+          <StyledInput
+            label='First Name'
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <StyledInput
+            label='Last Name'
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <StyledInput
+            label='City'
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <StyledInput
+            label='Address'
+            value={street}
+            onChange={(e) => setStreet(e.target.value)}
+          />
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <StyledInput
+            label='State'
+            value={state}
+            onChange={(e) => setState(e.target.value)}
+          />
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <StyledInput
+            label='Zip Code'
+            value={zipCode}
+            onChange={(e) => setZipCode(e.target.value)}
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                name='checked'
+                color='primary'
+                checked={Boolean(billingInfo)}
+                onChange={(e) => setBillingInfo(e.target.checked)}
               />
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <FormControl className={classes.form}>
-              <TextField
-                id='outlined-basic'
-                label='Last Name'
-                type='string'
-                variant='outlined'
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-              />
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={12}>
-            <FormControl className={classes.form}>
-              <TextField
-                id='outlined-basic'
-                label='Address'
-                type='string'
-                variant='outlined'
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-              />
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={6}>
-            <FormControl className={classes.form}>
-              <TextField
-                id='outlined-basic'
-                label='City'
-                type='string'
-                variant='outlined'
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-              />
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={6}>
-            <FormControl className={classes.form}>
-              <TextField
-                id='outlined-basic'
-                label='State'
-                type='string'
-                variant='outlined'
-                value={state}
-                onChange={(e) => setState(e.target.value)}
-              />
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={12}>
-            <FormControl className={classes.form}>
-              <TextField
-                id='outlined-basic'
-                label='Zip Code'
-                type='string'
-                variant='outlined'
-                value={zipCode}
-                onChange={(e) => setZipCode(e.target.value)}
-              />
-            </FormControl>
-          </Grid>
-
+            }
+            label='Billing address is the same as shipping'
+          />
+        </Grid>
+        {billingInfo && (
           <Grid item xs={12}>
             <Button className={classes.Btn} onClick={submitHandler}>
               Continue
             </Button>
           </Grid>
-        </Grid>
-      </Container>
+        )}
+      </Grid>
+
+      {/* -------------------- Billing --------------------*/}
+
+      {!billingInfo && (
+        <>
+          <Typography variant='h3' className={classes.formTitle}>
+            Billing
+          </Typography>
+
+          <Grid container className={classes.formCont} spacing={3}>
+            <Grid item xs={12} md={6}>
+              <StyledInput
+                label='First Name'
+                value={billingFirstName}
+                onChange={(e) => setBillingFirstName(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={6}>
+              <StyledInput
+                label='Last Name'
+                value={billingLastName}
+                onChange={(e) => setBillingLastName(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={6}>
+              <StyledInput
+                label='City'
+                value={billingCity}
+                onChange={(e) => setBillingCity(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={6}>
+              <StyledInput
+                label='Street'
+                value={billingStreet}
+                onChange={(e) => setBillingStreet(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={6}>
+              <StyledInput
+                label='State'
+                value={billingState}
+                onChange={(e) => setBillingState(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={6}>
+              <StyledInput
+                label='Zip Code'
+                value={billingZipCode}
+                onChange={(e) => setBillingZipCode(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={6}>
+              <Button className={classes.Btn} onClick={submitHandler}>
+                Continue
+              </Button>
+            </Grid>
+          </Grid>
+        </>
+      )}
     </PageWrapper>
   )
 }

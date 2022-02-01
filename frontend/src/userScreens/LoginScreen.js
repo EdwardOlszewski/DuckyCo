@@ -3,14 +3,11 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
-
 // Components
 import {
   Container,
   Typography,
-  FormControl,
   Button,
-  TextField,
   InputAdornment,
   IconButton,
   Grid,
@@ -18,12 +15,11 @@ import {
 import Meta from '../components/Meta'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-
+import StyledInput from '../components/StyledInput'
 // Icons
 import { FaEye } from 'react-icons/fa'
 import { FaEyeSlash } from 'react-icons/fa'
 import useStyles from '../styles/MainStyleSheet'
-
 // Actions
 import { login } from '../actions/userActions'
 
@@ -32,8 +28,8 @@ export default function Signin() {
   const classes = useStyles()
   // Assign useDispatch hook to dispatch actions
   const dispatch = useDispatch()
-  // Init history for redirect
-  const history = useNavigate()
+  // Init useNavigate for redirect
+  const navigate = useNavigate()
 
   // Declare new state variables using useState hook
   const [email, setEmail] = useState('')
@@ -69,22 +65,28 @@ export default function Signin() {
   // useEffect hook called after render
   useEffect(() => {
     if (userInfo) {
-      history('/')
+      navigate(`/`, { replace: true })
     }
     if (error) {
       setMessage(error)
     }
-  }, [history, userInfo, error])
+  }, [navigate, userInfo, error])
 
   return (
     <>
       <Meta title='Login' />
       {loading && <Loader />}
-      <Grid container className={classes.formCont} spacing={3}>
+
+      <Grid
+        container
+        style={{ width: '30rem' }}
+        className={classes.formCont}
+        spacing={3}
+      >
         <Grid item xs={12}>
           <Container maxWidth='sm' className={classes.imgCont}>
             <img
-              src='/images/DuckyLogo.png'
+              src='/images/DuckyLogin.png'
               width='100%'
               height='100%'
               layout='responsive'
@@ -93,43 +95,34 @@ export default function Signin() {
         </Grid>
 
         <Grid item xs={12}>
-          <FormControl className={classes.form}>
-            <TextField
-              id='outlined-basic'
-              label='Email'
-              type='email'
-              variant='outlined'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </FormControl>
+          <StyledInput
+            label='Email'
+            type='email'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          ></StyledInput>
         </Grid>
 
         <Grid item xs={12}>
-          <FormControl className={classes.form}>
-            <TextField
-              className={classes.txtField}
-              id='outlined-multiline-flexible'
-              label='Password'
-              variant='outlined'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type={passVis}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position='end'>
-                    <IconButton
-                      aria-label='toggle password visibility'
-                      onClick={showPassHandler}
-                      edge='end'
-                    >
-                      {passVis === 'password' ? <FaEye /> : <FaEyeSlash />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </FormControl>
+          <StyledInput
+            label='Password'
+            type={passVis}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position='end'>
+                  <IconButton
+                    aria-label='toggle password visibility'
+                    onClick={showPassHandler}
+                    edge='end'
+                  >
+                    {passVis === 'password' ? <FaEye /> : <FaEyeSlash />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          ></StyledInput>
         </Grid>
 
         <Grid item xs={12}>

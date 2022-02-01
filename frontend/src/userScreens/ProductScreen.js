@@ -14,7 +14,7 @@ import {
   List,
   ListItem,
   ListItemText,
-  Tooltip,
+  Hidden,
 } from '@material-ui/core'
 import PageWrapper from '../components/PageWrapper'
 import Message from '../components/Message'
@@ -31,15 +31,17 @@ import { GiPlasticDuck } from 'react-icons/gi'
 const useStyles = makeStyles((theme) => ({
   // Containers
   imageCont: {
-    textAlign: 'center',
     backgroundColor: '#fafafa',
   },
   mainGrid: {
     margin: 'auto',
+    textAlign: 'center',
+    marginTop: '2rem',
+    margin: 'auto',
     width: '95%',
   },
   btn: {
-    padding: '.5rem',
+    padding: '1rem',
     backgroundColor: '#007E33',
     color: 'white',
     width: '100%',
@@ -84,17 +86,38 @@ export default function ProductScreen() {
       ) : error ? (
         <Message severity='error'>{error}</Message>
       ) : (
-        <Grid container className={classes.mainGrid}>
-          <Grid item xs={12} md={7} className={classes.imageCont}>
-            <img
-              src={product.image}
-              alt={product.name}
-              width='70%'
-              height='80%'
-            />
+        <Grid container className={classes.mainGrid} spacing={5}>
+          <Grid
+            item
+            xs={12}
+            sm={2}
+            md={1}
+            lg={product.category == 'Hat' ? 2 : 2}
+          ></Grid>
+          <Grid
+            item
+            xs={12}
+            sm={8}
+            md={6}
+            lg={product.category == 'Hat' ? 4 : 4}
+            className={classes.imageCont}
+          >
+            <Box style={{ marginTop: '3rem' }}>
+              <img
+                src={product.image}
+                alt={product.name}
+                width='100%'
+                height='100%'
+              />
+            </Box>
           </Grid>
 
-          <Grid item xs={12} md={5} style={{ padding: '1rem' }}>
+          <Grid
+            item
+            xs={12}
+            md={5}
+            style={{ textAlign: 'left', margin: 'auto' }}
+          >
             <Typography variant='h4'>{product.name}</Typography>
             <Typography variant='h5'>${product.price}</Typography>
 
@@ -153,7 +176,7 @@ export default function ProductScreen() {
               </>
             )}
 
-            <Typography variant='h5' style={{ marginTop: '4rem' }}>
+            <Typography variant='h5' style={{ marginTop: '2rem' }}>
               Quantity
             </Typography>
             <Grid container>
@@ -190,9 +213,11 @@ export default function ProductScreen() {
             </Typography>
             <List style={{ marginTop: '-1rem' }}>
               {product.description.map((desc) => (
-                <ListItem style={{ marginBottom: '-1rem' }}>
-                  <GiPlasticDuck style={{ marginRight: '.5rem' }} />
-                  <ListItemText primary={desc} />
+                <ListItem key={desc} style={{ marginBottom: '-1rem' }}>
+                  <Typography>
+                    <GiPlasticDuck style={{ marginRight: '.5rem' }} />
+                  </Typography>
+                  <Typography>{desc}</Typography>
                 </ListItem>
               ))}
             </List>
@@ -203,16 +228,42 @@ export default function ProductScreen() {
                 marginTop: '2rem',
               }}
             >
-              <Button
-                disabled={true && !size}
-                style={{ backgroundColor: size ? '#007E33' : '#bababa' }}
-                className={classes.btn}
-                onClick={addToCartHandler}
-              >
-                Add To Cart
-              </Button>
+              <Hidden xsDown>
+                <Button
+                  disabled={product.category == 'Hat' ? false : true && !size}
+                  style={{
+                    backgroundColor:
+                      product.category == 'Hat'
+                        ? '#007E33'
+                        : size
+                        ? '#007E33'
+                        : '#bababa',
+                  }}
+                  className={classes.btn}
+                  onClick={addToCartHandler}
+                >
+                  Add To Cart
+                </Button>
+              </Hidden>
             </Box>
           </Grid>
+          <Hidden smUp>
+            <Button
+              disabled={product.category == 'Hat' ? false : true && !size}
+              style={{
+                backgroundColor:
+                  product.category == 'Hat'
+                    ? '#007E33'
+                    : size
+                    ? '#007E33'
+                    : '#bababa',
+              }}
+              className={classes.btn}
+              onClick={addToCartHandler}
+            >
+              Add To Cart
+            </Button>
+          </Hidden>
         </Grid>
       )}
     </PageWrapper>

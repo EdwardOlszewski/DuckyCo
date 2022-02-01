@@ -2,7 +2,7 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-
+import { Link } from 'react-router-dom'
 // Components
 import {
   makeStyles,
@@ -13,9 +13,10 @@ import {
   Button,
   FormControl,
   Select,
+  Hidden,
+  Container,
 } from '@material-ui/core'
 import PageWrapper from '../components/PageWrapper'
-
 // Actions
 import { addToCart, removeFromCart } from '../actions/cartActions'
 
@@ -57,7 +58,6 @@ const useStyles = makeStyles((theme) => ({
       marginTop: '2rem',
     },
   },
-  removeBtn: {},
   checkoutBtn: {
     padding: '.5rem',
     backgroundColor: '#007E33',
@@ -68,187 +68,234 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#00b84a',
     },
   },
+  goShopBtnCont: {
+    marginTop: '2rem',
+    margin: 'auto',
+    [theme.breakpoints.up('xs')]: {
+      width: '80%',
+    },
+    [theme.breakpoints.up('sm')]: {
+      width: '50%',
+    },
+  },
+  goShoppingBtn: {
+    borderRadius: 100,
+    fontSize: '1rem',
+    width: '100%',
+    backgroundColor: '#ee491c',
+  },
 }))
 
 export default function ApparelScreen() {
-  // Mui Style Sheet
+  // ----- init variables ----- //
   const classes = useStyles()
-  // Init dispatch
   const dispatch = useDispatch()
-  // Init navigate for redirect
   const navigate = useNavigate()
 
-  // Go to the cart in the state and select the cartItems
+  // ----- get data from redux state ----- //
   const cart = useSelector((state) => state.cart)
   const { cartItems } = cart
 
   const total =
     cartItems.reduce((acc, item) => acc + item.qty * item.price, 0) + 6
-
   const subtotal = cartItems.reduce((acc, item) => acc + Number(item.qty), 0)
-
-  // Function to remove item from cart
-  const removeFromCartHandler = (id) => {
-    dispatch(removeFromCart(id))
-  }
-
-  // useEffect hook to do something
-  useEffect(() => {}, [addToCart])
 
   return (
     <PageWrapper title={'Apparel'}>
-      <Grid container className={classes.root}>
-        <Grid container xs={12} md={7}>
-          {cartItems.map((product) => (
-            <Grid container style={{ marginTop: '2rem' }}>
-              <Grid item xs={12} md={4} style={{ textAlign: 'right' }}>
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  width={'100%'}
-                  height={'85%'}
-                />
-              </Grid>
+      {cartItems.length >= 1 ? (
+        <Grid container className={classes.root}>
+          <Grid item xs={12} md={12} lg={7}>
+            {cartItems.map((product) => (
+              <Grid key={product._id} container style={{ marginTop: '2rem' }}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={10}
+                  md={4}
+                  style={{ textAlign: 'right' }}
+                >
+                  <Box>
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      width={'100%'}
+                      height={'85%'}
+                    />
+                  </Box>
+                </Grid>
 
-              <Grid item xs={12} md={6}>
-                <Typography variant='h5' className={classes.text}>
-                  {product.name}
-                </Typography>
-                <Typography className={classes.text}>
-                  ${product.price.toFixed(2)}
-                </Typography>
-                <Typography variant='h6' className={classes.subText}>
-                  Size:
-                  <FormControl className={classes.formControl}>
+                <Grid item xs={12} md={6} style={{ marginTop: '1rem' }}>
+                  <Typography variant='h5' className={classes.text}>
+                    {product.name}
+                  </Typography>
+                  <Typography className={classes.text}>
+                    ${product.price.toFixed(2)}
+                  </Typography>
+                  <Typography variant='h6' className={classes.subText}>
+                    Size:
+                    <FormControl className={classes.formControl}>
+                      <Select
+                        disableUnderline
+                        className={classes.select}
+                        native
+                        value={product.size}
+                        onChange={(e) =>
+                          dispatch(
+                            addToCart(
+                              product.product,
+                              product.qty,
+                              e.target.value
+                            )
+                          )
+                        }
+                      >
+                        <option value={'small'}>small</option>
+                        <option value={'medium'}>medium</option>
+                        <option value={'large'}>large</option>
+                        <option value={'xlarge'}>xlarge</option>
+                      </Select>
+                    </FormControl>
+                  </Typography>
+
+                  <Typography variant='h6' className={classes.subText}>
+                    Quantity:
                     <Select
                       disableUnderline
                       className={classes.select}
                       native
-                      value={product.size}
+                      value={product.qty}
                       onChange={(e) =>
                         dispatch(
                           addToCart(
                             product.product,
-                            product.qty,
-                            e.target.value
+                            e.target.value,
+                            product.size
                           )
                         )
                       }
                     >
-                      <option value={'small'}>small</option>
-                      <option value={'medium'}>medium</option>
-                      <option value={'large'}>large</option>
-                      <option value={'xlarge'}>xlarge</option>
+                      <option value={1}>1</option>
+                      <option value={2}>2</option>
+                      <option value={3}>3</option>
+                      <option value={4}>4</option>
                     </Select>
-                  </FormControl>
-                </Typography>
+                  </Typography>
 
-                <Typography variant='h6' className={classes.subText}>
-                  Quantity:
-                  <Select
-                    disableUnderline
-                    className={classes.select}
-                    native
-                    value={product.qty}
-                    onChange={(e) =>
-                      dispatch(
-                        addToCart(product.product, e.target.value, product.size)
-                      )
-                    }
-                  >
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                    <option value={3}>3</option>
-                    <option value={4}>4</option>
-                  </Select>
-                </Typography>
-
-                <Box className={classes.removeBtnBox}>
-                  <Button
-                    className={classes.removeBtn}
-                    onClick={() => dispatch(removeFromCart(product.product))}
-                  >
-                    Remove
-                  </Button>
-                </Box>
+                  <Box className={classes.removeBtnBox}>
+                    <Button
+                      className={classes.removeBtn}
+                      onClick={() => dispatch(removeFromCart(product.product))}
+                    >
+                      Remove
+                    </Button>
+                  </Box>
+                </Grid>
+                <Divider className={classes.divider} />
               </Grid>
-              <Divider className={classes.divider} />
-            </Grid>
-          ))}
-        </Grid>
-        <Grid
-          container
-          xs={12}
-          md={5}
-          style={{
-            marginTop: '1rem',
-          }}
-        >
-          <Grid item xs={12}>
+            ))}
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={12}
+            lg={5}
+            style={{
+              marginTop: '1rem',
+            }}
+          >
             <Grid item xs={12}>
-              <Typography variant='h4'>Order Summary</Typography>
-            </Grid>
+              <Grid item xs={12}>
+                <Typography variant='h4'>Order Summary</Typography>
+              </Grid>
 
-            <Grid container style={{ paddingTop: '1rem' }}>
-              <Grid item xs={10}>
-                <Typography variant='h5'>
-                  Subtotal ({subtotal}) items
-                </Typography>
-              </Grid>
-              <Grid item xs={2}>
-                <Typography variant='h6'>
-                  {cartItems
-                    .reduce((acc, item) => acc + item.qty * item.price, 0)
-                    .toFixed(2)}
-                </Typography>
-              </Grid>
-            </Grid>
-
-            <Grid container style={{ paddingTop: '1rem' }}>
-              <Grid item xs={10}>
-                <Typography variant='h5'>Shipping</Typography>
-              </Grid>
-              <Grid item xs={2}>
-                <Typography variant='h6'>$6.00</Typography>
-              </Grid>
-            </Grid>
-
-            <Divider style={{ marginTop: '2rem', marginBottom: '1rem' }} />
-            <Grid item xs={12}>
-              <Grid container>
+              <Grid container style={{ paddingTop: '1rem' }}>
                 <Grid item xs={10}>
-                  <Typography variant='h5'>Total</Typography>
+                  <Typography variant='h5'>
+                    Subtotal ({subtotal}) items
+                  </Typography>
                 </Grid>
                 <Grid item xs={2}>
-                  <Typography variant='h6'>${total.toFixed(2)}</Typography>
+                  <Typography variant='h6'>
+                    {cartItems
+                      .reduce((acc, item) => acc + item.qty * item.price, 0)
+                      .toFixed(2)}
+                  </Typography>
                 </Grid>
               </Grid>
-            </Grid>
-            <Divider style={{ marginTop: '1rem', marginBottom: '1rem' }} />
 
-            <Grid item xs={12} style={{ padding: '2rem' }}>
-              <Button
-                className={classes.checkoutBtn}
-                onClick={() => navigate('/shipping', { replace: true })}
-              >
-                Checkout
-              </Button>
+              <Grid container style={{ paddingTop: '1rem' }}>
+                <Grid item xs={10}>
+                  <Typography variant='h5'>Shipping</Typography>
+                </Grid>
+                <Grid item xs={2}>
+                  <Typography variant='h6'>$6.00</Typography>
+                </Grid>
+              </Grid>
+
+              <Divider style={{ marginTop: '2rem', marginBottom: '1rem' }} />
+              <Grid item xs={12}>
+                <Grid container>
+                  <Grid item xs={10}>
+                    <Typography variant='h5'>Total</Typography>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Typography variant='h6'>${total.toFixed(2)}</Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Divider style={{ marginTop: '1rem', marginBottom: '1rem' }} />
+
+              <Hidden mdDown>
+                <Button
+                  className={classes.checkoutBtn}
+                  onClick={() => navigate('/shipping', { replace: true })}
+                >
+                  Checkout
+                </Button>
+              </Hidden>
             </Grid>
           </Grid>
+          <Hidden mdUp>
+            <Button
+              className={classes.checkoutBtn}
+              onClick={() => navigate('/shipping', { replace: true })}
+            >
+              Checkout
+            </Button>
+          </Hidden>
         </Grid>
-      </Grid>
+      ) : (
+        <Container
+          maxWidth='md'
+          style={{
+            padding: '2rem',
+            textAlign: 'center',
+            marginTop: '2rem',
+          }}
+        >
+          <img
+            src='/images/cartimage.png'
+            alt='cartimage'
+            width='100%'
+            height='100%'
+          />
+
+          <Typography
+            variant='h5'
+            style={{ marginTop: '-2rem', color: 'black' }}
+          >
+            Your cart is empty.
+          </Typography>
+          <Box className={classes.goShopBtnCont}>
+            <Button
+              className={classes.goShoppingBtn}
+              onClick={() => navigate('/apparel', { replace: 'true' })}
+            >
+              SHOP NOW
+            </Button>
+          </Box>
+        </Container>
+      )}
     </PageWrapper>
   )
 }
-
-/*
-<Button
-                    style={{ color: '#eb5202' }}
-                    startIcon={<IoSettings />}
-                    onClick={(e) => setAnchorEl2(e.currentTarget)}
-                    className={classes.btn}
-                    endIcon={anchorEl2 ? <MdExpandLess /> : <MdExpandMore />}
-                  >
-                    Admin
-                  </Button>
-*/

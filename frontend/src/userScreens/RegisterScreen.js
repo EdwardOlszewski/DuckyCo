@@ -1,7 +1,9 @@
+// React/Redux
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+// Components
 import {
   Container,
   Typography,
@@ -13,23 +15,20 @@ import {
   Grid,
 } from '@material-ui/core'
 import useStyles from '../styles/MainStyleSheet'
-import { FaEye } from 'react-icons/fa'
-import { FaEyeSlash } from 'react-icons/fa'
-
-// Components
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import Meta from '../components/Meta'
-
+import StyledInput from '../components/StyledInput'
+// Icons
+import { FaEye } from 'react-icons/fa'
+import { FaEyeSlash } from 'react-icons/fa'
 // Actions
 import { register } from '../actions/userActions'
 
 export default function Register() {
   // Mui Style Sheet
   const classes = useStyles()
-  // Assign useDispatch hook to dispatch actions
   const dispatch = useDispatch()
-  // Init history for redirect
   const history = useNavigate()
 
   // Declare new state variables using useState hook
@@ -44,8 +43,6 @@ export default function Register() {
   // Go to userRegister in the state and pull out information
   const userRegister = useSelector((state) => state.userRegister)
   const { success, loading, error, userInfo } = userRegister
-
-  // Go to the state and pull out information from userLogin
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo: userLoggedIn } = userLogin
 
@@ -85,11 +82,16 @@ export default function Register() {
 
       {loading && <Loader />}
 
-      <Grid container className={classes.formCont} spacing={3}>
+      <Grid
+        style={{ width: '30rem' }}
+        container
+        className={classes.formCont}
+        spacing={3}
+      >
         <Grid item xs={12}>
           <Container maxWidth='sm' className={classes.imgCont}>
             <img
-              src='/images/DuckyLogo.png'
+              src='/images/DuckyLogin.png'
               alt='logo'
               width='100%'
               height='100%'
@@ -99,106 +101,70 @@ export default function Register() {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <FormControl className={classes.form}>
-            <TextField
-              inputProps={{
-                className: classes.input,
-              }}
-              id='outlined-basic'
-              label='First Name'
-              variant='outlined'
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-          </FormControl>
+          <StyledInput
+            label='First Name'
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
         </Grid>
         <Grid item xs={12} md={6}>
-          <FormControl className={classes.form}>
-            <TextField
-              inputProps={{
-                className: classes.input,
-              }}
-              id='outlined-basic'
-              label='Last Name'
-              variant='outlined'
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-          </FormControl>
+          <StyledInput
+            label='Last Name'
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
         </Grid>
 
         <Grid item xs={12}>
-          <FormControl className={classes.form}>
-            <TextField
-              inputProps={{
-                className: classes.input,
-              }}
-              id='outlined-basic'
-              label='Email'
-              type='email'
-              variant='outlined'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </FormControl>
+          <StyledInput
+            label='Email'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </Grid>
 
         <Grid item xs={12}>
-          <FormControl className={classes.form}>
-            <TextField
-              inputProps={{
-                className: classes.input,
-              }}
-              id='outlined-basic'
-              label='Password'
-              type={passVis}
-              variant='outlined'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position='end'>
-                    <IconButton
-                      aria-label='toggle password visibility'
-                      onClick={showPassHandler}
-                      edge='end'
-                    >
-                      {passVis === 'password' ? <FaEye /> : <FaEyeSlash />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </FormControl>
+          <StyledInput
+            label='Password'
+            type={passVis}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position='end'>
+                  <IconButton
+                    aria-label='toggle password visibility'
+                    onClick={showPassHandler}
+                    edge='end'
+                  >
+                    {passVis === 'password' ? <FaEye /> : <FaEyeSlash />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
         </Grid>
 
         <Grid item xs={12}>
-          <FormControl className={classes.form}>
-            <TextField
-              inputProps={{
-                className: classes.input,
-              }}
-              id='outlined-basic'
-              label='Confirm Password'
-              type={passVis}
-              variant='outlined'
-              value={confirmPass}
-              onChange={(e) => setConfirmPass(e.target.value)}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position='end'>
-                    <IconButton
-                      aria-label='toggle password visibility'
-                      onClick={showPassHandler}
-                      edge='end'
-                    >
-                      {passVis === 'password' ? <FaEye /> : <FaEyeSlash />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </FormControl>
+          <StyledInput
+            label='Confirm Password'
+            type={passVis}
+            value={confirmPass}
+            onChange={(e) => setConfirmPass(e.target.value)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position='end'>
+                  <IconButton
+                    aria-label='toggle password visibility'
+                    onClick={showPassHandler}
+                    edge='end'
+                  >
+                    {passVis === 'password' ? <FaEye /> : <FaEyeSlash />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
         </Grid>
 
         <Grid item xs={12}>

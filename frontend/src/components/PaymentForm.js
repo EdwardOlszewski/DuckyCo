@@ -1,29 +1,30 @@
 // Dependencies
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Loader from '../components/Loader'
-
 // Components
-import {
-  Container,
-  FormControl,
-  Button,
-  TextField,
-  Grid,
-  Typography,
-  withStyles,
-} from '@material-ui/core'
+import { FormControl, Button, makeStyles, Grid } from '@material-ui/core'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
-
+import useStyles from '../styles/MainStyleSheet'
+import StyledInput from './StyledInput'
 // Actions
 import { cardCharge } from '../actions/orderActions'
+import { createOrder, getTotals } from '../actions/orderActions'
+import { ORDER_CREATE_RESET } from '../types/orderTypes'
 // Icons
-import useStyles from '../styles/MainStyleSheet'
+import { Navigate } from 'react-router-dom'
 
-const PaymentForm = ({ updateBillingInfo, billingDetails, history }) => {
+const PaymentForm = ({
+  email,
+  amount,
+  orderId,
+  billingDetails,
+  shippingDetails,
+}) => {
+  // Init Stripe
   const stripe = useStripe()
+  // Init Elements
   const elements = useElements()
-
   // Mui Style Sheet
   const classes = useStyles()
   // Assign useDispatch hook
@@ -40,21 +41,23 @@ const PaymentForm = ({ updateBillingInfo, billingDetails, history }) => {
 
     if (!error) {
       const { id } = paymentMethod
-      var amount = parseInt(50 * 100)
-      dispatch(cardCharge(id, amount, '12345'))
+
+      dispatch(cardCharge(id, amount, orderId, billingDetails, shippingDetails))
     }
   }
 
   return (
     <FormControl className={classes.form}>
-      <CardElement />
-      <Button
-        style={{ marginTop: '2rem' }}
-        type='submit'
-        onClick={handleSubmit}
-      >
-        Submit Payment
-      </Button>
+      <Grid container spacing={7}>
+        <Grid item xs={12} md={7}>
+          <CardElement className={classes.cardForm} />
+        </Grid>
+        <Grid item xs={12} md={5}>
+          <Button className={classes.submitPaymentBtn} onClick={handleSubmit}>
+            Submit Payment
+          </Button>
+        </Grid>
+      </Grid>
     </FormControl>
   )
 }

@@ -3,6 +3,7 @@ import {
   CART_ADD_ITEM,
   CART_REMOVE_ITEM,
   CART_SAVE_SHIPPING_ADDRESS,
+  CART_SAVE_BILLING_ADDRESS,
   CART_SAVE_PAYMENT_METHOD,
 } from '../types/cartTypes'
 
@@ -40,6 +41,15 @@ export const saveShippingAddress = (data) => (dispatch) => {
   })
 
   localStorage.setItem('shippingAddress', JSON.stringify(data))
+}
+
+export const saveBillingAddress = (data) => (dispatch) => {
+  dispatch({
+    type: CART_SAVE_BILLING_ADDRESS,
+    payload: data,
+  })
+
+  localStorage.setItem('billingAddress', JSON.stringify(data))
 }
 
 export const savePaymentMethod = (data) => (dispatch) => {
