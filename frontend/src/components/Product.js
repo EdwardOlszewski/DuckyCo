@@ -61,7 +61,7 @@ const Product = ({ product }) => {
               />
             </Box>
           ) : (
-            <Box style={{ minHeight: '32rem' }}>
+            <Box style={{ minHeight: '33rem' }}>
               <img
                 className={classes.imgShirt}
                 src={product.image}
