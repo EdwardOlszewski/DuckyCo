@@ -33,7 +33,6 @@ const getOrderTotals = asyncHandler(async (req, res) => {
     shippingPrice: shippingPrice.toFixed(2),
     tax: taxPrice.toFixed(2),
   })
-  console.log(subTotal)
 })
 
 // @desc    Create new order
@@ -59,8 +58,6 @@ const addOrderItems = asyncHandler(async (req, res) => {
     throw new Error('No order items')
     return
   } else {
-    console.log(user)
-
     const order = new Order({
       user,
       orderItems,
@@ -141,7 +138,7 @@ const updateOrderToDelivered = asyncHandler(async (req, res) => {
 const getMyOrders = asyncHandler(async (req, res) => {
   //const orders = await Order.find({ user: { _id: String(req.user._id) } })
   const orders = await Order.find({ 'user._id': req.user.id })
-  console.log(String(req.user._id))
+
   res.json(orders)
 })
 

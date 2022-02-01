@@ -20,7 +20,6 @@ const createCharge = async (req, res) => {
     for (let i = 0; i < data.length; i++) {
       if (data[i].email === billingDetails.email) {
         customer = data[i].id
-        console.log(customer)
       }
     }
 
@@ -49,7 +48,6 @@ const createCharge = async (req, res) => {
       confirm: 'successfull',
     })
   } catch (error) {
-    console.log(error)
     return res.status(400).json({
       message: error.message,
     })
