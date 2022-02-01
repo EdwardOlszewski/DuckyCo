@@ -65,14 +65,21 @@ export default function ProductScreen() {
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, success, error, product } = productDetails
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   // Declare new state variables using useState hook
   const [qty, setQty] = useState(1)
   const [size, setSize] = useState('')
 
   // Function to be called on add to cart
   const addToCartHandler = () => {
-    dispatch(addToCart(productId, qty, size))
-    navigate('/cart', { replace: true })
+    if (!userInfo) {
+      navigate('/login', { replace: true })
+    } else {
+      dispatch(addToCart(productId, qty, size))
+      navigate('/cart', { replace: true })
+    }
   }
 
   useEffect(() => {
