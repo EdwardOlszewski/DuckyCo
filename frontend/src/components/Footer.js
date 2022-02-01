@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
   },
   icons: {
-    fontSize: 20,
+    fontSize: 35,
     backgroundColor: '#7e7e7e',
     borderRadius: 100,
     color: '#111111',
@@ -105,9 +105,13 @@ const Footer = () => {
 
           <Grid item xs={12} md={6}>
             <Box className={classes.iconBox}>
-              <FaFacebookF className={classes.icons} />
-              <FaTwitter className={classes.icons} />
-              <TiSocialInstagram className={classes.icons} />
+              <a href='https://www.facebook.com/Ducky-Co-111575008092973/?notif_id=1643729627265123&notif_t=page_fan&ref=notif'>
+                <FaFacebookF className={classes.icons} />
+              </a>
+
+              <a href='https://www.instagram.com/ducky_and_co_/'>
+                <TiSocialInstagram className={classes.icons} />
+              </a>
             </Box>
           </Grid>
         </Grid>
