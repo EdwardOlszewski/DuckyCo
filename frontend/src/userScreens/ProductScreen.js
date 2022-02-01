@@ -146,39 +146,43 @@ export default function ProductScreen() {
                       <Typography variant='h6'> S</Typography>
                     </IconButton>
                   </Grid>
-                  <Grid item>
-                    <IconButton
-                      style={{
-                        color: size == 'medium' && 'black',
-                        padding: '.5rem 1rem .5rem 1rem',
-                      }}
-                      onClick={(e) => setSize('medium')}
-                    >
-                      <Typography variant='h6'> M</Typography>
-                    </IconButton>
-                  </Grid>
-                  <Grid item>
-                    <IconButton
-                      style={{
-                        color: size == 'large' && 'black',
-                        padding: '.5rem 1rem .5rem 1rem',
-                      }}
-                      onClick={(e) => setSize('large')}
-                    >
-                      <Typography variant='h6'> L</Typography>
-                    </IconButton>
-                  </Grid>
-                  <Grid item>
-                    <IconButton
-                      style={{
-                        color: size == 'xlarge' && 'black',
-                        padding: '.5rem .8rem .5rem .8rem',
-                      }}
-                      onClick={(e) => setSize('xlarge')}
-                    >
-                      <Typography variant='h6'> XL</Typography>
-                    </IconButton>
-                  </Grid>
+                  {product._id != '61f4ec3ebf1a4e50d4532db1' && (
+                    <>
+                      <Grid item>
+                        <IconButton
+                          style={{
+                            color: size == 'medium' && 'black',
+                            padding: '.5rem 1rem .5rem 1rem',
+                          }}
+                          onClick={(e) => setSize('medium')}
+                        >
+                          <Typography variant='h6'> M</Typography>
+                        </IconButton>
+                      </Grid>
+                      <Grid item>
+                        <IconButton
+                          style={{
+                            color: size == 'large' && 'black',
+                            padding: '.5rem 1rem .5rem 1rem',
+                          }}
+                          onClick={(e) => setSize('large')}
+                        >
+                          <Typography variant='h6'> L</Typography>
+                        </IconButton>
+                      </Grid>
+                      <Grid item>
+                        <IconButton
+                          style={{
+                            color: size == 'xlarge' && 'black',
+                            padding: '.5rem .8rem .5rem .8rem',
+                          }}
+                          onClick={(e) => setSize('xlarge')}
+                        >
+                          <Typography variant='h6'> XL</Typography>
+                        </IconButton>
+                      </Grid>
+                    </>
+                  )}
                 </Grid>
               </>
             )}
