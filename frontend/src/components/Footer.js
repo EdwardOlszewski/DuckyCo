@@ -97,7 +97,7 @@ const Footer = () => {
                 <Typography variant='h4'>Connect With Us</Typography>
                 <Typography variant='subtitle1'>
                   Reach us at support@duckyandco.com or call us at (708)
-                  297-6672 during our avliable hours
+                  297-6672.
                 </Typography>
               </Box>
             </Grid>
