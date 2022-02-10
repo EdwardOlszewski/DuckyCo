@@ -88,6 +88,14 @@ const page = Number(req.query.pageNumber) || 1
   res.json({ products })
 })
 
+// @desc    Fetch all products
+// @route   GET /api/products/mostrecent
+// @access  Public
+const getMostRecentProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find().sort({ createdAt: -1 }).limit(3)
+  res.json({ products })
+})
+
 // @desc    Delete a product
 // @route   DELETE /api/products/:id
 // @access  Private/Admin
@@ -109,4 +117,5 @@ export {
   updateProduct,
   getProducts,
   deleteProduct,
+  getMostRecentProducts,
 }

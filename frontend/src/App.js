@@ -28,6 +28,7 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' element={<ApparelScreen />} />
+        <Route path='/home' element={<HomeScreen />} />
 
         {/* User routes */}
         <Route path='/login' element={<LoginScreen />} />

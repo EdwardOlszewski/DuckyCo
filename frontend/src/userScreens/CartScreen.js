@@ -209,13 +209,14 @@ export default function ApparelScreen() {
               </Grid>
 
               <Grid container style={{ paddingTop: '1rem' }}>
-                <Grid item xs={10}>
+                <Grid item xs={8}>
                   <Typography variant='h5'>
                     Subtotal ({subtotal}) items
                   </Typography>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={4}>
                   <Typography variant='h6'>
+                    $
                     {cartItems
                       .reduce((acc, item) => acc + item.qty * item.price, 0)
                       .toFixed(2)}
@@ -224,10 +225,10 @@ export default function ApparelScreen() {
               </Grid>
 
               <Grid container style={{ paddingTop: '1rem' }}>
-                <Grid item xs={10}>
+                <Grid item xs={8}>
                   <Typography variant='h5'>Shipping</Typography>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={4}>
                   <Typography variant='h6'>$6.00</Typography>
                 </Grid>
               </Grid>
@@ -235,34 +236,24 @@ export default function ApparelScreen() {
               <Divider style={{ marginTop: '2rem', marginBottom: '1rem' }} />
               <Grid item xs={12}>
                 <Grid container>
-                  <Grid item xs={10}>
+                  <Grid item xs={8}>
                     <Typography variant='h5'>Total</Typography>
                   </Grid>
-                  <Grid item xs={2}>
+                  <Grid item xs={4}>
                     <Typography variant='h6'>${total.toFixed(2)}</Typography>
                   </Grid>
                 </Grid>
               </Grid>
               <Divider style={{ marginTop: '1rem', marginBottom: '1rem' }} />
 
-              <Hidden mdDown>
-                <Button
-                  className={classes.checkoutBtn}
-                  onClick={() => navigate('/shipping', { replace: true })}
-                >
-                  Checkout
-                </Button>
-              </Hidden>
+              <Button
+                className={classes.checkoutBtn}
+                onClick={() => navigate('/shipping', { replace: true })}
+              >
+                Checkout
+              </Button>
             </Grid>
           </Grid>
-          <Hidden mdUp>
-            <Button
-              className={classes.checkoutBtn}
-              onClick={() => navigate('/shipping', { replace: true })}
-            >
-              Checkout
-            </Button>
-          </Hidden>
         </Grid>
       ) : (
         <Container

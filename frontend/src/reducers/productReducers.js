@@ -30,6 +30,9 @@ import {
   PRODUCT_TOP_REQUEST,
   PRODUCT_TOP_SUCCESS,
   PRODUCT_TOP_FAIL,
+  PRODUCT_MOSTRECENT_REQUEST,
+  PRODUCT_MOSTRECENT_SUCCESS,
+  PRODUCT_MOSTRECENT_FAIL,
 } from '../types/productTypes'
 
 export const productCreateReducer = (state = {}, action) => {
@@ -70,6 +73,23 @@ export const productUpdateReducer = (state = {}, action) => {
       return { loading: false, error: action.payload }
     case PRODUCT_UPDATE_RESET:
       return {}
+    default:
+      return state
+  }
+}
+
+export const productMostRecentReducer = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case PRODUCT_MOSTRECENT_REQUEST:
+      return { loading: true }
+    case PRODUCT_MOSTRECENT_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        products: action.payload.products,
+      }
+    case PRODUCT_MOSTRECENT_FAIL:
+      return { loading: false, success: false, error: action.payload }
     default:
       return state
   }

@@ -63,7 +63,7 @@ export default function ProductScreen() {
 
   // go to productDetails in the state and pull out information
   const productDetails = useSelector((state) => state.productDetails)
-  const { loading, success, error, product } = productDetails
+  const { loading, error, product } = productDetails
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -88,11 +88,11 @@ export default function ProductScreen() {
 
   return (
     <PageWrapper title={'Product'}>
-      {!success ? (
+      {loading ? (
         <Loader />
       ) : error ? (
         <Message severity='error'>{error}</Message>
-      ) : (
+      ) : product ? (
         <Grid container className={classes.mainGrid} spacing={5}>
           <Grid
             item
@@ -276,7 +276,7 @@ export default function ProductScreen() {
             </Button>
           </Hidden>
         </Grid>
-      )}
+      ) : null}
     </PageWrapper>
   )
 }
