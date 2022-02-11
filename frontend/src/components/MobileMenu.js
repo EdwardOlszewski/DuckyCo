@@ -20,8 +20,9 @@ import { VscAccount } from 'react-icons/vsc'
 import { CgLogOut } from 'react-icons/cg'
 import { MdOutlinePhone } from 'react-icons/md'
 import { AiOutlineMail } from 'react-icons/ai'
-import { FaFacebookF, FaTwitter } from 'react-icons/fa'
+import { FaFacebookF } from 'react-icons/fa'
 import { TiSocialInstagram } from 'react-icons/ti'
+import { GoPackage } from 'react-icons/go'
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -161,6 +162,35 @@ export default function MobileMenu({ userInfo }) {
           </a>
         </Box>
       </ListItem>
+      {userInfo.isAdmin && (
+        <>
+          <Divider />
+          <ListItem style={{ marginTop: '1rem' }}>
+            <ListItemText
+              primary='* ADMIN MENU *'
+              style={{ color: '#eb5202' }}
+            />
+          </ListItem>
+
+          <Link to='/admin/orderlist' style={{ textDecoration: 'none' }}>
+            <ListItem button onClick={toggleDrawer('left', false)}>
+              <ListItemIcon>
+                <IoShirtOutline className={classes.btn} />
+              </ListItemIcon>
+              <ListItemText primary='Orders' style={{ color: '#eb5202' }} />
+            </ListItem>
+          </Link>
+
+          <Link to='/admin/productlist' style={{ textDecoration: 'none' }}>
+            <ListItem button onClick={toggleDrawer('left', false)}>
+              <ListItemIcon>
+                <GoPackage className={classes.btn} />
+              </ListItemIcon>
+              <ListItemText primary='Products' style={{ color: '#eb5202' }} />
+            </ListItem>
+          </Link>
+        </>
+      )}
     </div>
   )
 

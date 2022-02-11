@@ -99,14 +99,14 @@ export default function ProductScreen() {
             xs={12}
             sm={2}
             md={1}
-            lg={product.category == 'Hat' ? 2 : 2}
+            lg={product.category === 'Hat' ? 2 : 2}
           ></Grid>
           <Grid
             item
             xs={12}
             sm={8}
             md={6}
-            lg={product.category == 'Hat' ? 4 : 4}
+            lg={product.category === 'Hat' ? 4 : 4}
             className={classes.imageCont}
           >
             <Box style={{ marginTop: '3rem' }}>
@@ -117,6 +117,27 @@ export default function ProductScreen() {
                 height='100%'
               />
             </Box>
+            {product.image2 && (
+              <Hidden mdUp>
+                <div
+                  style={{
+                    backgroundColor: 'white',
+                    width: '115%',
+                    height: '2rem',
+                    marginTop: '2rem',
+                    marginLeft: '-1.5rem',
+                  }}
+                ></div>
+                <Box style={{ marginTop: '3rem' }}>
+                  <img
+                    src={product.image2}
+                    alt={product.name}
+                    width='100%'
+                    height='100%'
+                  />
+                </Box>
+              </Hidden>
+            )}
           </Grid>
 
           <Grid
@@ -128,7 +149,7 @@ export default function ProductScreen() {
             <Typography variant='h4'>{product.name}</Typography>
             <Typography variant='h5'>${product.price}</Typography>
 
-            {product.category != 'Hat' && (
+            {product.category !== 'Hat' && (
               <>
                 <Typography variant='h6' style={{ marginTop: '2rem' }}>
                   Size
@@ -138,7 +159,7 @@ export default function ProductScreen() {
                     <IconButton
                       style={{
                         fontSize: '1rem',
-                        color: size == 'small' && 'black',
+                        color: size === 'small' && 'black',
                         padding: '.5rem 1rem .5rem 1rem',
                       }}
                       onClick={(e) => setSize('small')}
@@ -146,12 +167,12 @@ export default function ProductScreen() {
                       <Typography variant='h6'> S</Typography>
                     </IconButton>
                   </Grid>
-                  {product._id != '61f4ec3ebf1a4e50d4532db1' && (
+                  {product._id !== '61f4ec3ebf1a4e50d4532db1' && (
                     <>
                       <Grid item>
                         <IconButton
                           style={{
-                            color: size == 'medium' && 'black',
+                            color: size === 'medium' && 'black',
                             padding: '.5rem 1rem .5rem 1rem',
                           }}
                           onClick={(e) => setSize('medium')}
@@ -162,7 +183,7 @@ export default function ProductScreen() {
                       <Grid item>
                         <IconButton
                           style={{
-                            color: size == 'large' && 'black',
+                            color: size === 'large' && 'black',
                             padding: '.5rem 1rem .5rem 1rem',
                           }}
                           onClick={(e) => setSize('large')}
@@ -173,7 +194,7 @@ export default function ProductScreen() {
                       <Grid item>
                         <IconButton
                           style={{
-                            color: size == 'xlarge' && 'black',
+                            color: size === 'xlarge' && 'black',
                             padding: '.5rem .8rem .5rem .8rem',
                           }}
                           onClick={(e) => setSize('xlarge')}
@@ -194,7 +215,7 @@ export default function ProductScreen() {
               <Grid item>
                 <IconButton
                   style={{ padding: '1rem' }}
-                  disabled={true && qty == 1}
+                  disabled={true && qty === 1}
                   onClick={(e) => setQty(qty - 1)}
                 >
                   <HiMinusSm />
@@ -210,8 +231,8 @@ export default function ProductScreen() {
               </Grid>
               <Grid item>
                 <IconButton
-                  style={{ color: qty == 4 ? 'gray' : 'black' }}
-                  disabled={true && qty == 4}
+                  style={{ color: qty === 4 ? 'gray' : 'black' }}
+                  disabled={true && qty === 4}
                   onClick={(e) => setQty(qty + 1)}
                 >
                   <HiPlusSm />
@@ -241,10 +262,10 @@ export default function ProductScreen() {
             >
               <Hidden xsDown>
                 <Button
-                  disabled={product.category == 'Hat' ? false : true && !size}
+                  disabled={product.category === 'Hat' ? false : true && !size}
                   style={{
                     backgroundColor:
-                      product.category == 'Hat'
+                      product.category === 'Hat'
                         ? '#007E33'
                         : size
                         ? '#007E33'
@@ -260,10 +281,10 @@ export default function ProductScreen() {
           </Grid>
           <Hidden smUp>
             <Button
-              disabled={product.category == 'Hat' ? false : true && !size}
+              disabled={product.category === 'Hat' ? false : true && !size}
               style={{
                 backgroundColor:
-                  product.category == 'Hat'
+                  product.category === 'Hat'
                     ? '#007E33'
                     : size
                     ? '#007E33'
@@ -275,6 +296,40 @@ export default function ProductScreen() {
               Add To Cart
             </Button>
           </Hidden>
+
+          {product.image2 && (
+            <Hidden smDown>
+              <Grid
+                item
+                xs={12}
+                sm={8}
+                md={1}
+                lg={2}
+                style={{ marginTop: '2rem' }}
+              ></Grid>
+
+              <Grid
+                style={{ marginTop: '2rem' }}
+                item
+                xs={12}
+                sm={12}
+                md={6}
+                lg={4}
+                className={classes.imageCont}
+              >
+                {product.image2 && (
+                  <Box style={{ marginTop: '3rem' }}>
+                    <img
+                      src={product.image2}
+                      alt={product.name}
+                      width='100%'
+                      height='100%'
+                    />
+                  </Box>
+                )}
+              </Grid>
+            </Hidden>
+          )}
         </Grid>
       ) : null}
     </PageWrapper>
