@@ -1,5 +1,5 @@
 // Components
-import { Box, Fade } from '@material-ui/core'
+import { Box } from '@material-ui/core'
 import Nav from '../components/Nav'
 import Nav2 from '../components/Nav2'
 import Footer from '../components/Footer'
@@ -11,9 +11,9 @@ const PageWrapper = ({ children, title }) => {
     <Box>
       <Meta title={title} />
       <Nav />
-      <Fade in={true} timeout={500}>
-        <Box style={{ minHeight: '150vh' }}>{children}</Box>
-      </Fade>
+
+      <Box style={{ minHeight: '150vh' }}>{children}</Box>
+
       <Marquee />
       <Footer />
     </Box>
