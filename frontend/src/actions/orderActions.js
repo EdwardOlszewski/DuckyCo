@@ -362,7 +362,7 @@ export const updateShipping =
 
       const { data } = await axios.put(
         `/api/orders/${orderId}/shipping`,
-        promoCode,
+        { promoCode },
         config
       )
 

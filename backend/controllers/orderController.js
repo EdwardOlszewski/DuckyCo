@@ -203,11 +203,13 @@ const updateShipping = asyncHandler(async (req, res) => {
   const { promoCode } = req.body
 
   if (order) {
-    if (process.env.PROMO_CODE != promoCode) {
+    if (process.env.PROMO_CODE == promoCode) {
       order.shippingPrice = 0
-
       const updatedOrder = await order.save()
       res.json(updatedOrder)
+    } else {
+      res.status(200)
+      res.json('no promo code found')
     }
   } else {
     res.status(404)
