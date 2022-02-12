@@ -4,7 +4,6 @@ import Nav from '../components/Nav'
 import Nav2 from '../components/Nav2'
 import Footer from '../components/Footer'
 import Meta from '../components/Meta'
-import Marquee from '../components/Marquee'
 
 const PageWrapper = ({ children, title }) => {
   return (
@@ -14,7 +13,6 @@ const PageWrapper = ({ children, title }) => {
 
       <Box style={{ minHeight: '150vh' }}>{children}</Box>
 
-      <Marquee />
       <Footer />
     </Box>
   )
