@@ -193,7 +193,7 @@ export default function ApparelScreen() {
                 </Grid>
 
                 <Grid container>
-                  <Grid item xs={6} md={6}>
+                  <Grid item xs={6}>
                     <Grid item xs={12}>
                       <Typography variant='h6'>Shipping Address</Typography>
                     </Grid>
@@ -222,7 +222,7 @@ export default function ApparelScreen() {
                       </Typography>
                     </Grid>
                   </Grid>
-                  <Grid item xs={6} md={6}>
+                  <Grid item xs={6}>
                     <Grid item xs={12}>
                       <Typography variant='h6'>Billing Address</Typography>
                     </Grid>

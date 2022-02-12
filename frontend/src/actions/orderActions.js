@@ -33,12 +33,9 @@ import {
   ORDER_LIST_MY_SUCCESS,
   ORDER_LIST_MY_FAIL,
   //
-  ORDER_BILLING_REQUEST,
-  ORDER_BILLING_SUCCESS,
-  ORDER_BILLING_FAIL,
-  ORDER_BILLING_DETAILS_REQUEST,
-  ORDER_BILLING_DETAILS_SUCCESS,
-  ORDER_BILLING_DETAILS_FAIL,
+  ORDER_SHIPPING_UPDATE_REQUEST,
+  ORDER_SHIPPING_UPDATE_SUCCESS,
+  ORDER_SHIPPING_UPDATE_FAIL,
 } from '../types/orderTypes'
 import { logout } from './userActions'
 
@@ -345,3 +342,45 @@ export const listMyOrders = () => async (dispatch, getState) => {
     })
   }
 }
+
+export const updateShipping =
+  (orderId, promoCode) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: ORDER_SHIPPING_UPDATE_REQUEST,
+      })
+
+      const {
+        userLogin: { userInfo },
+      } = getState()
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      const { data } = await axios.put(
+        `/api/orders/${orderId}/shipping`,
+        promoCode,
+        config
+      )
+
+      dispatch({
+        type: ORDER_SHIPPING_UPDATE_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      if (message === 'Not authorized, token failed') {
+        dispatch(logout())
+      }
+      dispatch({
+        type: ORDER_SHIPPING_UPDATE_FAIL,
+        payload: message,
+      })
+    }
+  }

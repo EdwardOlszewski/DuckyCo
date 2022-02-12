@@ -27,6 +27,7 @@ import {
   orderDeliverReducer,
   orderListReducer,
   orderListMyReducer,
+  orderShippingReducer,
 } from './reducers/orderReducers'
 
 import { uploadImageReducer } from './reducers/imageReducers'
@@ -62,7 +63,7 @@ const reducer = combineReducers({
   orderList: orderListReducer,
   orderListMy: orderListMyReducer,
   // Main
-  resetState: resetReducer,
+  shippingUpdate: orderShippingReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')

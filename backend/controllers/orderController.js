@@ -1,6 +1,9 @@
+import dotenv from 'dotenv'
 import asyncHandler from 'express-async-handler'
 import Order from '../models/orderModel.js'
 import Product from '../models/productModel.js'
+
+dotenv.config()
 
 // @desc    Get Order Totals
 // @route   GET /api/orders/totals
@@ -192,6 +195,26 @@ const getBillingDetailsById = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    Update order shipping cost
+// @route   PUT /api/:id/shipping
+// @access  Private
+const updateShipping = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id)
+  const { promoCode } = req.body
+
+  if (order) {
+    if (process.env.PROMO_CODE != promoCode) {
+      order.shippingPrice = 0
+
+      const updatedOrder = await order.save()
+      res.json(updatedOrder)
+    }
+  } else {
+    res.status(404)
+    throw new Error('Order billing info not updated')
+  }
+})
+
 export {
   addOrderItems,
   getOrderById,
@@ -202,4 +225,5 @@ export {
   updateOrderBilling,
   getBillingDetailsById,
   getOrderTotals,
+  updateShipping,
 }

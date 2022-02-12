@@ -1,5 +1,5 @@
 // React/Redux
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 // Stripe
@@ -18,8 +18,10 @@ import PageWrapper from '../components/PageWrapper'
 import CheckoutSteps from '../components/CheckoutSteps'
 import PaymentForm from '../components/PaymentForm'
 import Loader from '../components/Loader'
+import StyledInput from '../components/StyledInput'
+import Message from '../components/Message'
 // Actions
-import { payOrder, getOrderDetails } from '../actions/orderActions'
+import { getOrderDetails, updateShipping } from '../actions/orderActions'
 // Types
 import {
   ORDER_CREATE_RESET,
@@ -77,6 +79,25 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#00b84a',
     },
   },
+  submitPaymentBtn: {
+    marginTop: '1rem',
+    marginBottom: '1rem',
+    padding: '1rem',
+    backgroundColor: '#1e2a5a',
+    color: 'white',
+    boxShadow:
+      ' rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px',
+    '&:hover': {
+      backgroundColor: '#374da4',
+    },
+    [theme.breakpoints.up('xs')]: {
+      width: '100%',
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '97%',
+      marginLeft: 10,
+    },
+  },
 }))
 
 export default function ApparelScreen() {
@@ -85,6 +106,8 @@ export default function ApparelScreen() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const orderId = useParams().id
+
+  const [promoCode, setPromoCode] = useState('')
 
   // ----- get data from redux state ----- //
   const userLogin = useSelector((state) => state.userLogin)
@@ -99,6 +122,14 @@ export default function ApparelScreen() {
   const orderPay = useSelector((state) => state.orderPay)
   const { loading: payLoading, success: paySuccesss } = orderPay
 
+  const shippingUpdate = useSelector((state) => state.shippingUpdate)
+  const { loading: shippingLoading, success: shippingSuccess } = shippingUpdate
+
+  const promoCodeSubmit = (e) => {
+    e.preventDefault()
+    dispatch(updateShipping(orderId, promoCode))
+  }
+
   // ----- use effect hook ----- //
   useEffect(() => {
     if (!userInfo) {
@@ -112,12 +143,12 @@ export default function ApparelScreen() {
     } else {
       dispatch(getOrderDetails(orderId))
     }
-  }, [dispatch, orderId, userInfo, chargeSuccess, paySuccesss])
+  }, [dispatch, orderId, userInfo, chargeSuccess, paySuccesss, shippingSuccess])
 
   return (
     <PageWrapper title={'Order Pay'}>
       <CheckoutSteps activeStep={2} />
-      {!success || chargeLoading || payLoading ? (
+      {!success || chargeLoading || payLoading || shippingLoading ? (
         <Loader />
       ) : (
         <Grid container className={classes.root}>
@@ -165,9 +196,9 @@ export default function ApparelScreen() {
               </Grid>
 
               <Grid container>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={6} md={6}>
                   <Grid item xs={12}>
-                    <Typography variant='h5'>Shipping Address</Typography>
+                    <Typography variant='h6'>Shipping Address</Typography>
                   </Grid>
                   <Grid item xs={12}>
                     <Typography variant='subtitle1'>
@@ -193,9 +224,9 @@ export default function ApparelScreen() {
                     </Typography>
                   </Grid>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={6} md={6}>
                   <Grid item xs={12}>
-                    <Typography variant='h5'>Billing Address</Typography>
+                    <Typography variant='h6'>Billing Address</Typography>
                   </Grid>
                   <Grid item xs={12}>
                     <Typography variant='subtitle1'>
@@ -242,7 +273,7 @@ export default function ApparelScreen() {
                   <Typography variant='subtitle1'>Shipping</Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  <Typography variant='h6'>$6.00</Typography>
+                  <Typography variant='h6'>${order.shippingPrice}</Typography>
                 </Grid>
               </Grid>
 
@@ -254,8 +285,28 @@ export default function ApparelScreen() {
                   <Grid item xs={6}>
                     <Typography variant='h6'>${order.totalPrice}</Typography>
                   </Grid>
+
+                  <Grid container style={{ marginTop: '1rem' }}>
+                    <Grid item xs={12} md={7}>
+                      <StyledInput
+                        label='Promo Code'
+                        value={promoCode}
+                        style={{ width: '99%', marginTop: '1rem' }}
+                        onChange={(e) => setPromoCode(e.target.value)}
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={5}>
+                      <Button
+                        onClick={promoCodeSubmit}
+                        className={classes.submitPaymentBtn}
+                      >
+                        Apply
+                      </Button>
+                    </Grid>
+                  </Grid>
+
                   <Grid item xs={12}>
-                    <Elements stripe={stripePromise} appearance>
+                    <Elements stripe={stripePromise}>
                       <PaymentForm
                         amount={order.totalPrice}
                         orderId={order._id}

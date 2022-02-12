@@ -52,11 +52,12 @@ const useStyles = makeStyles((theme) => ({
   },
   cardForm: {
     margin: 'auto',
-    width: '100%',
-    marginTop: '2rem',
-    padding: '1rem',
-    paddingBottom: '1rem',
-    border: 'solid #c4c4c4 2px',
+    width: '87%',
+    paddingRight: '1.6rem',
+    paddingLeft: '1.4rem',
+    paddingTop: '1.1rem',
+    paddingBottom: '1.1rem',
+    border: 'solid #c4c4c4 1px',
   },
 
   // Button Section

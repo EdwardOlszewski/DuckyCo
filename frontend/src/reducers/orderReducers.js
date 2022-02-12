@@ -37,6 +37,9 @@ import {
   ORDER_CHARGE_SUCCESS,
   ORDER_CHARGE_RESET,
   ORDER_CHARGE_FAIL,
+  ORDER_SHIPPING_UPDATE_REQUEST,
+  ORDER_SHIPPING_UPDATE_SUCCESS,
+  ORDER_SHIPPING_UPDATE_FAIL,
 } from '../types/orderTypes'
 
 export const orderCreateReducer = (state = {}, action) => {
@@ -224,6 +227,28 @@ export const orderListReducer = (state = {}, action) => {
       }
     case ORDER_LIST_MY_RESET:
       return {}
+    default:
+      return state
+  }
+}
+
+export const orderShippingReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ORDER_SHIPPING_UPDATE_REQUEST:
+      return {
+        loading: true,
+      }
+    case ORDER_SHIPPING_UPDATE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        newShippingPrice: action.payload,
+      }
+    case ORDER_SHIPPING_UPDATE_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      }
     default:
       return state
   }

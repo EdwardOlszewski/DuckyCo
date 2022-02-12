@@ -13,7 +13,6 @@ import {
   IconButton,
   List,
   ListItem,
-  ListItemText,
   Hidden,
 } from '@material-ui/core'
 import PageWrapper from '../components/PageWrapper'
@@ -70,7 +69,7 @@ export default function ProductScreen() {
 
   // Declare new state variables using useState hook
   const [qty, setQty] = useState(1)
-  const [size, setSize] = useState('')
+  const [size, setSize] = useState('standard')
 
   // Function to be called on add to cart
   const addToCartHandler = () => {
@@ -262,12 +261,16 @@ export default function ProductScreen() {
             >
               <Hidden xsDown>
                 <Button
-                  disabled={product.category === 'Hat' ? false : true && !size}
+                  disabled={
+                    product.category === 'Hat'
+                      ? false
+                      : true && size != 'standard'
+                  }
                   style={{
                     backgroundColor:
                       product.category === 'Hat'
                         ? '#007E33'
-                        : size
+                        : size != 'standard'
                         ? '#007E33'
                         : '#bababa',
                   }}
@@ -281,12 +284,14 @@ export default function ProductScreen() {
           </Grid>
           <Hidden smUp>
             <Button
-              disabled={product.category === 'Hat' ? false : true && !size}
+              disabled={
+                product.category === 'Hat' ? false : true && size != 'standard'
+              }
               style={{
                 backgroundColor:
                   product.category === 'Hat'
                     ? '#007E33'
-                    : size
+                    : size != 'standard'
                     ? '#007E33'
                     : '#bababa',
               }}
