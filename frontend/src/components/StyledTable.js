@@ -1,3 +1,4 @@
+// Components
 import { TableCell, TableRow, withStyles } from '@material-ui/core'
 
 const StyledTableCell = withStyles((theme) => ({

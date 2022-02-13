@@ -7,11 +7,12 @@ import PageWrapper from '../components/PageWrapper'
 import Product from '../components/Product'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-// Actions
-import { listProducts } from '../actions/productActions'
 //Types
 import { ORDER_DETAILS_RESET } from '../types/orderTypes'
+// Actions
+import { listProducts } from '../actions/productActions'
 
+// ----- mui styles ----- //
 const useStyles = makeStyles((theme) => ({
   productCont: {
     marginTop: '2rem',
@@ -27,18 +28,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function ApparelScreen() {
-  // ----- init variables ----- //
+const ApparelScreen = () => {
+  // ----- init ----- //
   const classes = useStyles()
   const dispatch = useDispatch()
 
-  // ----- get data from redux state ----- //
+  // ----- get data from redux store ----- //
   const productList = useSelector((state) => state.productList)
   const { loading, error, products } = productList
-  const orderDetails = useSelector((state) => state.orderDetails)
-  const { order } = orderDetails
 
-  // ----- use effect hook ----- //
+  // ----- useEffect hook ----- //
   useEffect(() => {
     dispatch({ type: ORDER_DETAILS_RESET })
     dispatch(listProducts())
@@ -126,3 +125,5 @@ export default function ApparelScreen() {
     </PageWrapper>
   )
 }
+
+export default ApparelScreen

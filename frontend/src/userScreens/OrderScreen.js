@@ -16,9 +16,8 @@ import DateFormat from '../components/DateFormat'
 import Loader from '../components/Loader'
 // Actions
 import { getOrderDetails, deliverOrder } from '../actions/orderActions'
-// Types
-import { ORDER_DELIVER_RESET } from '../types/orderTypes'
 
+// ----- mui styles ----- //
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: 'auto',
@@ -73,24 +72,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function ApparelScreen() {
-  // ----- init variables ----- //
+const OrderScreen = () => {
+  // ----- init ----- //
   const classes = useStyles()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const orderId = useParams().id
 
-  // ----- get data from redux state ----- //
+  // ----- get data from redux store ----- //
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
   const orderDetails = useSelector((state) => state.orderDetails)
-  const { order, loading, success, error } = orderDetails
+  const { order, loading, success } = orderDetails
 
   const orderDeliver = useSelector((state) => state.orderDeliver)
-  const { loading: loadingDeliver, success: successDeliver } = orderDeliver
+  const { success: successDeliver } = orderDeliver
 
-  // ----- handler to change delivery status ----- //
+  // ----- changes delivery status for admin ----- //
   const deliverHandler = () => {
     dispatch(deliverOrder(order))
     navigate(`/admin/orderlist`, { replace: true })
@@ -103,7 +102,7 @@ export default function ApparelScreen() {
     } else if (!order || order._id !== orderId || successDeliver) {
       dispatch(getOrderDetails(orderId))
     }
-  }, [dispatch, orderId, order, userInfo, successDeliver])
+  }, [dispatch, navigate, orderId, order, userInfo, successDeliver])
 
   return (
     <PageWrapper title={'Order Pay'}>
@@ -304,3 +303,4 @@ export default function ApparelScreen() {
     </PageWrapper>
   )
 }
+export default OrderScreen

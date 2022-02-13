@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
-
 // Components
 import {
   makeStyles,
@@ -18,22 +17,19 @@ import {
 import PageWrapper from '../components/PageWrapper'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-
+// Icons
+import { HiMinusSm, HiPlusSm } from 'react-icons/hi'
+import { GiPlasticDuck } from 'react-icons/gi'
 // Actions
 import { listProductDetails } from '../actions/productActions'
 import { addToCart } from '../actions/cartActions'
 
-// Icons
-import { HiMinusSm, HiPlusSm } from 'react-icons/hi'
-import { GiPlasticDuck } from 'react-icons/gi'
-
+// ----- mui styles ----- //
 const useStyles = makeStyles((theme) => ({
-  // Containers
   imageCont: {
     backgroundColor: '#fafafa',
   },
   mainGrid: {
-    margin: 'auto',
     textAlign: 'center',
     marginTop: '2rem',
     margin: 'auto',
@@ -50,28 +46,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function ProductScreen() {
-  // Mui Style Sheet
+const ProductScreen = () => {
+  // ----- init ----- //
   const classes = useStyles()
-  // Init dispatch
   const dispatch = useDispatch()
-  // get productId from the URL
   const productId = useParams().id
-  // Init navigate for redirect
   const navigate = useNavigate()
 
-  // go to productDetails in the state and pull out information
-  const productDetails = useSelector((state) => state.productDetails)
-  const { loading, error, product } = productDetails
-
-  const userLogin = useSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
-
-  // Declare new state variables using useState hook
+  // ----- state variables ----- //
   const [qty, setQty] = useState(1)
   const [size, setSize] = useState('standard')
 
-  // Function to be called on add to cart
+  // ----- get data from redux store ----- //
+  const productDetails = useSelector((state) => state.productDetails)
+  const { loading, error, product } = productDetails
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
+  // ----- function adds product to cart ----- //
   const addToCartHandler = () => {
     if (!userInfo) {
       navigate('/login', { replace: true })
@@ -81,6 +73,7 @@ export default function ProductScreen() {
     }
   }
 
+  // ----- useEffect hook ----- //
   useEffect(() => {
     dispatch(listProductDetails(productId))
   }, [dispatch, productId])
@@ -244,7 +237,7 @@ export default function ProductScreen() {
             </Typography>
             <List style={{ marginTop: '-1rem' }}>
               {product.description.map((desc) => (
-                <ListItem key={product._id} style={{ marginBottom: '-1rem' }}>
+                <ListItem key={desc} style={{ marginBottom: '-1rem' }}>
                   <Typography>
                     <GiPlasticDuck style={{ marginRight: '.5rem' }} />
                   </Typography>
@@ -340,3 +333,5 @@ export default function ProductScreen() {
     </PageWrapper>
   )
 }
+
+export default ProductScreen

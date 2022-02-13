@@ -11,6 +11,7 @@ import {
   InputAdornment,
   IconButton,
   Grid,
+  Box,
 } from '@material-ui/core'
 import useStyles from '../styles/MainStyleSheet'
 import Loader from '../components/Loader'
@@ -23,13 +24,13 @@ import { FaEyeSlash } from 'react-icons/fa'
 // Actions
 import { register } from '../actions/userActions'
 
-export default function Register() {
-  // Mui Style Sheet
+const RegisterScreen = () => {
+  // ----- init ----- //
   const classes = useStyles()
   const dispatch = useDispatch()
   const history = useNavigate()
 
-  // Declare new state variables using useState hook
+  // ----- state variables ----- //
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -38,13 +39,13 @@ export default function Register() {
   const [message, setMessage] = useState('')
   const [passVis, setPassVis] = useState('password')
 
-  // Go to userRegister in the state and pull out information
+  // ----- get data from redux store ----- //
   const userRegister = useSelector((state) => state.userRegister)
   const { loading, error, userInfo } = userRegister
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo: userLoggedIn } = userLogin
 
-  // Function to be called on submit
+  // ----- function registers user ----- //
   const submitHandler = (e) => {
     e.preventDefault()
     if (password !== confirmPass) {
@@ -54,7 +55,7 @@ export default function Register() {
     }
   }
 
-  // Function to show password
+  // ----- function sets password visibility ----- //
   const showPassHandler = (e) => {
     e.preventDefault()
     if (passVis === 'password') {
@@ -64,7 +65,7 @@ export default function Register() {
     }
   }
 
-  // useEffect hook called after render
+  // ----- useEffect hook ----- //
   useEffect(() => {
     if (userInfo || userLoggedIn) {
       history('/')
@@ -75,7 +76,7 @@ export default function Register() {
   }, [history, userInfo, userLoggedIn, error])
 
   return (
-    <>
+    <Box>
       <Meta title='Register' />
 
       {loading && <Loader />}
@@ -182,6 +183,8 @@ export default function Register() {
           </Link>
         </Grid>
       </Grid>
-    </>
+    </Box>
   )
 }
+
+export default RegisterScreen

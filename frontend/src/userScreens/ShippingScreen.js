@@ -9,7 +9,6 @@ import {
   Typography,
   FormControlLabel,
   Checkbox,
-  Container,
 } from '@material-ui/core'
 import PageWrapper from '../components/PageWrapper'
 import CheckoutSteps from '../components/CheckoutSteps'
@@ -17,10 +16,10 @@ import StyledInput from '../components/StyledInput'
 // Icons
 import useStyles from '../styles/MainStyleSheet'
 // Actions
-import { saveShippingAddress, saveBillingAddress } from '../actions/cartActions'
+import { saveShippingAddress } from '../actions/cartActions'
 import { createOrder, getTotals } from '../actions/orderActions'
 
-export default function ShippingScreen() {
+const ShippingScreen = () => {
   // ----- init variables ----- //
   const classes = useStyles()
   const dispatch = useDispatch()
@@ -34,10 +33,10 @@ export default function ShippingScreen() {
   const { userInfo } = userLogin
 
   const orderTotals = useSelector((state) => state.orderTotals)
-  const { totals, loading } = orderTotals
+  const { totals } = orderTotals
 
   const orderCreate = useSelector((state) => state.orderCreate)
-  const { order, success, loading: orderCreateLoading, error } = orderCreate
+  const { order, success } = orderCreate
 
   // ----- declare state variables ----- //
   const [firstName, setFirstName] = useState(userInfo.firstName)
@@ -46,17 +45,15 @@ export default function ShippingScreen() {
   const [city, setCity] = useState(shippingAddress.city)
   const [state, setState] = useState(shippingAddress.state)
   const [zipCode, setZipCode] = useState(shippingAddress.zipCode)
-
   const [billingFirstName, setBillingFirstName] = useState('')
   const [billingLastName, setBillingLastName] = useState('')
   const [billingStreet, setBillingStreet] = useState('')
   const [billingCity, setBillingCity] = useState('')
   const [billingState, setBillingState] = useState('')
   const [billingZipCode, setBillingZipCode] = useState('')
-
   const [billingInfo, setBillingInfo] = useState(false)
 
-  // ----- function called on submit ----- //
+  // ----- function saves shipping info and creates order ----- //
   const submitHandler = (e) => {
     e.preventDefault()
     dispatch(
@@ -122,7 +119,21 @@ export default function ShippingScreen() {
       setBillingState(state)
       setBillingZipCode(zipCode)
     }
-  }, [totals, success, dispatch, billingInfo])
+  }, [
+    dispatch,
+    navigate,
+    order._id,
+    totals,
+    success,
+    billingInfo,
+    firstName,
+    lastName,
+    street,
+    city,
+    state,
+    zipCode,
+    cartItems,
+  ])
 
   return (
     <PageWrapper title='Login'>
@@ -271,3 +282,5 @@ export default function ShippingScreen() {
     </PageWrapper>
   )
 }
+
+export default ShippingScreen

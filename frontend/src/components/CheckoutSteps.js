@@ -1,5 +1,4 @@
-import { useState } from 'react'
-
+// Components
 import {
   Stepper,
   Step,
@@ -8,6 +7,7 @@ import {
   Container,
 } from '@material-ui/core'
 
+// ----- mui styles ----- //
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: 'auto',
@@ -29,9 +29,9 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const CheckoutSteps = ({ activeStep }) => {
+  // ----- init ----- //
   const classes = useStyles()
-
-  const [steps, setArray] = useState(['Shipping', 'Review', 'Payment'])
+  const steps = ['Shipping', 'Review', 'Payment']
 
   return (
     <Container>
@@ -61,29 +61,3 @@ const CheckoutSteps = ({ activeStep }) => {
 }
 
 export default CheckoutSteps
-
-/*
-
-   <Stepper
-      alternativeLabel
-      activeStep={activeStep}
-      className={classes.stepper}
-    >
-      {steps.map((label) => (
-        <Step key={label}>
-          <StepLabel
-            StepIconProps={{
-              classes: {
-                root: classes.icon,
-                active: classes.activeIcon,
-                completed: classes.completedIcon,
-              },
-            }}
-          >
-            {label}
-          </StepLabel>
-        </Step>
-      ))}
-    </Stepper>
-
-*/

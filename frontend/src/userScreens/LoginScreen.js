@@ -11,6 +11,7 @@ import {
   InputAdornment,
   IconButton,
   Grid,
+  Box,
 } from '@material-ui/core'
 import Meta from '../components/Meta'
 import Message from '../components/Message'
@@ -23,25 +24,23 @@ import useStyles from '../styles/MainStyleSheet'
 // Actions
 import { login } from '../actions/userActions'
 
-export default function Signin() {
-  // Mui Style Sheet
+const LoginScreen = () => {
+  // ----- init ----- //
   const classes = useStyles()
-  // Assign useDispatch hook to dispatch actions
   const dispatch = useDispatch()
-  // Init useNavigate for redirect
   const navigate = useNavigate()
 
-  // Declare new state variables using useState hook
+  // ----- state variables ----- //
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
   const [passVis, setPassVis] = useState('password')
 
-  // Go to the state and pull out information from userLogin
+  // ----- get data from redux store ----- //
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
 
-  // Function to be called on submit
+  // ----- function logs in user ----- //
   const submitHandler = (e) => {
     e.preventDefault()
     if (!email && !password) {
@@ -52,7 +51,7 @@ export default function Signin() {
     }
   }
 
-  // Function to show password
+  // ----- function makes password visible ----- //
   const showPassHandler = (e) => {
     e.preventDefault()
     if (passVis === 'password') {
@@ -62,7 +61,7 @@ export default function Signin() {
     }
   }
 
-  // useEffect hook called after render
+  // ----- useEffect hook ----- //
   useEffect(() => {
     if (userInfo) {
       navigate(`/`, { replace: true })
@@ -73,7 +72,7 @@ export default function Signin() {
   }, [navigate, userInfo, error])
 
   return (
-    <>
+    <Box>
       <Meta title='Login' />
       {loading && <Loader />}
 
@@ -87,6 +86,7 @@ export default function Signin() {
           <Container maxWidth='sm' className={classes.imgCont}>
             <img
               src='/images/DuckyLogin.png'
+              alt='loginLogo'
               width='100%'
               height='100%'
               layout='responsive'
@@ -142,6 +142,8 @@ export default function Signin() {
           </Link>
         </Grid>
       </Grid>
-    </>
+    </Box>
   )
 }
+
+export default LoginScreen

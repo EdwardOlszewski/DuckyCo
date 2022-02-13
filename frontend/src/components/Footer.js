@@ -1,3 +1,4 @@
+// React/Redux
 import {
   Box,
   Typography,
@@ -11,6 +12,7 @@ import {
 import { FaFacebookF } from 'react-icons/fa'
 import { TiSocialInstagram } from 'react-icons/ti'
 
+// ----- mui styles ----- //
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: '#272829',
@@ -81,9 +83,8 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Footer = () => {
-  // assign Mui style sheet
+  // ----- init ----- //
   const classes = useStyles()
-  // get current year
   const currentYear = new Date()
 
   return (

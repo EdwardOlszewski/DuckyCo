@@ -1,6 +1,9 @@
-import { Box, Typography, makeStyles } from '@material-ui/core'
+// React
 import { Link } from 'react-router-dom'
+// Components
+import { Box, Typography, makeStyles } from '@material-ui/core'
 
+// ----- mui styles ----- //
 const useStyles = makeStyles((theme) => ({
   displayIMG: {
     backgroundColor: '#fafafa',
@@ -31,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Product = ({ product }) => {
+  // ----- init ----- //
   const classes = useStyles()
 
   return (

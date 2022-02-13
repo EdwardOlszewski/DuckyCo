@@ -1,4 +1,4 @@
-import React from 'react'
+// React
 import { Helmet } from 'react-helmet'
 
 const Meta = ({ title, description, keywords }) => {

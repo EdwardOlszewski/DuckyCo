@@ -1,3 +1,4 @@
+// Components
 import { withStyles, TextField } from '@material-ui/core'
 
 const inputStyle = { WebkitBoxShadow: '0 0 0 1000px white inset' }

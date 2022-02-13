@@ -153,48 +153,6 @@ const getOrders = asyncHandler(async (req, res) => {
   res.json(orders)
 })
 
-// ----- Billing ------ //
-
-// @desc    Update order billing details
-// @route   PUT /api/billing/:id
-// @access  Private
-const updateOrderBilling = asyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id)
-  const { name, email, address } = req.body
-
-  if (order) {
-    order.billingDetails.name = name
-    order.billingDetails.email = email
-    order.billingDetails.address.city = address.city
-    order.billingDetails.address.line1 = address.line1
-    order.billingDetails.address.state = address.state
-    order.billingDetails.address.postal_code = address.postal_code
-
-    const updatedOrder = await order.save()
-    res.json(updatedOrder)
-  } else {
-    res.status(404)
-    throw new Error('Order billing info not updated')
-  }
-})
-
-// @desc    Get order billing details by ID
-// @route   GET /api/billing/:id
-// @access  Private
-const getBillingDetailsById = asyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id).populate(
-    'user',
-    'name email'
-  )
-
-  if (order) {
-    res.json(order)
-  } else {
-    res.status(404)
-    throw new Error('Order not found')
-  }
-})
-
 // @desc    Update order shipping cost
 // @route   PUT /api/:id/shipping
 // @access  Private
@@ -224,8 +182,6 @@ export {
   updateOrderToDelivered,
   getMyOrders,
   getOrders,
-  updateOrderBilling,
-  getBillingDetailsById,
   getOrderTotals,
   updateShipping,
 }

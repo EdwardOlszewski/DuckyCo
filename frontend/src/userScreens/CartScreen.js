@@ -1,8 +1,6 @@
 // React/Redux
-import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { Link } from 'react-router-dom'
 // Components
 import {
   makeStyles,
@@ -13,13 +11,13 @@ import {
   Button,
   FormControl,
   Select,
-  Hidden,
   Container,
 } from '@material-ui/core'
 import PageWrapper from '../components/PageWrapper'
 // Actions
 import { addToCart, removeFromCart } from '../actions/cartActions'
 
+// ----- mui styles ----- //
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: 'auto',
@@ -86,16 +84,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function ApparelScreen() {
-  // ----- init variables ----- //
+const CartScreen = () => {
+  // ----- init ----- //
   const classes = useStyles()
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  // ----- get data from redux state ----- //
+  // ----- get data from redux store ----- //
   const cart = useSelector((state) => state.cart)
   const { cartItems } = cart
 
+  // ----- calculate totals just for display ----- //
   const total =
     cartItems.reduce((acc, item) => acc + item.qty * item.price, 0) + 6
   const subtotal = cartItems.reduce((acc, item) => acc + Number(item.qty), 0)
@@ -290,3 +289,5 @@ export default function ApparelScreen() {
     </PageWrapper>
   )
 }
+
+export default CartScreen

@@ -1,7 +1,7 @@
-// Dependencies
+// React
 import { useDispatch } from 'react-redux'
 // Components
-import { FormControl, Button, makeStyles, Grid } from '@material-ui/core'
+import { FormControl, Button, Grid } from '@material-ui/core'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import useStyles from '../styles/MainStyleSheet'
 // Actions
@@ -14,7 +14,7 @@ const PaymentForm = ({ amount, orderId, billingDetails, shippingDetails }) => {
   const classes = useStyles()
   const dispatch = useDispatch()
 
-  // Function called on submit
+  // ----- function handles card payment ----- //
   const handleSubmit = async (e) => {
     e.preventDefault()
     const { error, paymentMethod } = await stripe.createPaymentMethod({
@@ -22,10 +22,8 @@ const PaymentForm = ({ amount, orderId, billingDetails, shippingDetails }) => {
       card: elements.getElement(CardElement),
       billing_details: billingDetails,
     })
-
     if (!error) {
       const { id } = paymentMethod
-
       dispatch(cardCharge(id, amount, orderId, billingDetails, shippingDetails))
     }
   }

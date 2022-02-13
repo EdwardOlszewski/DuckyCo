@@ -1,6 +1,8 @@
+// Components
 import { Box, makeStyles } from '@material-ui/core'
 import Marquee from 'react-fast-marquee'
 
+// ----- mui styles ----- //
 const useStyles = makeStyles((theme) => ({
   marquee: {
     marginTop: '10rem',
@@ -8,10 +10,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function MarqueeComp() {
-  // Mui Style Sheet
+const Marquee = () => {
+  // ----- init ----- //
   const classes = useStyles()
-
   const array = []
 
   for (let i = 1; i <= 7; i++) {
@@ -30,7 +31,7 @@ export default function MarqueeComp() {
         <Box style={{ backgroundColor: '#2f2f2f' }}>
           <img
             src={`/images/${image}.jpg`}
-            alt='whatever'
+            alt={image}
             width='300'
             height='350'
           />
@@ -39,3 +40,5 @@ export default function MarqueeComp() {
     </Marquee>
   )
 }
+
+export default Marquee

@@ -1,3 +1,4 @@
+// React/Redux
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom'
@@ -31,25 +32,23 @@ import { USER_UPDATE_RESET } from '../types/userTypes'
 import { updateUserProfile, getUserDetails } from '../actions/userActions'
 import { listMyOrders } from '../actions/orderActions'
 
-export default function Register() {
-  // Mui Style Sheet
+const ProfileScreen = () => {
+  // ----- init ----- //
   const classes = useStyles()
-  // Assign useDispatch hook to dispatch actions
   const dispatch = useDispatch()
-  // Init history for redirect
   const history = useNavigate()
 
-  // Declare new state variables using useState hook
+  // ----- state variables ----- //
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPass, setConfirmPass] = useState('')
-
   const [message, setMessage] = useState('')
   const [severity, setSeverity] = useState('error')
   const [passVis, setPassVis] = useState('password')
 
+  // ----- get data from redux store ----- //
   const userDetails = useSelector((state) => state.userDetails)
   const { loading, user } = userDetails
 
@@ -62,7 +61,7 @@ export default function Register() {
   const orderListMy = useSelector((state) => state.orderListMy)
   const { loading: loadingOrders, orders } = orderListMy
 
-  // Function to be called on submit
+  // ----- function changes users password ----- //
   const submitHandler = (e) => {
     e.preventDefault()
     if (password !== confirmPass) {
@@ -81,7 +80,7 @@ export default function Register() {
     }
   }
 
-  // Function to show password
+  // ----- function sets password visibility ----- //
   const showPassHandler = (e) => {
     e.preventDefault()
     if (passVis === 'password') {
@@ -91,7 +90,7 @@ export default function Register() {
     }
   }
 
-  // useEffect hook called after render
+  // ----- useEffect hook ----- //
   useEffect(() => {
     if (!userInfo) {
       history.push('/login')
@@ -270,3 +269,5 @@ export default function Register() {
     </PageWrapper>
   )
 }
+
+export default ProfileScreen

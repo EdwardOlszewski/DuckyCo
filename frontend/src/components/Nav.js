@@ -2,7 +2,6 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-
 // Components
 import {
   Button,
@@ -16,15 +15,9 @@ import {
   ListItemText,
   withStyles,
   Divider,
-  useScrollTrigger,
-  Slide,
   Hidden,
 } from '@material-ui/core'
 import MobileNav from '../components/MobileMenu'
-
-// Actions
-import { logout } from '../actions/userActions'
-
 // Icons
 import { VscAccount } from 'react-icons/vsc'
 import { IoCartOutline, IoShirtOutline, IoSettings } from 'react-icons/io5'
@@ -33,7 +26,10 @@ import { GoPackage } from 'react-icons/go'
 import { CgLogOut } from 'react-icons/cg'
 import { GrUserSettings } from 'react-icons/gr'
 import { FiUsers } from 'react-icons/fi'
+// Actions
+import { logout } from '../actions/userActions'
 
+// ----- mui styles ----- //
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '9rem',
@@ -108,33 +104,21 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem)
 
-const ResponsiveAppBar = ({ display }) => {
+const Nav = () => {
+  // ----- init ----- //
   const classes = useStyles()
-
   const dispatch = useDispatch()
 
+  // ----- state variables ----- //
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
 
   const [anchorEl2, setAnchorEl2] = useState(null)
   const open2 = Boolean(anchorEl2)
 
+  // ----- get data from redux store ----- //
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
-
-  function HideOnScroll({ children }) {
-    const trigger = useScrollTrigger({ disableHysteresis: true, threshold: 1 })
-
-    return (
-      <Slide direction='down' in={!trigger}>
-        {children}
-      </Slide>
-    )
-  }
-
-  const logoutHandler = () => {
-    dispatch(logout())
-  }
 
   return (
     <AppBar className={classes.root} position='sticky'>
@@ -211,7 +195,7 @@ const ResponsiveAppBar = ({ display }) => {
 
                   <Divider />
 
-                  <StyledMenuItem onClick={logoutHandler}>
+                  <StyledMenuItem onClick={() => dispatch(logout())}>
                     <CgLogOut className={classes.icon} />
                     <ListItemText primary='Logout' />
                   </StyledMenuItem>
@@ -281,4 +265,4 @@ const ResponsiveAppBar = ({ display }) => {
     </AppBar>
   )
 }
-export default ResponsiveAppBar
+export default Nav

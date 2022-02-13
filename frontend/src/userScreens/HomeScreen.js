@@ -3,20 +3,14 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 // Components
-import {
-  Box,
-  Grid,
-  makeStyles,
-  Container,
-  Typography,
-  Button,
-} from '@material-ui/core'
+import { Box, Grid, makeStyles, Typography, Button } from '@material-ui/core'
 import PageWrapper from '../components/PageWrapper'
 import Product from '../components/Product'
 import Loader from '../components/Loader'
 // Actions
 import { listMostRecentProducts } from '../actions/productActions'
 
+// ----- mui styles ----- //
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -36,16 +30,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function Home() {
-  // Mui Style Sheet
+const HomeScreen = () => {
+  // ----- init ----- //
   const classes = useStyles()
   const dispatch = useDispatch()
 
-  // ----- get data from redux state ----- //
+  // ----- get data from redux store ----- //
   const productMostRecent = useSelector((state) => state.productMostRecent)
-  const { loading, error, products } = productMostRecent
+  const { loading, products } = productMostRecent
 
-  // ----- use effect hook ----- //
+  // ----- useEffect hook ----- //
   useEffect(() => {
     dispatch(listMostRecentProducts())
   }, [dispatch])
@@ -95,16 +89,4 @@ export default function Home() {
   )
 }
 
-/*
-
- <Box className={classes.imgBox}>
-                  <img
-                    alt={product.name}
-                    src={product.image}
-                    height='100%'
-                    width='100%'
-                  />
-                </Box>
-
-
-*/
+export default HomeScreen

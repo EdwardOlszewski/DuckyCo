@@ -144,12 +144,14 @@ export default function MobileMenu({ userInfo }) {
       </List>
       <Divider />
 
-      <ListItem button onClick={() => dispatch(logout())}>
-        <ListItemIcon>
-          <CgLogOut className={classes.btn} />
-        </ListItemIcon>
-        <ListItemText primary='Logout' />
-      </ListItem>
+      {userInfo && (
+        <ListItem button onClick={() => dispatch(logout())}>
+          <ListItemIcon>
+            <CgLogOut className={classes.btn} />
+          </ListItemIcon>
+          <ListItemText primary='Logout' />
+        </ListItem>
+      )}
 
       <Divider />
       <ListItem>

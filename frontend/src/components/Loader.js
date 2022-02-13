@@ -1,5 +1,7 @@
+// Components
 import { Backdrop, CircularProgress, makeStyles } from '@material-ui/core'
 
+// ----- mui styles ----- //
 const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
@@ -7,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function SimpleBackdrop() {
+const Loader = () => {
   // Mui Style Sheet
   const classes = useStyles()
 
@@ -17,3 +19,5 @@ export default function SimpleBackdrop() {
     </Backdrop>
   )
 }
+
+export default Loader

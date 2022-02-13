@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 // Stripe
 import { Elements } from '@stripe/react-stripe-js'
-
 // Components
 import {
   makeStyles,
@@ -19,8 +18,6 @@ import CheckoutSteps from '../components/CheckoutSteps'
 import PaymentForm from '../components/PaymentForm'
 import Loader from '../components/Loader'
 import StyledInput from '../components/StyledInput'
-// Actions
-import { getOrderDetails, updateShipping } from '../actions/orderActions'
 // Types
 import {
   ORDER_CREATE_RESET,
@@ -29,7 +26,10 @@ import {
   ORDER_TOTALS_RESET,
 } from '../types/orderTypes'
 import { stripePromise } from '../types/paymentTypes'
+// Actions
+import { getOrderDetails, updateShipping } from '../actions/orderActions'
 
+// ----- mui styles ----- //
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: 'auto',
@@ -98,16 +98,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function ApparelScreen() {
-  // ----- init variables ----- //
+const PaymentScreen = () => {
+  // ----- init ----- //
   const classes = useStyles()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const orderId = useParams().id
 
+  // ----- state variables ----- //
   const [promoCode, setPromoCode] = useState('')
 
-  // ----- get data from redux state ----- //
+  // ----- get data from redux store ----- //
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
@@ -123,12 +124,13 @@ export default function ApparelScreen() {
   const shippingUpdate = useSelector((state) => state.shippingUpdate)
   const { loading: shippingLoading, success: shippingSuccess } = shippingUpdate
 
+  // ----- function called for promo codes ----- //
   const promoCodeSubmit = (e) => {
     e.preventDefault()
     dispatch(updateShipping(orderId, promoCode))
   }
 
-  // ----- use effect hook ----- //
+  // ----- useEffect hook ----- //
   useEffect(() => {
     if (!userInfo) {
       navigate(`/login`, { replace: true })
@@ -330,3 +332,5 @@ export default function ApparelScreen() {
     </PageWrapper>
   )
 }
+
+export default PaymentScreen
