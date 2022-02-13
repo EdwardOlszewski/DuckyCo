@@ -244,7 +244,7 @@ export default function ProductScreen() {
             </Typography>
             <List style={{ marginTop: '-1rem' }}>
               {product.description.map((desc) => (
-                <ListItem key={desc} style={{ marginBottom: '-1rem' }}>
+                <ListItem key={product._id} style={{ marginBottom: '-1rem' }}>
                   <Typography>
                     <GiPlasticDuck style={{ marginRight: '.5rem' }} />
                   </Typography>
@@ -264,13 +264,13 @@ export default function ProductScreen() {
                   disabled={
                     product.category === 'Hat'
                       ? false
-                      : true && size != 'standard'
+                      : true && size !== 'standard'
                   }
                   style={{
                     backgroundColor:
                       product.category === 'Hat'
                         ? '#007E33'
-                        : size != 'standard'
+                        : size !== 'standard'
                         ? '#007E33'
                         : '#bababa',
                   }}
@@ -285,13 +285,13 @@ export default function ProductScreen() {
           <Hidden smUp>
             <Button
               disabled={
-                product.category === 'Hat' ? false : true && size != 'standard'
+                product.category === 'Hat' ? false : true && size !== 'standard'
               }
               style={{
                 backgroundColor:
                   product.category === 'Hat'
                     ? '#007E33'
-                    : size != 'standard'
+                    : size !== 'standard'
                     ? '#007E33'
                     : '#bababa',
               }}

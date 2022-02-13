@@ -60,12 +60,7 @@ export default function Register() {
   const { loading: userUpdateLoading, success: updateSuccess } = userUpdate
 
   const orderListMy = useSelector((state) => state.orderListMy)
-  const {
-    loading: loadingOrders,
-    success: ordersSuccess,
-    error: errorOrders,
-    orders,
-  } = orderListMy
+  const { loading: loadingOrders, orders } = orderListMy
 
   // Function to be called on submit
   const submitHandler = (e) => {

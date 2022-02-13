@@ -7,9 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import {
   Container,
   Typography,
-  FormControl,
   Button,
-  TextField,
   InputAdornment,
   IconButton,
   Grid,
@@ -42,7 +40,7 @@ export default function Register() {
 
   // Go to userRegister in the state and pull out information
   const userRegister = useSelector((state) => state.userRegister)
-  const { success, loading, error, userInfo } = userRegister
+  const { loading, error, userInfo } = userRegister
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo: userLoggedIn } = userLogin
 
@@ -74,7 +72,7 @@ export default function Register() {
     if (error) {
       setMessage(error)
     }
-  }, [history, userInfo, error])
+  }, [history, userInfo, userLoggedIn, error])
 
   return (
     <>

@@ -19,7 +19,6 @@ import CheckoutSteps from '../components/CheckoutSteps'
 import PaymentForm from '../components/PaymentForm'
 import Loader from '../components/Loader'
 import StyledInput from '../components/StyledInput'
-import Message from '../components/Message'
 // Actions
 import { getOrderDetails, updateShipping } from '../actions/orderActions'
 // Types
@@ -29,7 +28,6 @@ import {
   ORDER_PAY_RESET,
   ORDER_TOTALS_RESET,
 } from '../types/orderTypes'
-import { USER_DETAILS_RESET } from '../types/userTypes'
 import { stripePromise } from '../types/paymentTypes'
 
 const useStyles = makeStyles((theme) => ({
@@ -114,7 +112,7 @@ export default function ApparelScreen() {
   const { userInfo } = userLogin
 
   const orderDetails = useSelector((state) => state.orderDetails)
-  const { order, loading, success, error } = orderDetails
+  const { order, success } = orderDetails
 
   const orderCharge = useSelector((state) => state.orderCharge)
   const { loading: chargeLoading, success: chargeSuccess } = orderCharge
@@ -143,7 +141,15 @@ export default function ApparelScreen() {
     } else {
       dispatch(getOrderDetails(orderId))
     }
-  }, [dispatch, orderId, userInfo, chargeSuccess, paySuccesss, shippingSuccess])
+  }, [
+    dispatch,
+    navigate,
+    orderId,
+    userInfo,
+    chargeSuccess,
+    paySuccesss,
+    shippingSuccess,
+  ])
 
   return (
     <PageWrapper title={'Order Pay'}>
