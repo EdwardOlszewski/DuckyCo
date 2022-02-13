@@ -1,7 +1,6 @@
 // Components
 import { Box } from '@material-ui/core'
 import Nav from '../components/Nav'
-import Nav2 from '../components/Nav2'
 import Footer from '../components/Footer'
 import Meta from '../components/Meta'
 

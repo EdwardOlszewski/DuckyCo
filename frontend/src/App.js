@@ -23,7 +23,7 @@ import ProductEditScreen from './adminScreens/ProductEditScreen'
 // Admin Order Screens
 import OrderListScreen from './adminScreens/OrderListScreen'
 
-function App() {
+export default function App() {
   return (
     <Router>
       <Routes>
@@ -59,5 +59,3 @@ function App() {
     </Router>
   )
 }
-
-export default App

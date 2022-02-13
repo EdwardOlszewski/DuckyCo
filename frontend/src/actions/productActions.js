@@ -20,12 +20,6 @@ import {
   PRODUCT_DELETE_REQUEST,
   PRODUCT_DELETE_FAIL,
   //
-  PRODUCT_CREATE_REVIEW_REQUEST,
-  PRODUCT_CREATE_REVIEW_SUCCESS,
-  PRODUCT_CREATE_REVIEW_FAIL,
-  PRODUCT_TOP_REQUEST,
-  PRODUCT_TOP_SUCCESS,
-  PRODUCT_TOP_FAIL,
   PRODUCT_MOSTRECENT_REQUEST,
   PRODUCT_MOSTRECENT_SUCCESS,
   PRODUCT_MOSTRECENT_FAIL,
@@ -142,9 +136,7 @@ export const listProducts =
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST })
 
-      const { data } = await axios.get(
-        `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
-      )
+      const { data } = await axios.get('/api/products')
 
       dispatch({
         type: PRODUCT_LIST_SUCCESS,

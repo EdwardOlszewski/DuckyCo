@@ -8,7 +8,7 @@ import {
   Hidden,
 } from '@material-ui/core'
 // Icons
-import { FaFacebookF, FaTwitter } from 'react-icons/fa'
+import { FaFacebookF } from 'react-icons/fa'
 import { TiSocialInstagram } from 'react-icons/ti'
 
 const useStyles = makeStyles((theme) => ({
