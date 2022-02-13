@@ -162,7 +162,7 @@ export default function MobileMenu({ userInfo }) {
           </a>
         </Box>
       </ListItem>
-      {userInfo.isAdmin && (
+      {userInfo && userInfo.isAdmin && (
         <>
           <Divider />
           <ListItem style={{ marginTop: '1rem' }}>

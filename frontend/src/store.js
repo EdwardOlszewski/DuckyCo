@@ -34,8 +34,6 @@ import { uploadImageReducer } from './reducers/imageReducers'
 
 import { cartReducer } from './reducers/cartReducers'
 
-import { resetReducer } from './reducers/mainReducers'
-
 const reducer = combineReducers({
   // Users
   userRegister: userRegisterReducer,
