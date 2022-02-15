@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-
 // Components
 import {
   FormControl,
@@ -25,7 +24,6 @@ import { DropzoneDialog } from 'material-ui-dropzone'
 import useStyles from '../styles/MainStyleSheet'
 import PageWrapper from '../components/PageWrapper'
 import Loader from '../components/Loader'
-
 // Icons
 import { MdAttachMoney } from 'react-icons/md'
 import { FaFileUpload } from 'react-icons/fa'
@@ -38,13 +36,10 @@ import { listProductDetails, updateProduct } from '../actions/productActions'
 import { uploadImage } from '../actions/imageActions'
 
 export default function Register({ match }) {
-  // Mui Style Sheet
+  // ----- init ----- //
   const classes = useStyles()
-  // Init dispatch
   const dispatch = useDispatch()
-  // Init navigate for redirect
   const navigate = useNavigate()
-  // get productId from the URL
   const productId = useParams().id
 
   // Get the user information from redux

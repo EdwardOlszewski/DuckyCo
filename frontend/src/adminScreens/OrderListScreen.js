@@ -1,5 +1,5 @@
 // React/Redux
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
@@ -23,10 +23,10 @@ import Loader from '../components/Loader'
 import Pagination from '@mui/material/Pagination'
 // Icons
 import { ImCross, ImCheckmark } from 'react-icons/im'
-// Actions
-import { listOrders } from '../actions/orderActions'
 // Types
 import { ORDER_DELIVER_RESET } from '../types/orderTypes'
+// Actions
+import { listOrders } from '../actions/orderActions'
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -98,14 +98,14 @@ const useStyles = makeStyles({
   },
 })
 
-const ProductListScreen = () => {
+const OrderListScreen = () => {
   // ----- init variables ----- //
   const classes = useStyles()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const pageNumber = useParams().pageNumber || 1
 
-  // ----- get data from redux state ----- //
+  // ----- get data from redux store ----- //
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
@@ -115,7 +115,7 @@ const ProductListScreen = () => {
   const orderDeliver = useSelector((state) => state.orderDeliver)
   const { loading: loadingDeliver, success: successDeliver } = orderDeliver
 
-  // ----- use effect hook ----- //
+  // ----- useEffect hook ----- //
   useEffect(() => {
     if (!userInfo || !userInfo.isAdmin) {
       navigate(`/`, { replace: true })
@@ -206,4 +206,4 @@ const ProductListScreen = () => {
   )
 }
 
-export default ProductListScreen
+export default OrderListScreen

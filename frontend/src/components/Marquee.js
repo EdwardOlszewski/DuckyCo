@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Marquee = () => {
+const MarqueeComp = () => {
   // ----- init ----- //
   const classes = useStyles()
   const array = []
@@ -41,4 +41,4 @@ const Marquee = () => {
   )
 }
 
-export default Marquee
+export default MarqueeComp

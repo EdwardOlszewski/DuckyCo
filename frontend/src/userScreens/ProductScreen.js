@@ -254,16 +254,11 @@ const ProductScreen = () => {
             >
               <Hidden xsDown>
                 <Button
-                  disabled={
-                    product.category === 'Hat'
-                      ? false
-                      : true && size !== 'standard'
-                  }
                   style={{
                     backgroundColor:
-                      product.category === 'Hat'
+                      product.category == 'Hat'
                         ? '#007E33'
-                        : size !== 'standard'
+                        : size != 'standard'
                         ? '#007E33'
                         : '#bababa',
                   }}
@@ -275,25 +270,6 @@ const ProductScreen = () => {
               </Hidden>
             </Box>
           </Grid>
-          <Hidden smUp>
-            <Button
-              disabled={
-                product.category === 'Hat' ? false : true && size !== 'standard'
-              }
-              style={{
-                backgroundColor:
-                  product.category === 'Hat'
-                    ? '#007E33'
-                    : size !== 'standard'
-                    ? '#007E33'
-                    : '#bababa',
-              }}
-              className={classes.btn}
-              onClick={addToCartHandler}
-            >
-              Add To Cart
-            </Button>
-          </Hidden>
 
           {product.image2 && (
             <Hidden smDown>

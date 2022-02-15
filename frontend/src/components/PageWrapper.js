@@ -3,6 +3,7 @@ import { Box } from '@material-ui/core'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import Meta from '../components/Meta'
+import Marquee from '../components/Marquee'
 
 const PageWrapper = ({ children, title }) => {
   return (
@@ -10,6 +11,7 @@ const PageWrapper = ({ children, title }) => {
       <Meta title={title} />
       <Nav />
       <Box style={{ minHeight: '150vh' }}>{children}</Box>
+      <Marquee />
       <Footer />
     </Box>
   )
