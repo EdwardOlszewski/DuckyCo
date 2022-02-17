@@ -127,29 +127,6 @@ const ApparelScreen = () => {
                 </Grid>
               ))}
           </Grid>
-
-          <Grid className={classes.productCont} container spacing={5}>
-            <Grid item xs={12}>
-              <Typography variant='h4'>Shirts</Typography>
-            </Grid>
-            {products
-              .filter((product) => product.category.includes('Shirt'))
-              .map((filteredProduct) => (
-                <Grid
-                  key={filteredProduct._id}
-                  item
-                  xs={12}
-                  sm={6}
-                  md={4}
-                  lg={3}
-                >
-                  <Product
-                    key={filteredProduct._id}
-                    product={filteredProduct}
-                  />
-                </Grid>
-              ))}
-          </Grid>
           <Divider className={classes.divider} />
           <Grid className={classes.productCont} container spacing={5}>
             <Grid item xs={12}>
