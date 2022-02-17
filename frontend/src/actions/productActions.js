@@ -23,6 +23,10 @@ import {
   PRODUCT_MOSTRECENT_REQUEST,
   PRODUCT_MOSTRECENT_SUCCESS,
   PRODUCT_MOSTRECENT_FAIL,
+  //
+  PRODUCT_SPECIAL_REQUEST,
+  PRODUCT_SPECIAL_SUCCESS,
+  PRODUCT_SPECIAL_FAIL,
 } from '../types/productTypes'
 import { logout } from './userActions'
 
@@ -166,6 +170,27 @@ export const listMostRecentProducts = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_MOSTRECENT_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const listSpecialProducts = () => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_SPECIAL_REQUEST })
+
+    const { data } = await axios.get(`/api/products/special`)
+
+    dispatch({
+      type: PRODUCT_SPECIAL_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_SPECIAL_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

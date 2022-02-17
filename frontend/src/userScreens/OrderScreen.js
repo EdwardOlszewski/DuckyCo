@@ -270,7 +270,7 @@ const OrderScreen = () => {
                     <Typography variant='subtitle1'>Shipping</Typography>
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography variant='h6'>$6.00</Typography>
+                    <Typography variant='h6'>${order.shippingPrice}</Typography>
                   </Grid>
                 </Grid>
 

@@ -18,6 +18,7 @@ import CheckoutSteps from '../components/CheckoutSteps'
 import PaymentForm from '../components/PaymentForm'
 import Loader from '../components/Loader'
 import StyledInput from '../components/StyledInput'
+import Message from '../components/Message'
 // Types
 import {
   ORDER_CREATE_RESET,
@@ -122,7 +123,11 @@ const PaymentScreen = () => {
   const { loading: payLoading, success: paySuccesss } = orderPay
 
   const shippingUpdate = useSelector((state) => state.shippingUpdate)
-  const { loading: shippingLoading, success: shippingSuccess } = shippingUpdate
+  const {
+    loading: shippingLoading,
+    success: shippingSuccess,
+    error: shippingError,
+  } = shippingUpdate
 
   // ----- function called for promo codes ----- //
   const promoCodeSubmit = (e) => {
@@ -295,22 +300,37 @@ const PaymentScreen = () => {
                   </Grid>
 
                   <Grid container style={{ marginTop: '1rem' }}>
-                    <Grid item xs={12} md={7}>
-                      <StyledInput
-                        label='Promo Code'
-                        value={promoCode}
-                        style={{ width: '99%', marginTop: '1rem' }}
-                        onChange={(e) => setPromoCode(e.target.value)}
-                      />
-                    </Grid>
-                    <Grid item xs={12} md={5}>
-                      <Button
-                        onClick={promoCodeSubmit}
-                        className={classes.submitPaymentBtn}
-                      >
-                        Apply
-                      </Button>
-                    </Grid>
+                    {shippingError && (
+                      <Box style={{ width: '100%', marginBottom: '1rem' }}>
+                        <Message severity='error'>{shippingError}</Message>
+                      </Box>
+                    )}
+                    {!shippingSuccess ? (
+                      <>
+                        <Grid item xs={12} md={7}>
+                          <StyledInput
+                            label='Promo Code'
+                            value={promoCode}
+                            style={{ width: '99%', marginTop: '1rem' }}
+                            onChange={(e) => setPromoCode(e.target.value)}
+                          />
+                        </Grid>
+                        <Grid item xs={12} md={5}>
+                          <Button
+                            onClick={promoCodeSubmit}
+                            className={classes.submitPaymentBtn}
+                          >
+                            Apply
+                          </Button>
+                        </Grid>
+                      </>
+                    ) : (
+                      <Box style={{ width: '100%', marginBottom: '1rem' }}>
+                        <Message severity='success'>
+                          Promo Code '{promoCode}' Applied
+                        </Message>
+                      </Box>
+                    )}
                   </Grid>
 
                   <Grid item xs={12}>

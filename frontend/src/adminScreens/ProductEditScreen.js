@@ -221,8 +221,10 @@ export default function Register({ match }) {
               >
                 <option>Sample Category</option>
                 <option>Hat</option>
+                <option>Shorts</option>
                 <option>Shirt</option>
                 <option>Hoodie</option>
+                <option>Special</option>
               </Select>
             </FormControl>
           </Grid>

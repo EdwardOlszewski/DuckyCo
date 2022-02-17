@@ -66,11 +66,19 @@ const getProducts = asyncHandler(async (req, res) => {
   res.json({ products })
 })
 
-// @desc    Fetch all products
+// @desc    Fetch most recent products
 // @route   GET /api/products/mostrecent
 // @access  Public
 const getMostRecentProducts = asyncHandler(async (req, res) => {
   const products = await Product.find().sort({ createdAt: -1 }).limit(3)
+  res.json({ products })
+})
+
+// @desc    Fetch special products
+// @route   GET /api/products/special
+// @access  Public
+const getSpecialProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({ category: 'Special' }).limit(3)
   res.json({ products })
 })
 
@@ -96,4 +104,5 @@ export {
   getProducts,
   deleteProduct,
   getMostRecentProducts,
+  getSpecialProducts,
 }

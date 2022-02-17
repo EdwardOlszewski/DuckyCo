@@ -55,8 +55,38 @@ const ApparelScreen = () => {
             <Grid item xs={12}>
               <Typography variant='h4'>Hats</Typography>
             </Grid>
+
             {products
               .filter((product) => product.category.includes('Hat'))
+              .map((filteredProduct) => (
+                <Grid
+                  key={filteredProduct._id}
+                  item
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  lg={3}
+                >
+                  <Box>
+                    <img
+                      className={classes.imgHat}
+                      src={filteredProduct.image}
+                      alt={filteredProduct.name}
+                      height='100%'
+                      width='100%'
+                      layout={'responsive'}
+                    />
+                  </Box>
+                </Grid>
+              ))}
+          </Grid>
+
+          <Grid container className={classes.productCont} spacing={10}>
+            <Grid item xs={12}>
+              <Typography variant='h4'>Shorts</Typography>
+            </Grid>
+            {products
+              .filter((product) => product.category.includes('Shorts'))
               .map((filteredProduct) => (
                 <Grid
                   key={filteredProduct._id}
@@ -74,6 +104,29 @@ const ApparelScreen = () => {
               ))}
           </Grid>
           <Divider className={classes.divider} />
+
+          <Grid className={classes.productCont} container spacing={5}>
+            <Grid item xs={12}>
+              <Typography variant='h4'>Shirts</Typography>
+            </Grid>
+            {products
+              .filter((product) => product.category.includes('Shirt'))
+              .map((filteredProduct) => (
+                <Grid
+                  key={filteredProduct._id}
+                  item
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  lg={3}
+                >
+                  <Product
+                    key={filteredProduct._id}
+                    product={filteredProduct}
+                  />
+                </Grid>
+              ))}
+          </Grid>
 
           <Grid className={classes.productCont} container spacing={5}>
             <Grid item xs={12}>

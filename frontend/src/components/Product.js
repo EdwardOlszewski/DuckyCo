@@ -27,6 +27,13 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  imgShorts: {
+    [theme.breakpoints.up('md')]: {
+      '&:hover': {
+        transform: 'scale(3) translate(-30%, -30%)',
+      },
+    },
+  },
   link: {
     textDecoration: 'none',
     color: 'inherit',
@@ -45,6 +52,17 @@ const Product = ({ product }) => {
             <Box>
               <img
                 className={classes.imgHat}
+                src={product.image}
+                alt={product.name}
+                height='100%'
+                width='100%'
+                layout={'responsive'}
+              />
+            </Box>
+          ) : product.category === 'Shorts' ? (
+            <Box style={{ minHeight: '32rem' }}>
+              <img
+                className={classes.imgShorts}
                 src={product.image}
                 alt={product.name}
                 height='100%'

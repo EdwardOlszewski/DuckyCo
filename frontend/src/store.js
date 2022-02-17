@@ -16,6 +16,7 @@ import {
   productListReducer,
   productDeleteReducer,
   productMostRecentReducer,
+  listSpecialProductsReducer,
 } from './reducers/productReducers'
 
 import {
@@ -47,6 +48,7 @@ const reducer = combineReducers({
   productList: productListReducer,
   productDelete: productDeleteReducer,
   productMostRecent: productMostRecentReducer,
+  productSpecial: listSpecialProductsReducer,
   // Image
   imageUpload: uploadImageReducer,
   // Cart

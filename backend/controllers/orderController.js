@@ -166,8 +166,8 @@ const updateShipping = asyncHandler(async (req, res) => {
       const updatedOrder = await order.save()
       res.json(updatedOrder)
     } else {
-      res.status(200)
-      res.json('no promo code found')
+      res.status(404)
+      throw new Error('Promo Code ' + promoCode + ' Not Found')
     }
   } else {
     res.status(404)

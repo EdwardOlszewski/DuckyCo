@@ -122,7 +122,7 @@ const ShippingScreen = () => {
   }, [
     dispatch,
     navigate,
-    order._id,
+
     totals,
     success,
     billingInfo,

@@ -26,6 +26,10 @@ import {
   PRODUCT_MOSTRECENT_REQUEST,
   PRODUCT_MOSTRECENT_SUCCESS,
   PRODUCT_MOSTRECENT_FAIL,
+  //
+  PRODUCT_SPECIAL_REQUEST,
+  PRODUCT_SPECIAL_SUCCESS,
+  PRODUCT_SPECIAL_FAIL,
 } from '../types/productTypes'
 
 export const productCreateReducer = (state = {}, action) => {
@@ -71,23 +75,6 @@ export const productUpdateReducer = (state = {}, action) => {
   }
 }
 
-export const productMostRecentReducer = (state = { products: [] }, action) => {
-  switch (action.type) {
-    case PRODUCT_MOSTRECENT_REQUEST:
-      return { loading: true }
-    case PRODUCT_MOSTRECENT_SUCCESS:
-      return {
-        loading: false,
-        success: true,
-        products: action.payload.products,
-      }
-    case PRODUCT_MOSTRECENT_FAIL:
-      return { loading: false, success: false, error: action.payload }
-    default:
-      return state
-  }
-}
-
 export const productListReducer = (state = { products: [] }, action) => {
   switch (action.type) {
     case PRODUCT_LIST_REQUEST:
@@ -119,6 +106,40 @@ export const productDeleteReducer = (state = {}, action) => {
       return { loading: false, error: action.payload }
     case PRODUCT_DELETE_RESET:
       return {}
+    default:
+      return state
+  }
+}
+
+export const productMostRecentReducer = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case PRODUCT_MOSTRECENT_REQUEST:
+      return { loading: true }
+    case PRODUCT_MOSTRECENT_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        recentProducts: action.payload.products,
+      }
+    case PRODUCT_MOSTRECENT_FAIL:
+      return { loading: false, success: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const listSpecialProductsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PRODUCT_SPECIAL_REQUEST:
+      return { loading: true }
+    case PRODUCT_SPECIAL_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        specialProducts: action.payload.products,
+      }
+    case PRODUCT_SPECIAL_FAIL:
+      return { loading: false, error: action.payload }
     default:
       return state
   }
