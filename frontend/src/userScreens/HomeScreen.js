@@ -54,7 +54,8 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
   },
   btn: {
-    fontSize: '1.5rem',
+    width: '100%',
+    fontSize: '1rem',
     padding: '1.5rem',
     color: 'white',
     backgroundColor: '#1e2a5a',
@@ -97,7 +98,7 @@ const HomeScreen = () => {
       ) : (
         <>
           <Box className={classes.specialGrid}>
-            <Grid container spacing={5}>
+            <Grid container>
               <Grid item xs={12}>
                 <Box
                   style={{
@@ -146,7 +147,7 @@ const HomeScreen = () => {
               </Typography>
             </Box>
             <Grid container spacing={5} style={{ padding: '.1rem' }}>
-              <Grid item md={2} />
+              <Grid item xs={12} md={2} style={{ marginLeft: '-5rem' }} />
               {recentProducts &&
                 recentProducts.map((product) => (
                   <Grid item xs={12} md={3}>

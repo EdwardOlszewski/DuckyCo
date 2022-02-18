@@ -269,6 +269,23 @@ const ProductScreen = () => {
                 </Button>
               </Hidden>
             </Box>
+            <Hidden smUp>
+              <Button
+                style={{
+                  width: '100%',
+                  backgroundColor:
+                    product.category == 'Hat'
+                      ? '#007E33'
+                      : size != 'standard'
+                      ? '#007E33'
+                      : '#bababa',
+                }}
+                className={classes.btn}
+                onClick={addToCartHandler}
+              >
+                Add To Cart
+              </Button>
+            </Hidden>
           </Grid>
 
           {product.image2 && (
