@@ -51,7 +51,7 @@ const ApparelScreen = () => {
         <Message severity='error'>{error}</Message>
       ) : (
         <Box>
-          <Grid container className={classes.productCont} spacing={5}>
+          <Grid container className={classes.productCont} spacing={3}>
             <Grid item xs={12}>
               <Typography variant='h4'>St. Patricks Day</Typography>
             </Grid>
@@ -76,7 +76,7 @@ const ApparelScreen = () => {
                 ))}
           </Grid>
           <Divider className={classes.divider} />
-          <Grid container className={classes.productCont} spacing={5}>
+          <Grid container className={classes.productCont} spacing={3}>
             <Grid item xs={12}>
               <Typography variant='h4'>Hats</Typography>
             </Grid>
@@ -108,7 +108,7 @@ const ApparelScreen = () => {
           </Grid>
           <Divider className={classes.divider} />
 
-          <Grid container className={classes.productCont} spacing={5}>
+          <Grid container className={classes.productCont} spacing={3}>
             <Grid item xs={12}>
               <Typography variant='h4'>Shorts</Typography>
             </Grid>
@@ -133,7 +133,7 @@ const ApparelScreen = () => {
           </Grid>
           <Divider className={classes.divider} />
 
-          <Grid className={classes.productCont} container spacing={5}>
+          <Grid className={classes.productCont} container spacing={3}>
             <Grid item xs={12}>
               <Typography variant='h4'>Shirts</Typography>
             </Grid>
@@ -157,7 +157,7 @@ const ApparelScreen = () => {
                 ))}
           </Grid>
           <Divider className={classes.divider} />
-          <Grid className={classes.productCont} container spacing={5}>
+          <Grid className={classes.productCont} container spacing={3}>
             <Grid item xs={12}>
               <Typography variant='h4'>Hoodies</Typography>
             </Grid>

@@ -59,6 +59,17 @@ const Product = ({ product }) => {
                 layout={'responsive'}
               />
             </Box>
+          ) : product.category === 'Special' ? (
+            <Box style={{ minHeight: '30rem' }}>
+              <img
+                className={classes.imgShirt}
+                src={product.image}
+                alt={product.name}
+                height='100%'
+                width='100%'
+                layout={'responsive'}
+              />
+            </Box>
           ) : product.category === 'Shorts' ? (
             <Box style={{ minHeight: '32rem' }}>
               <img
@@ -71,7 +82,7 @@ const Product = ({ product }) => {
               />
             </Box>
           ) : product.category === 'Shirt' ? (
-            <Box style={{ minHeight: '32rem' }}>
+            <Box style={{ minHeight: '30rem' }}>
               <img
                 className={classes.imgShirt}
                 src={product.image}
@@ -82,7 +93,7 @@ const Product = ({ product }) => {
               />
             </Box>
           ) : (
-            <Box style={{ minHeight: '33rem' }}>
+            <Box style={{ minHeight: '34rem' }}>
               <img
                 className={classes.imgShirt}
                 src={product.image}

@@ -46,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
   },
   newProductsTitle: {
     padding: '3rem',
-    fontFamily: 'Cargo',
     textAlign: 'center',
   },
   btnBox: {
@@ -171,51 +170,3 @@ const HomeScreen = () => {
 }
 
 export default HomeScreen
-
-/*
-
-<Box style={{ transform: `translateY(${offsetY * 0.5}px)` }}>
-
-
-
-
-
-
-
-
-     <Grid container>
-                <Grid item md={2} />
-                {recentProducts.map((product) => (
-                  <Grid item xs={12} md={3}>
-                    <Product key={product._id} product={product} />
-                  </Grid>
-                ))}
-              </Grid>
-
-
-
-
-
- <Grid container spacing={5}>
-                {specialProducts.map((product) => (
-                  <Grid item xs={12} md={4}>
-                    <Product key={product._id} product={product} />
-                  </Grid>
-                ))}
-              </Grid>
-
-
-  <Grid container spacing={5}>
-              <Grid item xs={12}>
-                <Box style={{ textAlign: 'center' }}>
-                  <Link to='/apparel' style={{ textDecoration: 'none' }}>
-                    <Button className={classes.gearBtn}>Browse Our Gear</Button>
-                  </Link>
-                </Box>
-              </Grid>
-            </Grid>
-
-
-
-
-*/

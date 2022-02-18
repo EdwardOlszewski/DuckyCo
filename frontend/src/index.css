@@ -6,5 +6,5 @@ body {
   font-family: 'Cargo';
   font-weight: normal;
   font-style: normal;
-  src: url('./Cargo.ttf') format('ttf');
+  src: url('./Cargo.ttf');
 }
