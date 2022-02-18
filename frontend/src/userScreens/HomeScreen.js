@@ -1,7 +1,7 @@
 // React/Redux
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 // Components
 import {
   Box,
@@ -11,6 +11,7 @@ import {
   Button,
   Container,
 } from '@material-ui/core'
+import HomeNav from '../components/HomeNav'
 import PageWrapper from '../components/PageWrapper'
 import Product from '../components/Product'
 import Loader from '../components/Loader'
@@ -19,30 +20,47 @@ import {
   listSpecialProducts,
   listMostRecentProducts,
 } from '../actions/productActions'
+// Icons
+import { FaFacebookF } from 'react-icons/fa'
+import { TiSocialInstagram } from 'react-icons/ti'
+import background from '../components/background.png'
 
 // ----- mui styles ----- //
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
   },
-  title: {
-    textAlign: 'center',
-    padding: '3rem',
-  },
-  gearBtn: {
-    padding: '1rem',
-    backgroundColor: '#007E33',
-    color: 'white',
-    width: '20%',
-    '&:hover': {
-      backgroundColor: '#00b84a',
-    },
-  },
   specialGrid: {
-    marginTop: '1rem',
-
-    padding: '1rem',
-    marginBottom: '2rem',
+    paddingBottom: '15rem',
+    backgroundImage: `url(${background})`,
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+  },
+  recentBox: {
+    position: 'relative',
+    zIndex: 1,
+    paddingTop: '2rem',
+    paddingBottom: '5rem',
+    backgroundColor: '#f6f6f6',
+  },
+  newProductsTitle: {
+    padding: '3rem',
+    fontFamily: 'Cargo',
+    textAlign: 'center',
+  },
+  btnBox: {
+    padding: '5rem',
+    textAlign: 'center',
+  },
+  btn: {
+    fontSize: '1.5rem',
+    padding: '1.5rem',
+    color: 'white',
+    backgroundColor: '#1e2a5a',
+    '&:hover': {
+      backgroundColor: '#425dcb',
+    },
   },
 }))
 
@@ -50,6 +68,10 @@ const HomeScreen = () => {
   // ----- init ----- //
   const classes = useStyles()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [offsetY, setOffsetY] = useState(0)
+
+  const handleScroll = () => setOffsetY(window.pageYOffset)
 
   // ----- get data from redux store ----- //
   const productMostRecent = useSelector((state) => state.productMostRecent)
@@ -63,34 +85,85 @@ const HomeScreen = () => {
   useEffect(() => {
     dispatch(listSpecialProducts())
     dispatch(listMostRecentProducts())
+    window.addEventListener('scroll', handleScroll)
+
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [dispatch])
 
   return (
-    <PageWrapper title={'Home'}>
-      {specialLoading || loading ? (
+    <PageWrapper>
+      {loading || specialLoading ? (
         <Loader />
       ) : (
-        <Grid container>
-          <Grid container spacing={10} className={classes.specialGrid}>
-            <Grid item md={3} />
-            {specialProducts &&
-              specialProducts.map((product) => (
-                <Grid item xs={12} md={3}>
-                  <Product key={product._id} product={product} />
-                </Grid>
-              ))}
-          </Grid>
+        <>
+          <Box className={classes.specialGrid}>
+            <Grid container spacing={5}>
+              <Grid item xs={12}>
+                <Box
+                  style={{
+                    zIndex: 0,
+                    transform: `translateY(${offsetY * 0.2}px)`,
+                  }}
+                >
+                  <Typography
+                    className={classes.newProductsTitle}
+                    variant='h3'
+                    style={{ color: '#272829' }}
+                  >
+                    St. Patricks Day Gear
+                  </Typography>
+                </Box>
+              </Grid>
+              <Grid item md={3} />
 
-          <Grid container spacing={10}>
-            <Grid item md={1} />
-            {recentProducts &&
-              recentProducts.map((product) => (
-                <Grid item xs={12} md={3}>
-                  <Product key={product._id} product={product} />
-                </Grid>
-              ))}
-          </Grid>
-        </Grid>
+              {specialProducts &&
+                specialProducts.map((product) => (
+                  <Grid
+                    item
+                    xs={12}
+                    md={3}
+                    style={{
+                      zIndex: 0,
+                      transform: `translateY(${offsetY * 0.3}px)`,
+                    }}
+                  >
+                    <img
+                      src={product.image}
+                      alt={product._id}
+                      width='100%'
+                      height='100%'
+                      layout='responsive'
+                    />
+                  </Grid>
+                ))}
+            </Grid>
+          </Box>
+
+          <Box className={classes.recentBox}>
+            <Box>
+              <Typography className={classes.newProductsTitle} variant='h3'>
+                New Products
+              </Typography>
+            </Box>
+            <Grid container spacing={5} style={{ padding: '.1rem' }}>
+              <Grid item md={2} />
+              {recentProducts &&
+                recentProducts.map((product) => (
+                  <Grid item xs={12} md={3}>
+                    <Product key={product._id} product={product} />
+                  </Grid>
+                ))}
+            </Grid>
+            <Box className={classes.btnBox}>
+              <Button
+                className={classes.btn}
+                onClick={() => navigate('/gear', { replace: true })}
+              >
+                Browse Our Gear
+              </Button>
+            </Box>
+          </Box>
+        </>
       )}
     </PageWrapper>
   )
@@ -99,6 +172,16 @@ const HomeScreen = () => {
 export default HomeScreen
 
 /*
+
+<Box style={{ transform: `translateY(${offsetY * 0.5}px)` }}>
+
+
+
+
+
+
+
+
      <Grid container>
                 <Grid item md={2} />
                 {recentProducts.map((product) => (

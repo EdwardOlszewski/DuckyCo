@@ -1,6 +1,11 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from 'react-router-dom'
+import { useLayoutEffect } from 'react'
 // User Screens
 import HomeScreen from './userScreens/HomeScreen'
 import LoginScreen from './userScreens/LoginScreen'
@@ -23,39 +28,52 @@ import ProductEditScreen from './adminScreens/ProductEditScreen'
 // Admin Order Screens
 import OrderListScreen from './adminScreens/OrderListScreen'
 
+const Wrapper = ({ children }) => {
+  const location = useLocation()
+  useLayoutEffect(() => {
+    document.documentElement.scrollTo(0, 0)
+  }, [location.pathname])
+  return children
+}
+
 export default function App() {
   return (
     <Router>
-      <Routes>
-        <Route path='/' element={<ApparelScreen />} />
-        <Route path='/home' element={<HomeScreen />} />
+      <Wrapper>
+        <Routes>
+          <Route path='/gear' element={<ApparelScreen />} />
+          <Route path='/' element={<HomeScreen />} />
 
-        {/* User routes */}
-        <Route path='/login' element={<LoginScreen />} />
-        <Route path='/register' element={<RegisterScreen />} />
-        <Route path='/profile' element={<ProfileScreen />} />
+          {/* User routes */}
+          <Route path='/login' element={<LoginScreen />} />
+          <Route path='/register' element={<RegisterScreen />} />
+          <Route path='/profile' element={<ProfileScreen />} />
 
-        {/* User product routes*/}
+          {/* User product routes*/}
 
-        <Route path='/product/:id' element={<ProductScreen />} />
+          <Route path='/product/:id' element={<ProductScreen />} />
 
-        {/* Admin Routes */}
-        <Route path='/admin/productlist' element={<ProductListScreen />} />
-        <Route path='/admin/orderlist' element={<OrderListScreen />} />
-        <Route
-          path='/admin/productlist/:pageNumber'
-          element={<ProductListScreen />}
-        />
-        <Route path='/admin/product/:id/edit' element={<ProductEditScreen />} />
+          {/* Admin Routes */}
+          <Route path='/admin/productlist' element={<ProductListScreen />} />
+          <Route path='/admin/orderlist' element={<OrderListScreen />} />
+          <Route
+            path='/admin/productlist/:pageNumber'
+            element={<ProductListScreen />}
+          />
+          <Route
+            path='/admin/product/:id/edit'
+            element={<ProductEditScreen />}
+          />
 
-        {/* Cart Routes */}
-        <Route path='/cart' element={<CartScreen />} />
+          {/* Cart Routes */}
+          <Route path='/cart' element={<CartScreen />} />
 
-        {/* Order Routes */}
-        <Route path='/shipping' element={<ShippingScreen />} />
-        <Route path='/payment/:id' element={<PaymentScreen />} />
-        <Route path='/order/:id' element={<OrderScreen />} />
-      </Routes>
+          {/* Order Routes */}
+          <Route path='/shipping' element={<ShippingScreen />} />
+          <Route path='/payment/:id' element={<PaymentScreen />} />
+          <Route path='/order/:id' element={<OrderScreen />} />
+        </Routes>
+      </Wrapper>
     </Router>
   )
 }

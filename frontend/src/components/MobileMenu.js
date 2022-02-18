@@ -73,7 +73,7 @@ export default function MobileMenu({ userInfo }) {
       role='presentation'
     >
       <List>
-        <Link to='/' style={{ textDecoration: 'none' }}>
+        <Link to='/gear' style={{ textDecoration: 'none' }}>
           <ListItem button onClick={toggleDrawer('left', false)}>
             <ListItemIcon>
               <IoShirtOutline className={classes.btn} />

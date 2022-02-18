@@ -26,15 +26,19 @@ import { GoPackage } from 'react-icons/go'
 import { CgLogOut } from 'react-icons/cg'
 import { GrUserSettings } from 'react-icons/gr'
 import { FiUsers } from 'react-icons/fi'
+import specialBackground from './specialBackground.png'
 // Actions
 import { logout } from '../actions/userActions'
 
 // ----- mui styles ----- //
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '9rem',
+    height: '100vh',
     boxShadow: 'none',
-    backgroundColor: '#272829',
+    backgroundImage: `url(${specialBackground})`,
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
     color: 'white',
     [theme.breakpoints.up('xs')]: {
       padding: '0 2rem 0 0',
@@ -44,13 +48,14 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   imgCont: {
-    width: '200px',
-    height: '200px',
+    width: '300px',
+    height: '300px',
     marginTop: 5,
   },
 
   // menu buttons
   btnBox: {
+    marginTop: '-10rem',
     flexGrow: 1,
     textAlign: 'right',
   },
@@ -104,7 +109,7 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem)
 
-const Nav = () => {
+const Nav = ({ children }) => {
   // ----- init ----- //
   const classes = useStyles()
   const dispatch = useDispatch()
@@ -123,37 +128,21 @@ const Nav = () => {
   return (
     <AppBar className={classes.root} position='sticky'>
       <Toolbar disableGutters>
-        <Hidden mdUp>
-          <Container className={classes.imgCont}>
-            <Link to='/' style={{ textDecoration: 'none' }}>
-              <img
-                src='/images/Logo2.svg'
-                alt='Duckylogo'
-                width='100%'
-                height='100%'
-                layout='responsive'
-              />
-            </Link>
-          </Container>
-        </Hidden>
-
-        <Hidden smDown>
-          <Container className={classes.imgCont}>
-            <Link to='/' style={{ textDecoration: 'none' }}>
-              <img
-                src='/images/Logo2.svg'
-                alt='Duckylogo'
-                width='100%'
-                height='100%'
-                layout='responsive'
-              />
-            </Link>
-          </Container>
-        </Hidden>
+        <Container className={classes.imgCont}>
+          <Link to='/' style={{ textDecoration: 'none' }}>
+            <img
+              src='/images/Logo3.svg'
+              alt='Duckylogo'
+              width='100%'
+              height='100%'
+              layout='responsive'
+            />
+          </Link>
+        </Container>
 
         <Hidden smDown>
           <Box className={classes.btnBox}>
-            <Link to='/gear' style={{ textDecoration: 'none' }}>
+            <Link to='/' style={{ textDecoration: 'none' }}>
               <Button startIcon={<IoShirtOutline />} className={classes.btn}>
                 Apparel
               </Button>
@@ -262,6 +251,8 @@ const Nav = () => {
           </Box>
         </Hidden>
       </Toolbar>
+
+      <Box>{children}</Box>
     </AppBar>
   )
 }
