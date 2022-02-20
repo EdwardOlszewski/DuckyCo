@@ -21,8 +21,8 @@ const getOrderTotals = asyncHandler(async (req, res) => {
     for (let i = 0; i <= products.length; i++) {
       if (products[i]) {
         const foundProduct = await Product.findById(products[i].product)
-        subTotal += foundProduct.price
-        totalItems += 1
+        subTotal += foundProduct.price * products[i].qty
+        totalItems += products[i].qty
       }
     }
 
@@ -162,6 +162,7 @@ const updateShipping = asyncHandler(async (req, res) => {
 
   if (order) {
     if (process.env.PROMO_CODE == promoCode) {
+      order.totalPrice = order.totalPrice - order.shippingPrice
       order.shippingPrice = 0
       const updatedOrder = await order.save()
       res.json(updatedOrder)
