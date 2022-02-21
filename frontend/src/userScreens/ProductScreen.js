@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 // Components
 import {
   makeStyles,
@@ -101,7 +102,6 @@ const ProductScreen = () => {
   const [size, setSize] = useState('standard')
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
-  const [reviewed, setReviewed] = useState(false)
 
   // ----- get data from redux store ----- //
   const productDetails = useSelector((state) => state.productDetails)
@@ -130,12 +130,16 @@ const ProductScreen = () => {
   // ----- function adds review ----- //
   const reviewSubmit = (e) => {
     e.preventDefault()
-    dispatch(
-      createProductReview(productId, {
-        rating,
-        comment,
-      })
-    )
+    if (!userInfo) {
+      navigate(`/login`, { replace: true })
+    } else {
+      dispatch(
+        createProductReview(productId, {
+          rating,
+          comment,
+        })
+      )
+    }
   }
 
   // ----- useEffect hook ----- //
@@ -149,11 +153,11 @@ const ProductScreen = () => {
       dispatch(listProductDetails(productId))
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
     }
-  }, [dispatch, productId, successProductReview])
+  }, [dispatch, productId, successProductReview, loadingProductReview])
 
   return (
     <PageWrapper title={'Product'}>
-      {loading || loadingProductReview ? (
+      {loading ? (
         <Loader />
       ) : error ? (
         <Message severity='error'>{error}</Message>
@@ -466,18 +470,39 @@ const ProductScreen = () => {
                   </Message>
                 </Box>
               ) : (
-                <Button
-                  style={{
-                    marginTop: 10,
-                    color: 'white',
-                    backgroundColor: !rating || !comment ? '#bababa' : null,
-                  }}
-                  className={classes.reviewBtn}
-                  onClick={reviewSubmit}
-                  disabled={!rating || !comment}
-                >
-                  Submit Review
-                </Button>
+                <>
+                  {!userInfo && (
+                    <Box style={{ marginLeft: -12, marginTop: 10 }}>
+                      <Message severity='info'>
+                        <Link
+                          to='/login'
+                          style={{
+                            color: 'darkblue',
+                            textDecoration: 'none',
+                          }}
+                        >
+                          Log in
+                        </Link>{' '}
+                        to leave a review
+                      </Message>
+                    </Box>
+                  )}
+
+                  {userInfo && (
+                    <Button
+                      style={{
+                        marginTop: 10,
+                        color: 'white',
+                        backgroundColor: !rating || !comment ? '#bababa' : null,
+                      }}
+                      className={classes.reviewBtn}
+                      onClick={reviewSubmit}
+                      disabled={!rating || !comment}
+                    >
+                      Submit Review
+                    </Button>
+                  )}
+                </>
               )}
             </Grid>
           </Grid>
