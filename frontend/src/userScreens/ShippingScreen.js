@@ -80,6 +80,7 @@ const ShippingScreen = () => {
           lastName,
           street,
           city,
+          state,
           zipCode,
         },
         paymentMethod: 'card',

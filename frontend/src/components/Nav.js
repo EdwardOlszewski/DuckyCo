@@ -239,10 +239,15 @@ const Nav = () => {
                         </StyledMenuItem>
                       </Link>
 
-                      <StyledMenuItem>
-                        <FiUsers className={classes.icon} />
-                        <ListItemText primary='Users' />
-                      </StyledMenuItem>
+                      <Link
+                        to='/admin/userlist'
+                        style={{ textDecoration: 'none', color: 'black' }}
+                      >
+                        <StyledMenuItem>
+                          <FiUsers className={classes.icon} />
+                          <ListItemText primary='Users' />
+                        </StyledMenuItem>
+                      </Link>
                     </StyledMenu>
                   </>
                 )}

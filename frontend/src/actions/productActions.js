@@ -27,6 +27,14 @@ import {
   PRODUCT_SPECIAL_REQUEST,
   PRODUCT_SPECIAL_SUCCESS,
   PRODUCT_SPECIAL_FAIL,
+  //
+  PRODUCT_CREATE_REVIEW_REQUEST,
+  PRODUCT_CREATE_REVIEW_SUCCESS,
+  PRODUCT_CREATE_REVIEW_FAIL,
+  //
+  PRODUCT_DELETE_REVIEW_REQUEST,
+  PRODUCT_DELETE_REVIEW_SUCCESS,
+  PRODUCT_DELETE_REVIEW_FAIL,
 } from '../types/productTypes'
 import { logout } from './userActions'
 
@@ -199,6 +207,44 @@ export const listSpecialProducts = () => async (dispatch) => {
   }
 }
 
+export const createProductReview =
+  (productId, review) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: PRODUCT_CREATE_REVIEW_REQUEST,
+      })
+
+      const {
+        userLogin: { userInfo },
+      } = getState()
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      await axios.post(`/api/products/${productId}/reviews`, review, config)
+
+      dispatch({
+        type: PRODUCT_CREATE_REVIEW_SUCCESS,
+      })
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      if (message === 'Not authorized, token failed') {
+        dispatch(logout())
+      }
+      dispatch({
+        type: PRODUCT_CREATE_REVIEW_FAIL,
+        payload: message,
+      })
+    }
+  }
+
 export const deleteProduct = (id) => async (dispatch, getState) => {
   try {
     dispatch({
@@ -230,6 +276,42 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
     }
     dispatch({
       type: PRODUCT_DELETE_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const deleteReview = (id, reviewId) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: PRODUCT_DELETE_REVIEW_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    await axios.delete(`/api/products/${id}/reviews`, reviewId, config)
+
+    dispatch({
+      type: PRODUCT_DELETE_REVIEW_SUCCESS,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: PRODUCT_DELETE_REVIEW_FAIL,
       payload: message,
     })
   }

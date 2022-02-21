@@ -28,7 +28,7 @@ const MarqueeComp = () => {
       pauseOnHover={false}
     >
       {array.map((image) => (
-        <Box style={{ backgroundColor: '#2f2f2f' }}>
+        <Box key={image} style={{ backgroundColor: '#2f2f2f' }}>
           <img
             src={`/images/${image}.jpg`}
             alt={image}

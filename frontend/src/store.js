@@ -7,6 +7,8 @@ import {
   userLoginReducer,
   userDetailsReducer,
   userUpdateReducer,
+  userListReducer,
+  userDeleteReducer,
 } from './reducers/userReducers'
 
 import {
@@ -17,6 +19,8 @@ import {
   productDeleteReducer,
   productMostRecentReducer,
   listSpecialProductsReducer,
+  productReviewCreateReducer,
+  reviewDeleteReducer,
 } from './reducers/productReducers'
 
 import {
@@ -41,6 +45,8 @@ const reducer = combineReducers({
   userLogin: userLoginReducer,
   userDetails: userDetailsReducer,
   userUpdate: userUpdateReducer,
+  userList: userListReducer,
+  userDelete: userDeleteReducer,
   // Products
   productCreate: productCreateReducer,
   productDetails: productDetailsReducer,
@@ -49,6 +55,8 @@ const reducer = combineReducers({
   productDelete: productDeleteReducer,
   productMostRecent: productMostRecentReducer,
   productSpecial: listSpecialProductsReducer,
+  productReviewCreate: productReviewCreateReducer,
+  productReviewDelete: reviewDeleteReducer,
   // Image
   imageUpload: uploadImageReducer,
   // Cart

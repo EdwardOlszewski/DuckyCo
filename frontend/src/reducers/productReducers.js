@@ -30,6 +30,16 @@ import {
   PRODUCT_SPECIAL_REQUEST,
   PRODUCT_SPECIAL_SUCCESS,
   PRODUCT_SPECIAL_FAIL,
+  //
+  PRODUCT_CREATE_REVIEW_REQUEST,
+  PRODUCT_CREATE_REVIEW_SUCCESS,
+  PRODUCT_CREATE_REVIEW_RESET,
+  PRODUCT_CREATE_REVIEW_FAIL,
+  //
+  PRODUCT_DELETE_REVIEW_REQUEST,
+  PRODUCT_DELETE_REVIEW_SUCCESS,
+  PRODUCT_DELETE_REVIEW_RESET,
+  PRODUCT_DELETE_REVIEW_FAIL,
 } from '../types/productTypes'
 
 export const productCreateReducer = (state = {}, action) => {
@@ -140,6 +150,36 @@ export const listSpecialProductsReducer = (state = {}, action) => {
       }
     case PRODUCT_SPECIAL_FAIL:
       return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const productReviewCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PRODUCT_CREATE_REVIEW_REQUEST:
+      return { loading: true }
+    case PRODUCT_CREATE_REVIEW_SUCCESS:
+      return { loading: false, success: true }
+    case PRODUCT_CREATE_REVIEW_FAIL:
+      return { loading: false, error: action.payload }
+    case PRODUCT_CREATE_REVIEW_RESET:
+      return {}
+    default:
+      return state
+  }
+}
+
+export const reviewDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PRODUCT_DELETE_REVIEW_REQUEST:
+      return { loading: true }
+    case PRODUCT_DELETE_REVIEW_SUCCESS:
+      return { loading: false, success: true }
+    case PRODUCT_DELETE_REVIEW_FAIL:
+      return { loading: false, error: action.payload }
+    case PRODUCT_DELETE_REVIEW_RESET:
+      return {}
     default:
       return state
   }

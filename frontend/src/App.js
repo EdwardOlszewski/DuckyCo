@@ -27,6 +27,8 @@ import ProductListScreen from './adminScreens/ProductListScreen'
 import ProductEditScreen from './adminScreens/ProductEditScreen'
 // Admin Order Screens
 import OrderListScreen from './adminScreens/OrderListScreen'
+// Admin User Screen
+import UserListScreen from './adminScreens/UserListScreen'
 
 const Wrapper = ({ children }) => {
   const location = useLocation()
@@ -64,6 +66,7 @@ export default function App() {
             path='/admin/product/:id/edit'
             element={<ProductEditScreen />}
           />
+          <Route path='/admin/userlist' element={<UserListScreen />} />
 
           {/* Cart Routes */}
           <Route path='/cart' element={<CartScreen />} />
