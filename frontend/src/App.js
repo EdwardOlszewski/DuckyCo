@@ -41,7 +41,6 @@ const Wrapper = ({ children }) => {
 
 export default function App() {
   ReactGA.initialize('UA-223751483-1', {
-    debug: true,
     titleCase: false,
   })
 
