@@ -10,6 +10,7 @@ import {
   Typography,
   Button,
   Container,
+  Hidden,
 } from '@material-ui/core'
 import HomeNav from '../components/HomeNav'
 import PageWrapper from '../components/PageWrapper'
@@ -30,37 +31,53 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
   },
-  specialGrid: {
-    paddingBottom: '15rem',
-    backgroundImage: `url(${background})`,
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
+  topGrid: {
+    height: '100%',
   },
   recentBox: {
+    paddingLeft: '1rem',
+    paddingRight: '1rem',
     position: 'relative',
-    zIndex: 1,
     paddingTop: '2rem',
     paddingBottom: '5rem',
-    backgroundColor: '#f6f6f6',
   },
-  newProductsTitle: {
-    padding: '3rem',
-    textAlign: 'center',
+  imgBox: {
+    zIndex: 0,
   },
-  btnBox: {
-    padding: '5rem',
-    textAlign: 'center',
+  browseBox: {
+    position: 'relative',
+    zIndex: 1,
+    float: 'left',
+    color: 'white',
+    [theme.breakpoints.up('xs')]: {
+      marginTop: '-85%',
+      marginLeft: '1rem',
+    },
+    [theme.breakpoints.up('sm')]: {
+      marginTop: '-30rem',
+      marginLeft: '1rem',
+    },
+    [theme.breakpoints.up('md')]: {
+      marginTop: '-35rem',
+      marginLeft: '5rem',
+    },
   },
-  btn: {
-    width: '100%',
-    fontSize: '1rem',
-    padding: '1.5rem',
+
+  shopBtn: {
+    fontWeight: 0,
+    fontSize: '1.5rem',
+    margin: '.5rem',
+    padding: '.8rem',
     color: 'white',
     backgroundColor: '#1e2a5a',
     '&:hover': {
       backgroundColor: '#425dcb',
     },
+  },
+
+  newProductsTitle: {
+    padding: '3rem',
+    textAlign: 'center',
   },
 }))
 
@@ -96,72 +113,72 @@ const HomeScreen = () => {
         <Loader />
       ) : (
         <>
-          <Box className={classes.specialGrid}>
+          <Box className={classes.topGrid}>
             <Grid container>
-              <Grid item xs={12}>
-                <Box
-                  style={{
-                    zIndex: 0,
-                    transform: `translateY(${offsetY * 0.2}px)`,
-                  }}
-                >
-                  <Typography
-                    className={classes.newProductsTitle}
-                    variant='h3'
-                    style={{ color: '#272829' }}
-                  >
-                    St. Patricks Day Gear
-                  </Typography>
+              <Grid item xs={12} lg={6}>
+                <Box className={classes.imgBox}>
+                  <img
+                    style={{ zIndex: 0 }}
+                    src='/images/toppicture1.jpg'
+                    alt='Duckylogo'
+                    width='100%'
+                    height='90%'
+                    layout='responsive'
+                  />
+                </Box>
+
+                <Box className={classes.browseBox}>
+                  <Hidden xsDown>
+                    <Typography variant='h1'>
+                      <Box fontWeight={800}>Browse Our Gear</Box>
+                    </Typography>
+                  </Hidden>
+                  <Hidden smUp>
+                    <Typography variant='h2'>
+                      <Box fontWeight={800}>Browse Our Gear</Box>
+                    </Typography>
+                  </Hidden>
+
+                  <Box className={classes.btnBox}>
+                    <Button className={classes.shopBtn}>
+                      <Box
+                        fontWeight={1}
+                        onClick={() => navigate('/gear', { replace: true })}
+                      >
+                        Shop Now
+                      </Box>
+                    </Button>
+                  </Box>
                 </Box>
               </Grid>
-              <Grid item md={3} />
-
-              {specialProducts &&
-                specialProducts.map((product) => (
-                  <Grid
-                    item
-                    xs={12}
-                    md={3}
-                    style={{
-                      zIndex: 0,
-                      transform: `translateY(${offsetY * 0.3}px)`,
-                    }}
-                  >
-                    <img
-                      src={product.image}
-                      alt={product._id}
-                      width='100%'
-                      height='100%'
-                      layout='responsive'
-                    />
-                  </Grid>
-                ))}
+              <Hidden mdDown>
+                <Grid item lg={6}>
+                  <img
+                    src='/images/toppicture2.jpg'
+                    alt='Duckylogo'
+                    width='100%'
+                    height='99.5%'
+                    layout='responsive'
+                  />
+                </Grid>
+              </Hidden>
             </Grid>
           </Box>
 
           <Box className={classes.recentBox}>
             <Box>
-              <Typography className={classes.newProductsTitle} variant='h3'>
-                New Products
+              <Typography className={classes.newProductsTitle} variant='h2'>
+                <Box fontWeight={800}>Most Recent</Box>
               </Typography>
             </Box>
-            <Grid container spacing={5} style={{ padding: '.1rem' }}>
-              <Grid item xs={12} md={2} style={{ marginLeft: '-5rem' }} />
+            <Grid container spacing={5} style={{ padding: '.2rem' }}>
               {recentProducts &&
                 recentProducts.map((product) => (
-                  <Grid item xs={12} md={3}>
+                  <Grid item xs={12} md={4}>
                     <Product key={product._id} product={product} />
                   </Grid>
                 ))}
             </Grid>
-            <Box className={classes.btnBox}>
-              <Button
-                className={classes.btn}
-                onClick={() => navigate('/gear', { replace: true })}
-              >
-                Browse Our Gear
-              </Button>
-            </Box>
           </Box>
         </>
       )}

@@ -12,11 +12,22 @@ const useStyles = makeStyles((theme) => ({
     },
     overflow: 'hidden',
     padding: '1rem',
+    [theme.breakpoints.up('md')]: {
+      height: '80%',
+    },
+  },
+  imgBox: {
+    [theme.breakpoints.up('md')]: {
+      padding: '3rem',
+    },
+    [theme.breakpoints.up('lg')]: {
+      padding: '5rem',
+    },
   },
   imgShirt: {
     [theme.breakpoints.up('md')]: {
       '&:hover': {
-        transform: 'scale(3.5) translate(-15%, 25%)',
+        transform: 'scale(2) translate(-15%, 25%)',
       },
     },
   },
@@ -30,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   imgShorts: {
     [theme.breakpoints.up('md')]: {
       '&:hover': {
-        transform: 'scale(3) translate(-30%, -30%)',
+        transform: 'scale(2) translate(-30%, -30%)',
       },
     },
   },
@@ -49,7 +60,7 @@ const Product = ({ product }) => {
       <Link to={`/product/${product._id}`} className={classes.link}>
         <Box className={classes.displayIMG}>
           {product.category === 'Hat' ? (
-            <Box>
+            <Box className={classes.imgBox}>
               <img
                 className={classes.imgHat}
                 src={product.image}
@@ -60,7 +71,7 @@ const Product = ({ product }) => {
               />
             </Box>
           ) : product.category === 'Special' ? (
-            <Box style={{ minHeight: '30rem' }}>
+            <Box className={classes.imgBox}>
               <img
                 className={classes.imgShirt}
                 src={product.image}
@@ -71,7 +82,7 @@ const Product = ({ product }) => {
               />
             </Box>
           ) : product.category === 'Shorts' ? (
-            <Box style={{ minHeight: '32rem' }}>
+            <Box className={classes.imgBox}>
               <img
                 className={classes.imgShorts}
                 src={product.image}
@@ -82,7 +93,7 @@ const Product = ({ product }) => {
               />
             </Box>
           ) : product.category === 'Shirt' ? (
-            <Box style={{ minHeight: '30rem' }}>
+            <Box className={classes.imgBox}>
               <img
                 className={classes.imgShirt}
                 src={product.image}
@@ -93,7 +104,7 @@ const Product = ({ product }) => {
               />
             </Box>
           ) : (
-            <Box style={{ minHeight: '34rem' }}>
+            <Box className={classes.imgBox}>
               <img
                 className={classes.imgShirt}
                 src={product.image}
@@ -108,7 +119,7 @@ const Product = ({ product }) => {
       </Link>
       <Box>
         <Link to={`/product/${product._id}`} className={classes.link}>
-          <Typography variant='h5'>{product.name}</Typography>
+          <Typography variant='h6'>{product.name}</Typography>
           <Typography variant='h6'>${product.price}</Typography>
         </Link>
       </Box>

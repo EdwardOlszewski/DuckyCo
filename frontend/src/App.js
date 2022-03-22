@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactGA from 'react-ga'
 import {
   BrowserRouter as Router,
   Route,
@@ -39,6 +40,12 @@ const Wrapper = ({ children }) => {
 }
 
 export default function App() {
+  ReactGA.initialize('UA-000000-01', {
+    titleCase: false,
+  })
+
+  ReactGA.pageview(window.location.pathname + window.location.search)
+
   return (
     <Router>
       <Wrapper>

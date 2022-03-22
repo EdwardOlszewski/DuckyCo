@@ -51,22 +51,21 @@ const ApparelScreen = () => {
         <Message severity='error'>{error}</Message>
       ) : (
         <Box>
-          <Grid container className={classes.productCont} spacing={3}>
+          <Grid className={classes.productCont} container spacing={5}>
             <Grid item xs={12}>
-              <Typography variant='h4'>St. Patricks Day</Typography>
+              <Typography variant='h4'>Shirts</Typography>
             </Grid>
-
             {products &&
               products
-                .filter((product) => product.category.includes('Special'))
+                .filter((product) => product.category.includes('Shirt'))
                 .map((filteredProduct) => (
                   <Grid
                     key={filteredProduct._id}
                     item
                     xs={12}
                     sm={6}
-                    md={4}
-                    lg={3}
+                    md={6}
+                    lg={4}
                   >
                     <Product
                       key={filteredProduct._id}
@@ -75,8 +74,64 @@ const ApparelScreen = () => {
                   </Grid>
                 ))}
           </Grid>
-          <Divider className={classes.divider} />
-          <Grid container className={classes.productCont} spacing={3}>
+
+          <Grid className={classes.productCont} container spacing={5}>
+            <Grid item xs={12}>
+              <Typography variant='h4'>Hoodies</Typography>
+            </Grid>
+            {products &&
+              products
+                .filter((product) => product.category.includes('Hoodie'))
+                .map((filteredProduct) => (
+                  <Grid
+                    key={filteredProduct._id}
+                    item
+                    xs={12}
+                    sm={6}
+                    md={6}
+                    lg={4}
+                  >
+                    <Product
+                      key={filteredProduct._id}
+                      product={filteredProduct}
+                    />
+                  </Grid>
+                ))}
+          </Grid>
+
+          <Grid container className={classes.productCont} spacing={5}>
+            <Grid item xs={12}>
+              <Typography variant='h4'>Shorts</Typography>
+            </Grid>
+            {products &&
+              products
+                .filter((product) => product.category.includes('Shorts'))
+                .map((filteredProduct) => (
+                  <Grid
+                    key={filteredProduct._id}
+                    item
+                    xs={12}
+                    sm={6}
+                    md={6}
+                    lg={4}
+                  >
+                    <Product
+                      key={filteredProduct._id}
+                      product={filteredProduct}
+                    />
+                  </Grid>
+                ))}
+          </Grid>
+        </Box>
+      )}
+    </PageWrapper>
+  )
+}
+
+export default ApparelScreen
+
+/*
+      <Grid container className={classes.productCont} spacing={3}>
             <Grid item xs={12}>
               <Typography variant='h4'>Hats</Typography>
             </Grid>
@@ -90,8 +145,8 @@ const ApparelScreen = () => {
                     item
                     xs={12}
                     sm={6}
-                    md={4}
-                    lg={3}
+                    md={6}
+                    lg={4}
                   >
                     <Box>
                       <img
@@ -108,82 +163,6 @@ const ApparelScreen = () => {
           </Grid>
           <Divider className={classes.divider} />
 
-          <Grid container className={classes.productCont} spacing={3}>
-            <Grid item xs={12}>
-              <Typography variant='h4'>Shorts</Typography>
-            </Grid>
-            {products &&
-              products
-                .filter((product) => product.category.includes('Shorts'))
-                .map((filteredProduct) => (
-                  <Grid
-                    key={filteredProduct._id}
-                    item
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    lg={3}
-                  >
-                    <Product
-                      key={filteredProduct._id}
-                      product={filteredProduct}
-                    />
-                  </Grid>
-                ))}
-          </Grid>
-          <Divider className={classes.divider} />
 
-          <Grid className={classes.productCont} container spacing={3}>
-            <Grid item xs={12}>
-              <Typography variant='h4'>Shirts</Typography>
-            </Grid>
-            {products &&
-              products
-                .filter((product) => product.category.includes('Shirt'))
-                .map((filteredProduct) => (
-                  <Grid
-                    key={filteredProduct._id}
-                    item
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    lg={3}
-                  >
-                    <Product
-                      key={filteredProduct._id}
-                      product={filteredProduct}
-                    />
-                  </Grid>
-                ))}
-          </Grid>
-          <Divider className={classes.divider} />
-          <Grid className={classes.productCont} container spacing={3}>
-            <Grid item xs={12}>
-              <Typography variant='h4'>Hoodies</Typography>
-            </Grid>
-            {products &&
-              products
-                .filter((product) => product.category.includes('Hoodie'))
-                .map((filteredProduct) => (
-                  <Grid
-                    key={filteredProduct._id}
-                    item
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    lg={3}
-                  >
-                    <Product
-                      key={filteredProduct._id}
-                      product={filteredProduct}
-                    />
-                  </Grid>
-                ))}
-          </Grid>
-        </Box>
-      )}
-    </PageWrapper>
-  )
-}
 
-export default ApparelScreen
+*/
