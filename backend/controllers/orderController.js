@@ -47,6 +47,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
     orderItems,
     shippingAddress,
     paymentMethod,
+    promoCode,
     totalItems,
     itemsPrice,
     taxPrice,
@@ -66,6 +67,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
       orderItems,
       shippingAddress,
       paymentMethod,
+      promoCode,
       totalItems,
       itemsPrice,
       taxPrice,
@@ -162,8 +164,17 @@ const updateShipping = asyncHandler(async (req, res) => {
 
   if (order) {
     if (process.env.PROMO_CODE == promoCode) {
+      order.promoCode = promoCode
       order.totalPrice = order.totalPrice - order.shippingPrice
       order.shippingPrice = 0
+      const updatedOrder = await order.save()
+
+      res.json(updatedOrder)
+    } else if (process.env.PROMO_CODE2 == promoCode) {
+      order.promoCode = promoCode
+      order.subTotal = order.subTotal * 0.9
+      order.totalPrice = order.subTotal + order.shippingPrice
+
       const updatedOrder = await order.save()
       res.json(updatedOrder)
     } else {

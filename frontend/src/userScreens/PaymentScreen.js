@@ -290,6 +290,15 @@ const PaymentScreen = () => {
                 </Grid>
               </Grid>
 
+              <Grid container>
+                <Grid item xs={6}>
+                  <Typography variant='subtitle1'>Promo Code</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography variant='h6'>{order.promoCode}</Typography>
+                </Grid>
+              </Grid>
+
               <Grid item xs={12}>
                 <Grid container>
                   <Grid item xs={6}>
@@ -305,7 +314,8 @@ const PaymentScreen = () => {
                         <Message severity='error'>{shippingError}</Message>
                       </Box>
                     )}
-                    {!shippingSuccess ? (
+
+                    {!order.promoCode ? (
                       <>
                         <Grid item xs={12} md={7}>
                           <StyledInput
@@ -327,7 +337,7 @@ const PaymentScreen = () => {
                     ) : (
                       <Box style={{ width: '100%', marginBottom: '1rem' }}>
                         <Message severity='success'>
-                          Promo Code '{promoCode}' Applied
+                          Promo Code '{order.promoCode}' Applied
                         </Message>
                       </Box>
                     )}

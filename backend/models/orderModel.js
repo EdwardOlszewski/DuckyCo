@@ -30,6 +30,9 @@ const orderSchema = mongoose.Schema(
       zipCode: { type: String, required: true },
       country: { type: String, default: 'USA' },
     },
+    promoCode: {
+      type: String,
+    },
     paymentMethod: {
       type: String,
       default: 'Card',

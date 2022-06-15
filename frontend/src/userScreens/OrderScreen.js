@@ -274,16 +274,45 @@ const OrderScreen = () => {
                   </Grid>
                 </Grid>
 
-                <Grid item xs={12}>
-                  <Grid container>
-                    <Grid item xs={6}>
-                      <Typography variant='h5'>Total:</Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant='h6'>${order.totalPrice}</Typography>
-                    </Grid>
+                <Grid container>
+                  <Grid item xs={6}>
+                    <Typography variant='subtitle1'>Promo Code</Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography variant='h6'>{order.promoCode}</Typography>
                   </Grid>
                 </Grid>
+
+                {order.promoCode == 'WILSON10' ? (
+                  <Grid item xs={12}>
+                    <Grid container>
+                      <Grid item xs={6}>
+                        <Typography variant='h5'>Total:</Typography>
+                        <Typography variant='subtitle2' style={{}}>
+                          **10% Off With WILSON10
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Typography variant='h6'>
+                          ${order.totalPrice}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                ) : (
+                  <Grid item xs={12}>
+                    <Grid container>
+                      <Grid item xs={6}>
+                        <Typography variant='h5'>Total:</Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Typography variant='h6'>
+                          ${order.totalPrice}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                )}
 
                 {userInfo.isAdmin && !order.isDelivered ? (
                   <Grid item xs={12} style={{ marginTop: '1rem' }}>
