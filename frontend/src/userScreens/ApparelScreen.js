@@ -1,5 +1,5 @@
 // React/Redux
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 // Components
 import { makeStyles, Grid, Typography, Box, Divider } from '@material-ui/core'
@@ -32,6 +32,9 @@ const ApparelScreen = () => {
   // ----- init ----- //
   const classes = useStyles()
   const dispatch = useDispatch()
+
+  const [priceCutAmountCrew, setPriceCutAmountCrew] = useState(45)
+  const [priceCutAmountHoodie, setPriceCutAmountHoodie] = useState(55)
 
   // ----- get data from redux store ----- //
   const productList = useSelector((state) => state.productList)
@@ -77,11 +80,11 @@ const ApparelScreen = () => {
 
           <Grid className={classes.productCont} container spacing={5}>
             <Grid item xs={12}>
-              <Typography variant='h4'>Hoodies</Typography>
+              <Typography variant='h4'>Tanktops</Typography>
             </Grid>
             {products &&
               products
-                .filter((product) => product.category.includes('Hoodie'))
+                .filter((product) => product.category.includes('Tanktop'))
                 .map((filteredProduct) => (
                   <Grid
                     key={filteredProduct._id}
@@ -118,6 +121,56 @@ const ApparelScreen = () => {
                     <Product
                       key={filteredProduct._id}
                       product={filteredProduct}
+                    />
+                  </Grid>
+                ))}
+          </Grid>
+
+          <Grid className={classes.productCont} container spacing={5}>
+            <Grid item xs={12}>
+              <Typography variant='h4'>Crewnecks</Typography>
+            </Grid>
+            {products &&
+              products
+                .filter((product) => product.category.includes('Crewneck'))
+                .map((filteredProduct) => (
+                  <Grid
+                    key={filteredProduct._id}
+                    item
+                    xs={12}
+                    sm={6}
+                    md={6}
+                    lg={4}
+                  >
+                    <Product
+                      key={filteredProduct._id}
+                      product={filteredProduct}
+                      priceCut={priceCutAmountCrew}
+                    />
+                  </Grid>
+                ))}
+          </Grid>
+
+          <Grid className={classes.productCont} container spacing={5}>
+            <Grid item xs={12}>
+              <Typography variant='h4'>Hoodies</Typography>
+            </Grid>
+            {products &&
+              products
+                .filter((product) => product.category.includes('Hoodie'))
+                .map((filteredProduct) => (
+                  <Grid
+                    key={filteredProduct._id}
+                    item
+                    xs={12}
+                    sm={6}
+                    md={6}
+                    lg={4}
+                  >
+                    <Product
+                      key={filteredProduct._id}
+                      product={filteredProduct}
+                      priceCut={priceCutAmountHoodie}
                     />
                   </Grid>
                 ))}

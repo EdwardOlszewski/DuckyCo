@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
       padding: '3rem',
     },
     [theme.breakpoints.up('lg')]: {
-      padding: '5rem',
+      padding: '4rem',
     },
   },
   imgShirt: {
@@ -49,9 +49,14 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
     color: 'inherit',
   },
+  priceCut: {
+    textDecoration: 'line-through;',
+    marginRight: '10px',
+    color: 'red',
+  },
 }))
 
-const Product = ({ product }) => {
+const Product = ({ product, priceCut }) => {
   // ----- init ----- //
   const classes = useStyles()
 
@@ -120,7 +125,20 @@ const Product = ({ product }) => {
       <Box>
         <Link to={`/product/${product._id}`} className={classes.link}>
           <Typography variant='h6'>{product.name}</Typography>
-          <Typography variant='h6'>${product.price}</Typography>
+
+          {priceCut && (
+            <Typography
+              display='inline'
+              variant='h6'
+              className={classes.priceCut}
+            >
+              ${priceCut}
+            </Typography>
+          )}
+
+          <Typography display='inline' variant='h6'>
+            ${product.price}
+          </Typography>
         </Link>
       </Box>
     </>
