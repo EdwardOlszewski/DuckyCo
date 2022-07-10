@@ -70,6 +70,10 @@ export default function App() {
             element={<ProductListScreen />}
           />
           <Route
+            path='/admin/productlist/search/:keyword'
+            element={<ProductListScreen />}
+          />
+          <Route
             path='/admin/product/:id/edit'
             element={<ProductEditScreen />}
           />

@@ -227,7 +227,7 @@ export default function Register({ match }) {
                 <option>Crewneck</option>
                 <option>Hoodie</option>
                 <option>Tanktop</option>
-                <option>Special</option>
+                <option>Retired</option>
               </Select>
             </FormControl>
           </Grid>

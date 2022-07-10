@@ -333,7 +333,7 @@ const ProductScreen = () => {
                 <Button
                   style={{
                     backgroundColor:
-                      product.category == 'Hat'
+                      product.category == 'Hat' || product.category == 'MISC'
                         ? '#007E33'
                         : size != 'standard'
                         ? '#007E33'
@@ -351,7 +351,7 @@ const ProductScreen = () => {
                 style={{
                   width: '100%',
                   backgroundColor:
-                    product.category == 'Hat'
+                    product.category == 'Hat' || product.category == 'MISC'
                       ? '#007E33'
                       : size != 'standard'
                       ? '#007E33'

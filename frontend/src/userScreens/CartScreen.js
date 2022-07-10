@@ -1,5 +1,5 @@
 // React/Redux
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 // Components
@@ -92,11 +92,11 @@ const CartScreen = (props) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const [rdyCheckout, setRdyCheckout] = useState(true)
+  const [rdyCheckout, setRdyCheckout] = useState(false)
 
   // ----- get data from redux store ----- //
   const cart = useSelector((state) => state.cart)
-  const { cartItems } = cart
+  const { cartItems, rdyToCheckout } = cart
 
   // ----- calculate totals just for display ----- //
   const total =
@@ -106,6 +106,12 @@ const CartScreen = (props) => {
   const checkoutHandler = () => {
     setRdyCheckout(true)
   }
+
+  useEffect(() => {
+    if (rdyToCheckout == true) {
+      setRdyCheckout(true)
+    }
+  }, [rdyToCheckout])
 
   return (
     <PageWrapper title={'Apparel'}>
@@ -139,29 +145,33 @@ const CartScreen = (props) => {
                     ${product.price.toFixed(2)}
                   </Typography>
                   <Typography variant='h6' className={classes.subText}>
-                    Size:
-                    <FormControl className={classes.formControl}>
-                      <Select
-                        disableUnderline
-                        className={classes.select}
-                        native
-                        value={product.size}
-                        onChange={(e) =>
-                          dispatch(
-                            addToCart(
-                              product.product,
-                              product.qty,
-                              e.target.value
-                            )
-                          )
-                        }
-                      >
-                        <option value={'small'}>small</option>
-                        <option value={'medium'}>medium</option>
-                        <option value={'large'}>large</option>
-                        <option value={'xlarge'}>xlarge</option>
-                      </Select>
-                    </FormControl>
+                    {product.category !== 'Hat' && product.category !== 'MISC' && (
+                      <>
+                        Size:
+                        <FormControl className={classes.formControl}>
+                          <Select
+                            disableUnderline
+                            className={classes.select}
+                            native
+                            value={product.size}
+                            onChange={(e) =>
+                              dispatch(
+                                addToCart(
+                                  product.product,
+                                  product.qty,
+                                  e.target.value
+                                )
+                              )
+                            }
+                          >
+                            <option value={'small'}>small</option>
+                            <option value={'medium'}>medium</option>
+                            <option value={'large'}>large</option>
+                            <option value={'xlarge'}>xlarge</option>
+                          </Select>
+                        </FormControl>
+                      </>
+                    )}
                   </Typography>
 
                   <Typography variant='h6' className={classes.subText}>

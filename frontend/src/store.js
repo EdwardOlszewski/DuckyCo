@@ -82,6 +82,10 @@ const cartItemsFromStorage = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems'))
   : []
 
+const rdyToCheckoutFromStorage = localStorage.getItem('rdyToCheckout')
+  ? JSON.parse(localStorage.getItem('rdyToCheckout'))
+  : {}
+
 const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
   ? JSON.parse(localStorage.getItem('shippingAddress'))
   : {}
@@ -90,6 +94,7 @@ const initialState = {
   cart: {
     cartItems: cartItemsFromStorage,
     shippingAddress: shippingAddressFromStorage,
+    rdyToCheckout: rdyToCheckoutFromStorage,
   },
   userLogin: { userInfo: userInfoFromStorage },
 }

@@ -61,21 +61,24 @@ const ApparelScreen = () => {
             {products &&
               products
                 .filter((product) => product.category.includes('MISC'))
-                .map((filteredProduct) => (
-                  <Grid
-                    key={filteredProduct._id}
-                    item
-                    xs={12}
-                    sm={6}
-                    md={6}
-                    lg={4}
-                  >
-                    <Product
-                      key={filteredProduct._id}
-                      product={filteredProduct}
-                    />
-                  </Grid>
-                ))}
+                .map(
+                  (filteredProduct) =>
+                    filteredProduct.isPublished && (
+                      <Grid
+                        key={filteredProduct._id}
+                        item
+                        xs={12}
+                        sm={6}
+                        md={6}
+                        lg={4}
+                      >
+                        <Product
+                          key={filteredProduct._id}
+                          product={filteredProduct}
+                        />
+                      </Grid>
+                    )
+                )}
           </Grid>
 
           <Grid className={classes.productCont} container spacing={5}>

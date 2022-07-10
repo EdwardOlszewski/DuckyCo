@@ -1,9 +1,12 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 // Components
 import { Box, makeStyles, Button, Typography } from '@material-ui/core'
 import Modal from '@material-ui/core/Modal'
 import Backdrop from '@material-ui/core/Backdrop'
 import Fade from '@material-ui/core/Fade'
+// Actions
+import { addToCart } from '../actions/cartActions'
 
 // ----- mui styles ----- //
 const useStyles = makeStyles((theme) => ({
@@ -54,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
 const AddSticker = ({ rdyToCheckout }) => {
   // ----- init ----- //
   const classes = useStyles()
+  const dispatch = useDispatch()
 
   const [open, setOpen] = useState(false)
   const [open2, setOpen2] = useState(false)
@@ -69,9 +73,16 @@ const AddSticker = ({ rdyToCheckout }) => {
   }
 
   const handleClose2 = () => {
+    dispatch(addToCart('62ca4c9fdec6f9c14d92f8f6', 1, 's'))
     setOpen2(false)
-    setOpen(false)
+    rdyToCheckout(true)
   }
+
+  const noOffer = () => {
+    setOpen(false)
+    setOpen2(false)
+  }
+
   return (
     <>
       <Box>
@@ -114,6 +125,12 @@ const AddSticker = ({ rdyToCheckout }) => {
                 </Box>
               ) : (
                 <Box style={{ textAlign: 'center', margin: 'auto' }}>
+                  <Typography
+                    variant='h4'
+                    style={{ color: 'white', marginBottom: '1rem' }}
+                  >
+                    40% OFF
+                  </Typography>
                   <img
                     src='/images/sticker.png'
                     alt='sticker'
@@ -121,12 +138,16 @@ const AddSticker = ({ rdyToCheckout }) => {
                     height='100%'
                     layout='responsive'
                   />
-                  <Typography variant='h5' style={{ color: 'white' }}>
-                    $3.00 Holographic Ducky Sticker
+
+                  <Typography
+                    variant='h5'
+                    style={{ color: 'white', marginTop: '1rem' }}
+                  >
+                    $3.00 Founders Ducky Sticker
                   </Typography>
                   <Button
                     className={classes.unlockOfferBtn}
-                    onClick={() => setOffer(true)}
+                    onClick={() => handleClose2()}
                   >
                     Add To Cart
                   </Button>

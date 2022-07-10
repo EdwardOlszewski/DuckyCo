@@ -17,6 +17,8 @@ import {
   Typography,
   Button,
   Box,
+  Grid,
+  Container,
 } from '@material-ui/core'
 import PageWrapper from '../components/PageWrapper'
 import Message from '../components/Message'
@@ -57,7 +59,7 @@ const useStyles = makeStyles({
   // Container
   root: {
     margin: 'auto',
-    width: '90%',
+    width: '100%',
   },
 
   // Title
@@ -103,6 +105,11 @@ const useStyles = makeStyles({
       cursor: 'pointer',
     },
   },
+  tableButton: {
+    '&:hover': {
+      cursor: 'pointer',
+    },
+  },
 })
 
 const ProductListScreen = () => {
@@ -112,8 +119,8 @@ const ProductListScreen = () => {
   const dispatch = useDispatch()
   // Init navigate for redirect
   const navigate = useNavigate()
-  // get productId from the URL
-  const pageNumber = useParams().pageNumber || 1
+  // Get keyword from the URL
+  const keyword = useParams().keyword
 
   // Get the user information from redux
   const userLogin = useSelector((state) => state.userLogin)
@@ -156,7 +163,7 @@ const ProductListScreen = () => {
       navigate(`/admin/product/${createdProduct._id}/edit`, { replace: true })
       dispatch({ type: PRODUCT_CREATE_RESET })
     } else {
-      dispatch(listProducts('', pageNumber))
+      dispatch(listProducts(keyword))
     }
   }, [
     navigate,
@@ -164,7 +171,7 @@ const ProductListScreen = () => {
     userInfo,
     successCreate,
     createdProduct,
-    pageNumber,
+    keyword,
   ])
 
   return (
@@ -176,91 +183,238 @@ const ProductListScreen = () => {
       {loading ? (
         <Loader />
       ) : (
-        <TableContainer className={classes.root}>
-          <Table className={classes.table} aria-label='customized table'>
-            <TableHead>
-              <TableRow>
-                <StyledTableCell align='center'>Image</StyledTableCell>
-                <StyledTableCell align='center'>Name</StyledTableCell>
-                <StyledTableCell align='center'>Price</StyledTableCell>
-                <StyledTableCell align='center'>Category</StyledTableCell>
-                <StyledTableCell align='center'>Published</StyledTableCell>
-                <StyledTableCell align='center'>Options</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {success &&
-                products.map((product) => (
-                  <StyledTableRow hover key={product._id}>
-                    <StyledTableCell align='center'>
-                      <img
-                        src={product.image}
-                        alt={product.image}
-                        width='80rem'
-                        height='80rem'
-                      />
-                    </StyledTableCell>
-                    <StyledTableCell align='center'>
-                      {product.name}
-                    </StyledTableCell>
-                    <StyledTableCell align='center'>
-                      ${product.price.toFixed(2)}
-                    </StyledTableCell>
-                    <StyledTableCell align='center'>
-                      {product.category}
-                    </StyledTableCell>
-                    <StyledTableCell align='center'>
-                      {product.isPublished ? (
-                        <ImCheckmark style={{ color: '#007E33' }} />
-                      ) : (
-                        <ImCross style={{ color: '#CC0000' }} />
-                      )}
-                    </StyledTableCell>
-                    <StyledTableCell align='center'>
-                      <Link to={`/admin/product/${product._id}/edit`}>
-                        <FaEdit className={classes.editBtn} />
-                      </Link>
+        <Container maxWidth='xl'>
+          <Grid container spacing={1}>
+            <Grid item xs={12} md={2}>
+              <TableContainer>
+                <Table aria-label='customized table'>
+                  <TableHead>
+                    <TableRow>
+                      <StyledTableCell align='center'>Options</StyledTableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    <StyledTableRow hover>
+                      <StyledTableCell
+                        align='center'
+                        className={classes.tableButton}
+                        onClick={() =>
+                          navigate(`/admin/productlist`, {
+                            replace: true,
+                          })
+                        }
+                      >
+                        <Typography variant='button'>All</Typography>
+                      </StyledTableCell>
+                    </StyledTableRow>
 
-                      <FaTrashAlt
-                        className={classes.trashBtn}
-                        onClick={() => deleteHandler(product._id)}
-                      />
-                    </StyledTableCell>
-                  </StyledTableRow>
-                ))}
-            </TableBody>
-          </Table>
+                    <StyledTableRow hover>
+                      <StyledTableCell
+                        align='center'
+                        className={classes.tableButton}
+                        onClick={() =>
+                          navigate(`/admin/productlist/search/Retired`, {
+                            replace: true,
+                          })
+                        }
+                      >
+                        <Typography variant='button'>Retired</Typography>
+                      </StyledTableCell>
+                    </StyledTableRow>
 
-          <Box className={classes.btnBox}>
-            <Box
-              style={{
-                display: 'inline-block',
-                marginRight: '3rem',
-              }}
-            >
-              {errorCreate && (
-                <Message severity={'error'}>{errorCreate}</Message>
-              )}
-            </Box>
+                    <StyledTableRow hover>
+                      <StyledTableCell
+                        align='center'
+                        className={classes.tableButton}
+                        onClick={() =>
+                          navigate(`/admin/productlist/search/MISC`, {
+                            replace: true,
+                          })
+                        }
+                      >
+                        <Typography variant='button'>MISC</Typography>
+                      </StyledTableCell>
+                    </StyledTableRow>
 
-            <>
-              <Pagination
-                count={pages}
-                page={parseInt(pageNumber)}
-                shape='rounded'
-                onChange={handlePageChange}
-              />
-            </>
+                    <StyledTableRow hover>
+                      <StyledTableCell
+                        align='center'
+                        className={classes.tableButton}
+                        onClick={() =>
+                          navigate(`/admin/productlist/search/Hat`, {
+                            replace: true,
+                          })
+                        }
+                      >
+                        <Typography variant='button'>Hats</Typography>
+                      </StyledTableCell>
+                    </StyledTableRow>
 
-            <Button
-              style={{ backgroundColor: '#007E33' }}
-              className={classes.btn}
-              onClick={createProductHandler}
-            >
-              Create Product
-            </Button>
-          </Box>
-        </TableContainer>
+                    <StyledTableRow hover>
+                      <StyledTableCell
+                        align='center'
+                        className={classes.tableButton}
+                        onClick={() =>
+                          navigate(`/admin/productlist/search/Shirt`, {
+                            replace: true,
+                          })
+                        }
+                      >
+                        <Typography variant='button'>Shirts</Typography>
+                      </StyledTableCell>
+                    </StyledTableRow>
+
+                    <StyledTableRow hover>
+                      <StyledTableCell
+                        align='center'
+                        className={classes.tableButton}
+                        onClick={() =>
+                          navigate(`/admin/productlist/search/Tanktop`, {
+                            replace: true,
+                          })
+                        }
+                      >
+                        <Typography variant='button'>Tanktops</Typography>
+                      </StyledTableCell>
+                    </StyledTableRow>
+
+                    <StyledTableRow hover>
+                      <StyledTableCell
+                        align='center'
+                        className={classes.tableButton}
+                        onClick={() =>
+                          navigate(`/admin/productlist/search/Short`, {
+                            replace: true,
+                          })
+                        }
+                      >
+                        <Typography variant='button'>Shorts</Typography>
+                      </StyledTableCell>
+                    </StyledTableRow>
+
+                    <StyledTableRow hover>
+                      <StyledTableCell
+                        align='center'
+                        className={classes.tableButton}
+                        onClick={() =>
+                          navigate(`/admin/productlist/search/Crewneck`, {
+                            replace: true,
+                          })
+                        }
+                      >
+                        <Typography variant='button'>Crewneckss</Typography>
+                      </StyledTableCell>
+                    </StyledTableRow>
+
+                    <StyledTableRow hover>
+                      <StyledTableCell
+                        align='center'
+                        className={classes.tableButton}
+                        onClick={() =>
+                          navigate(`/admin/productlist/search/Hoodie`, {
+                            replace: true,
+                          })
+                        }
+                      >
+                        <Typography variant='button'>Hoodies</Typography>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Grid>
+
+            <Grid item xs={12} md={10}>
+              <TableContainer className={classes.root}>
+                <Table className={classes.table} aria-label='customized table'>
+                  <TableHead>
+                    <TableRow>
+                      <StyledTableCell align='center'>Image</StyledTableCell>
+                      <StyledTableCell align='center'>Name</StyledTableCell>
+                      <StyledTableCell align='center'>Price</StyledTableCell>
+                      <StyledTableCell align='center'>Category</StyledTableCell>
+                      <StyledTableCell align='center'>
+                        Published
+                      </StyledTableCell>
+                      <StyledTableCell align='center'>Options</StyledTableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {success &&
+                      products.map((product) => (
+                        <StyledTableRow hover key={product._id}>
+                          <StyledTableCell align='center'>
+                            <img
+                              src={product.image}
+                              alt={product.image}
+                              width='80rem'
+                              height='80rem'
+                            />
+                          </StyledTableCell>
+                          <StyledTableCell align='center'>
+                            {product.name}
+                          </StyledTableCell>
+                          <StyledTableCell align='center'>
+                            ${product.price.toFixed(2)}
+                          </StyledTableCell>
+                          <StyledTableCell align='center'>
+                            {product.category}
+                          </StyledTableCell>
+                          <StyledTableCell align='center'>
+                            {product.isPublished ? (
+                              <ImCheckmark style={{ color: '#007E33' }} />
+                            ) : (
+                              <ImCross style={{ color: '#CC0000' }} />
+                            )}
+                          </StyledTableCell>
+                          <StyledTableCell align='center'>
+                            <Link to={`/admin/product/${product._id}/edit`}>
+                              <FaEdit className={classes.editBtn} />
+                            </Link>
+
+                            <FaTrashAlt
+                              className={classes.trashBtn}
+                              onClick={() => deleteHandler(product._id)}
+                            />
+                          </StyledTableCell>
+                        </StyledTableRow>
+                      ))}
+                  </TableBody>
+                </Table>
+
+                <Box className={classes.btnBox}>
+                  <Box
+                    style={{
+                      display: 'inline-block',
+                      marginRight: '3rem',
+                    }}
+                  >
+                    {errorCreate && (
+                      <Message severity={'error'}>{errorCreate}</Message>
+                    )}
+                  </Box>
+
+                  <>
+                    <Pagination
+                      count={pages}
+                      page={parseInt(1)}
+                      shape='rounded'
+                      onChange={handlePageChange}
+                    />
+                  </>
+
+                  <Button
+                    style={{ backgroundColor: '#007E33' }}
+                    className={classes.btn}
+                    onClick={createProductHandler}
+                  >
+                    Create Product
+                  </Button>
+                </Box>
+              </TableContainer>
+            </Grid>
+          </Grid>
+        </Container>
       )}
     </PageWrapper>
   )

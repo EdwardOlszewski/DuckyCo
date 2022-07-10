@@ -5,10 +5,24 @@ import {
   CART_SAVE_BILLING_ADDRESS,
   CART_SAVE_PAYMENT_METHOD,
   CART_CLEAR_ITEMS,
+  CART_ADD_STICKER,
+  CART_REMOVE_STICKER,
 } from '../types/cartTypes'
 
 export const cartReducer = (state = {}, action) => {
   switch (action.type) {
+    case CART_ADD_STICKER:
+      return {
+        ...state,
+        rdyToCheckout: true,
+      }
+
+    case CART_REMOVE_STICKER:
+      return {
+        ...state,
+        rdyToCheckout: false,
+      }
+
     case CART_ADD_ITEM:
       const item = action.payload
 

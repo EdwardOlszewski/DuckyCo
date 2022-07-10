@@ -5,6 +5,8 @@ import {
   CART_SAVE_SHIPPING_ADDRESS,
   CART_SAVE_BILLING_ADDRESS,
   CART_SAVE_PAYMENT_METHOD,
+  CART_ADD_STICKER,
+  CART_REMOVE_STICKER,
 } from '../types/cartTypes'
 
 export const addToCart = (id, qty, size) => async (dispatch, getState) => {
@@ -19,9 +21,20 @@ export const addToCart = (id, qty, size) => async (dispatch, getState) => {
       price: data.price,
       qty: qty,
       size: size,
+      category: data.category,
     },
   })
 
+  if (data.category == 'MISC') {
+    dispatch({
+      type: CART_ADD_STICKER,
+      payload: {
+        rdyToCheckout: true,
+      },
+    })
+
+    localStorage.setItem('rdyToCheckout', JSON.stringify(true))
+  }
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
 }
 
@@ -31,6 +44,15 @@ export const removeFromCart = (id) => (dispatch, getState) => {
     payload: id,
   })
 
+  if (id == '62ca4506f38236e60cb3b2c1') {
+    dispatch({
+      type: CART_REMOVE_STICKER,
+      payload: {
+        rdyToCheckout: false,
+      },
+    })
+    localStorage.setItem('rdyToCheckout', JSON.stringify(false))
+  }
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
 }
 

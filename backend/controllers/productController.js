@@ -62,7 +62,19 @@ const updateProduct = asyncHandler(async (req, res) => {
 // @route   GET /api/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find().sort({ name: 1 })
+  const keyword = req.query.keyword
+    ? {
+        category: {
+          $regex: req.query.keyword,
+          $options: 'i',
+        },
+      }
+    : {}
+
+  const products = await Product.find({ ...keyword }).sort({
+    category: 1,
+    name: 1,
+  })
   res.json({ products })
 })
 

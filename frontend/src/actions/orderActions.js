@@ -68,6 +68,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
       payload: data,
     })
     localStorage.removeItem('cartItems')
+    localStorage.removeItem('rdyToCheckout')
   } catch (error) {
     const message =
       error.response && error.response.data.message

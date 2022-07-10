@@ -129,78 +129,160 @@ const OrderListScreen = () => {
   return (
     <PageWrapper title={'ADMIN order list'}>
       <Typography variant='h3' className={classes.title}>
-        Orders
+        Orders Not Shipped
       </Typography>
 
       {loading ? (
         <Loader />
       ) : (
-        <TableContainer className={classes.root}>
-          <Table className={classes.table} aria-label='customized table'>
-            <TableHead>
-              <TableRow>
-                <StyledTableCell align='center'>Id</StyledTableCell>
-                <StyledTableCell align='center'>User</StyledTableCell>
-                <StyledTableCell align='center'>Date</StyledTableCell>
-                <StyledTableCell align='center'>Total</StyledTableCell>
-                <StyledTableCell align='center'>Shipped</StyledTableCell>
-                <StyledTableCell align='center'>options</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {success &&
-                orders.map((order) => (
-                  <StyledTableRow hover key={order._id}>
-                    <StyledTableCell align='center'>
-                      {order._id}
-                    </StyledTableCell>
-                    <StyledTableCell align='center'>
-                      {order.user.firstName} {order.user.lastName}
-                    </StyledTableCell>
-                    <StyledTableCell align='center'>
-                      {DateFormat(order.createdAt)}
-                    </StyledTableCell>
-                    <StyledTableCell align='center'>
-                      ${order.totalPrice}
-                    </StyledTableCell>
+        <>
+          <TableContainer className={classes.root}>
+            <Table className={classes.table} aria-label='customized table'>
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell align='center'>Id</StyledTableCell>
+                  <StyledTableCell align='center'>User</StyledTableCell>
+                  <StyledTableCell align='center'>Date</StyledTableCell>
+                  <StyledTableCell align='center'>Total</StyledTableCell>
+                  <StyledTableCell align='center'>Shipped</StyledTableCell>
+                  <StyledTableCell align='center'>options</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {success &&
+                  orders
+                    .filter((order) => order.isDelivered == false)
+                    .map((filteredOrder) => (
+                      <StyledTableRow hover key={filteredOrder._id}>
+                        <StyledTableCell align='center'>
+                          {filteredOrder._id}
+                        </StyledTableCell>
+                        <StyledTableCell align='center'>
+                          {filteredOrder.user.firstName}{' '}
+                          {filteredOrder.user.lastName}
+                        </StyledTableCell>
+                        <StyledTableCell align='center'>
+                          {DateFormat(filteredOrder.createdAt)}
+                        </StyledTableCell>
+                        <StyledTableCell align='center'>
+                          ${filteredOrder.totalPrice}
+                        </StyledTableCell>
 
-                    <StyledTableCell align='center'>
-                      {order.isDelivered ? (
-                        <ImCheckmark style={{ color: '#007E33' }} />
-                      ) : (
-                        <ImCross style={{ color: '#CC0000' }} />
-                      )}
-                    </StyledTableCell>
-                    <StyledTableCell align='center'>
-                      <Link
-                        style={{ textDecoration: 'none' }}
-                        to={`/order/${order._id}`}
-                      >
-                        <Button className={classes.btn}>Details</Button>
-                      </Link>
-                    </StyledTableCell>
-                  </StyledTableRow>
-                ))}
-            </TableBody>
-          </Table>
+                        <StyledTableCell align='center'>
+                          {filteredOrder.isDelivered ? (
+                            <ImCheckmark style={{ color: '#007E33' }} />
+                          ) : (
+                            <ImCross style={{ color: '#CC0000' }} />
+                          )}
+                        </StyledTableCell>
+                        <StyledTableCell align='center'>
+                          <Link
+                            style={{ textDecoration: 'none' }}
+                            to={`/order/${filteredOrder._id}`}
+                          >
+                            <Button className={classes.btn}>Details</Button>
+                          </Link>
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    ))}
+              </TableBody>
+            </Table>
 
-          <Box className={classes.btnBox}>
-            <Box
-              style={{
-                display: 'inline-block',
-                marginRight: '3rem',
-              }}
-            ></Box>
+            <Box className={classes.btnBox}>
+              <Box
+                style={{
+                  display: 'inline-block',
+                  marginRight: '3rem',
+                }}
+              ></Box>
 
-            <>
-              <Pagination
-                count={1}
-                page={parseInt(pageNumber)}
-                shape='rounded'
-              />
-            </>
-          </Box>
-        </TableContainer>
+              <>
+                <Pagination
+                  count={1}
+                  page={parseInt(pageNumber)}
+                  shape='rounded'
+                />
+              </>
+            </Box>
+          </TableContainer>
+
+          <Typography
+            variant='h3'
+            className={classes.title}
+            style={{ marginTop: '5rem' }}
+          >
+            Shipped Orders
+          </Typography>
+          <TableContainer className={classes.root}>
+            <Table className={classes.table} aria-label='customized table'>
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell align='center'>Id</StyledTableCell>
+                  <StyledTableCell align='center'>User</StyledTableCell>
+                  <StyledTableCell align='center'>Date</StyledTableCell>
+                  <StyledTableCell align='center'>Total</StyledTableCell>
+                  <StyledTableCell align='center'>Shipped</StyledTableCell>
+                  <StyledTableCell align='center'>options</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {success &&
+                  orders
+                    .filter((order) => order.isDelivered == true)
+                    .map((filteredOrder) => (
+                      <StyledTableRow hover key={filteredOrder._id}>
+                        <StyledTableCell align='center'>
+                          {filteredOrder._id}
+                        </StyledTableCell>
+                        <StyledTableCell align='center'>
+                          {filteredOrder.user.firstName}{' '}
+                          {filteredOrder.user.lastName}
+                        </StyledTableCell>
+                        <StyledTableCell align='center'>
+                          {DateFormat(filteredOrder.createdAt)}
+                        </StyledTableCell>
+                        <StyledTableCell align='center'>
+                          ${filteredOrder.totalPrice}
+                        </StyledTableCell>
+
+                        <StyledTableCell align='center'>
+                          {filteredOrder.isDelivered ? (
+                            <ImCheckmark style={{ color: '#007E33' }} />
+                          ) : (
+                            <ImCross style={{ color: '#CC0000' }} />
+                          )}
+                        </StyledTableCell>
+                        <StyledTableCell align='center'>
+                          <Link
+                            style={{ textDecoration: 'none' }}
+                            to={`/order/${filteredOrder._id}`}
+                          >
+                            <Button className={classes.btn}>Details</Button>
+                          </Link>
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    ))}
+              </TableBody>
+            </Table>
+
+            <Box className={classes.btnBox}>
+              <Box
+                style={{
+                  display: 'inline-block',
+                  marginRight: '3rem',
+                }}
+              ></Box>
+
+              <>
+                <Pagination
+                  count={1}
+                  page={parseInt(pageNumber)}
+                  shape='rounded'
+                />
+              </>
+            </Box>
+          </TableContainer>
+        </>
       )}
     </PageWrapper>
   )
