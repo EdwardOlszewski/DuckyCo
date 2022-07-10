@@ -1,4 +1,5 @@
 // React/Redux
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 // Components
@@ -14,6 +15,7 @@ import {
   Container,
 } from '@material-ui/core'
 import PageWrapper from '../components/PageWrapper'
+import AddSticker from '../components/AddSticker'
 // Actions
 import { addToCart, removeFromCart } from '../actions/cartActions'
 
@@ -84,11 +86,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const CartScreen = () => {
+const CartScreen = (props) => {
   // ----- init ----- //
   const classes = useStyles()
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const [rdyCheckout, setRdyCheckout] = useState(true)
 
   // ----- get data from redux store ----- //
   const cart = useSelector((state) => state.cart)
@@ -98,6 +102,10 @@ const CartScreen = () => {
   const total =
     cartItems.reduce((acc, item) => acc + item.qty * item.price, 0) + 6
   const subtotal = cartItems.reduce((acc, item) => acc + Number(item.qty), 0)
+
+  const checkoutHandler = () => {
+    setRdyCheckout(true)
+  }
 
   return (
     <PageWrapper title={'Apparel'}>
@@ -245,12 +253,16 @@ const CartScreen = () => {
               </Grid>
               <Divider style={{ marginTop: '1rem', marginBottom: '1rem' }} />
 
-              <Button
-                className={classes.checkoutBtn}
-                onClick={() => navigate('/shipping', { replace: true })}
-              >
-                Checkout
-              </Button>
+              {rdyCheckout ? (
+                <Button
+                  className={classes.checkoutBtn}
+                  onClick={() => navigate('/shipping', { replace: true })}
+                >
+                  Checkout
+                </Button>
+              ) : (
+                <AddSticker rdyToCheckout={checkoutHandler} />
+              )}
             </Grid>
           </Grid>
         </Grid>
@@ -291,3 +303,14 @@ const CartScreen = () => {
 }
 
 export default CartScreen
+
+/*
+      <Button
+                className={classes.checkoutBtn}
+                onClick={() => navigate('/shipping', { replace: true })}
+              >
+                Checkout
+              </Button>
+
+
+*/

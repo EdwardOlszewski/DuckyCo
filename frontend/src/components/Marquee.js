@@ -15,7 +15,7 @@ const MarqueeComp = () => {
   const classes = useStyles()
   const array = []
 
-  for (let i = 1; i <= 7; i++) {
+  for (let i = 1; i <= 9; i++) {
     array.push('bottomPicture' + i)
   }
 

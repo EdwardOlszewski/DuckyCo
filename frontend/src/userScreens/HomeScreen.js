@@ -50,15 +50,15 @@ const useStyles = makeStyles((theme) => ({
     float: 'left',
     color: 'white',
     [theme.breakpoints.up('xs')]: {
-      marginTop: '-85%',
+      marginTop: '-70%',
       marginLeft: '1rem',
     },
     [theme.breakpoints.up('sm')]: {
-      marginTop: '-30rem',
+      marginTop: '-20rem',
       marginLeft: '1rem',
     },
     [theme.breakpoints.up('md')]: {
-      marginTop: '-35rem',
+      marginTop: '-20rem',
       marginLeft: '5rem',
     },
   },
@@ -119,7 +119,7 @@ const HomeScreen = () => {
                 <Box className={classes.imgBox}>
                   <img
                     style={{ zIndex: 0 }}
-                    src='/images/toppicture1.jpg'
+                    src='/images/toppicture1.png'
                     alt='Duckylogo'
                     width='100%'
                     height='90%'
@@ -162,6 +162,15 @@ const HomeScreen = () => {
                   />
                 </Grid>
               </Hidden>
+            </Grid>
+            <Grid item style={{ marginTop: '-5px' }}>
+              <img
+                src='/images/toppicture3.jpg'
+                alt='Duckylogo'
+                width='100%'
+                height='100%'
+                layout='responsive'
+              />
             </Grid>
           </Box>
 

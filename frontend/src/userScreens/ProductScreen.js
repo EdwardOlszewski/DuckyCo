@@ -218,7 +218,7 @@ const ProductScreen = () => {
             <Typography variant='h4'>{product.name}</Typography>
             <Typography variant='h5'>${product.price}</Typography>
 
-            {product.category !== 'Hat' && (
+            {product.category !== 'Hat' && product.category !== 'MISC' && (
               <>
                 <Typography variant='h6' style={{ marginTop: '2rem' }}>
                   Size

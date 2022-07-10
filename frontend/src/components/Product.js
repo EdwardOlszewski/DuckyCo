@@ -6,7 +6,7 @@ import { Box, Typography, makeStyles } from '@material-ui/core'
 // ----- mui styles ----- //
 const useStyles = makeStyles((theme) => ({
   displayIMG: {
-    backgroundColor: '#fafafa',
+    backgroundColor: '#fcfcfc',
     '&:hover': {
       cursor: 'pointer',
     },
@@ -20,9 +20,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       padding: '3rem',
     },
-    [theme.breakpoints.up('lg')]: {
-      padding: '4rem',
-    },
   },
   imgShirt: {
     [theme.breakpoints.up('md')]: {
@@ -31,10 +28,17 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  imgMISC: {
+    [theme.breakpoints.up('md')]: {
+      '&:hover': {
+        transform: 'scale(1.3)',
+      },
+    },
+  },
   imgHat: {
     [theme.breakpoints.up('md')]: {
       '&:hover': {
-        transform: 'scale(1.5) translate(0%, -20%)',
+        transform: 'scale(1.5)',
       },
     },
   },
@@ -64,7 +68,18 @@ const Product = ({ product, priceCut }) => {
     <>
       <Link to={`/product/${product._id}`} className={classes.link}>
         <Box className={classes.displayIMG}>
-          {product.category === 'Hat' ? (
+          {product.category === 'MISC' ? (
+            <Box className={classes.imgBox}>
+              <img
+                className={classes.imgMISC}
+                src={product.image}
+                alt={product.name}
+                height='100%'
+                width='100%'
+                layout={'responsive'}
+              />
+            </Box>
+          ) : product.category === 'Hat' ? (
             <Box className={classes.imgBox}>
               <img
                 className={classes.imgHat}

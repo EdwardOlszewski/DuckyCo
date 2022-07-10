@@ -220,6 +220,7 @@ export default function Register({ match }) {
                 onChange={(e) => setCategory(e.target.value)}
               >
                 <option>Sample Category</option>
+                <option>MISC</option>
                 <option>Hat</option>
                 <option>Shorts</option>
                 <option>Shirt</option>
