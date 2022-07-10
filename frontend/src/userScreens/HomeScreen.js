@@ -154,7 +154,7 @@ const HomeScreen = () => {
               <Hidden mdDown>
                 <Grid item lg={6}>
                   <img
-                    src='/images/toppicture2.jpg'
+                    src='/images/toppicture2.png'
                     alt='Duckylogo'
                     width='100%'
                     height='99.5%'
