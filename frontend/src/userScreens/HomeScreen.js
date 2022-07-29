@@ -12,6 +12,7 @@ import {
   Container,
   Hidden,
 } from '@material-ui/core'
+import Banner from '../components/Banner'
 import HomeNav from '../components/HomeNav'
 import PageWrapper from '../components/PageWrapper'
 import Product from '../components/Product'
@@ -114,6 +115,7 @@ const HomeScreen = () => {
       ) : (
         <>
           <Box className={classes.topGrid}>
+            <Banner />
             <Grid container>
               <Grid item xs={12} lg={6}>
                 <Box className={classes.imgBox}>

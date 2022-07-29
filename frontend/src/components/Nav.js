@@ -20,7 +20,14 @@ import {
 import MobileNav from '../components/MobileMenu'
 // Icons
 import { VscAccount } from 'react-icons/vsc'
-import { IoCartOutline, IoShirtOutline, IoSettings } from 'react-icons/io5'
+import {
+  IoCartOutline,
+  IoShirtOutline,
+  IoSettings,
+  IoNewspaperOutline,
+} from 'react-icons/io5'
+import { BsQuestionSquare } from 'react-icons/bs'
+import { BsChatRightDots } from 'react-icons/bs'
 import { MdExpandMore, MdExpandLess } from 'react-icons/md'
 import { GoPackage } from 'react-icons/go'
 import { CgLogOut } from 'react-icons/cg'
@@ -43,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
       padding: '0 5rem 0 5rem',
     },
   },
+
   imgCont: {
     width: '200px',
     height: '200px',
@@ -165,6 +173,21 @@ const Nav = () => {
               </Button>
             </Link>
 
+            <Link to='/about' style={{ textDecoration: 'none' }}>
+              <Button
+                startIcon={<IoNewspaperOutline />}
+                className={classes.btn}
+              >
+                About
+              </Button>
+            </Link>
+
+            <Link to='/contact' style={{ textDecoration: 'none' }}>
+              <Button startIcon={<BsChatRightDots />} className={classes.btn}>
+                Contact
+              </Button>
+            </Link>
+
             {userInfo ? (
               <>
                 <Button
@@ -246,6 +269,16 @@ const Nav = () => {
                         <StyledMenuItem>
                           <FiUsers className={classes.icon} />
                           <ListItemText primary='Users' />
+                        </StyledMenuItem>
+                      </Link>
+
+                      <Link
+                        to='/admin/questionlist'
+                        style={{ textDecoration: 'none', color: 'black' }}
+                      >
+                        <StyledMenuItem>
+                          <BsQuestionSquare className={classes.icon} />
+                          <ListItemText primary='Questions' />
                         </StyledMenuItem>
                       </Link>
                     </StyledMenu>

@@ -13,7 +13,7 @@ const getOrderTotals = asyncHandler(async (req, res) => {
 
   let totalPrice = 0
   let subTotal = 0
-  let shippingPrice = 6
+  let shippingPrice = 0
   let taxPrice = 0
   let totalItems = 0
 
@@ -26,7 +26,12 @@ const getOrderTotals = asyncHandler(async (req, res) => {
       }
     }
 
-    totalPrice = shippingPrice + subTotal + taxPrice
+    totalPrice = subTotal + taxPrice
+
+    if (totalPrice < 50) {
+      shippingPrice = 6
+      totalPrice += shippingPrice
+    }
   }
 
   res.status(201).json({
@@ -167,8 +172,8 @@ const updateShipping = asyncHandler(async (req, res) => {
       order.promoCode = promoCode
       order.totalPrice = order.totalPrice - order.shippingPrice
       order.shippingPrice = 0
-      const updatedOrder = await order.save()
 
+      const updatedOrder = await order.save()
       res.json(updatedOrder)
     } else if (process.env.PROMO_CODE2 == promoCode) {
       order.promoCode = promoCode

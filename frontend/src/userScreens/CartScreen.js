@@ -93,14 +93,17 @@ const CartScreen = (props) => {
   const navigate = useNavigate()
 
   const [rdyCheckout, setRdyCheckout] = useState(false)
+  const [shippingPrice, setShippingPrice] = useState(0)
 
   // ----- get data from redux store ----- //
   const cart = useSelector((state) => state.cart)
   const { cartItems, rdyToCheckout } = cart
 
   // ----- calculate totals just for display ----- //
-  const total =
-    cartItems.reduce((acc, item) => acc + item.qty * item.price, 0) + 6
+  let total = cartItems.reduce((acc, item) => acc + item.qty * item.price, 0)
+  if (total < 50) {
+    total += 6
+  }
   const subtotal = cartItems.reduce((acc, item) => acc + Number(item.qty), 0)
 
   const checkoutHandler = () => {
@@ -167,7 +170,9 @@ const CartScreen = (props) => {
                             <option value={'small'}>small</option>
                             <option value={'medium'}>medium</option>
                             <option value={'large'}>large</option>
-                            <option value={'xlarge'}>xlarge</option>
+                            <option value={'1XL'}>1XL</option>
+                            <option value={'2XL'}>2XL</option>
+                            <option value={'3XL'}>3XL</option>
                           </Select>
                         </FormControl>
                       </>
@@ -246,7 +251,9 @@ const CartScreen = (props) => {
                   <Typography variant='h5'>Shipping</Typography>
                 </Grid>
                 <Grid item xs={4}>
-                  <Typography variant='h6'>$6.00</Typography>
+                  <Typography variant='h6'>
+                    {total < 50 ? '$6.00' : 'FREE'}
+                  </Typography>
                 </Grid>
               </Grid>
 

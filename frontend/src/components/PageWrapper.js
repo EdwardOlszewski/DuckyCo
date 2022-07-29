@@ -10,7 +10,7 @@ const PageWrapper = ({ children, title }) => {
     <Box>
       <Meta title={title} />
       <Nav />
-      <Box style={{ minHeight: '150vh' }}>{children}</Box>
+      <Box style={{ minHeight: '50vh' }}>{children}</Box>
       <Marquee />
       <Footer />
     </Box>

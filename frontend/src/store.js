@@ -39,6 +39,13 @@ import { uploadImageReducer } from './reducers/imageReducers'
 
 import { cartReducer } from './reducers/cartReducers'
 
+import {
+  createQuestionReducer,
+  listQuestionReducer,
+  questionDetailsReducer,
+  updateQuestionToAnsweredReducer,
+} from './reducers/questionReducers'
+
 const reducer = combineReducers({
   // Users
   userRegister: userRegisterReducer,
@@ -72,6 +79,11 @@ const reducer = combineReducers({
   orderListMy: orderListMyReducer,
   // Main
   shippingUpdate: orderShippingReducer,
+  // Questions
+  createQuestion: createQuestionReducer,
+  questionsList: listQuestionReducer,
+  questionDetails: questionDetailsReducer,
+  questionAnswered: updateQuestionToAnsweredReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')

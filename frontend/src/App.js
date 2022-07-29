@@ -12,6 +12,9 @@ import HomeScreen from './userScreens/HomeScreen'
 import LoginScreen from './userScreens/LoginScreen'
 import RegisterScreen from './userScreens/RegisterScreen'
 import ProfileScreen from './userScreens/ProfileScreen'
+import AboutScreen from './userScreens/AboutScreen'
+import ContactScreen from './userScreens/ContactScreen'
+
 // User Poduct Screens
 import ApparelScreen from './userScreens/ApparelScreen'
 import ProductScreen from './userScreens/ProductScreen'
@@ -30,6 +33,9 @@ import ProductEditScreen from './adminScreens/ProductEditScreen'
 import OrderListScreen from './adminScreens/OrderListScreen'
 // Admin User Screen
 import UserListScreen from './adminScreens/UserListScreen'
+// Admin Question Screen
+import QuestionListScreen from './adminScreens/QuestionListScreen'
+import QuestionScreen from './adminScreens/QuestionScreen'
 
 const Wrapper = ({ children }) => {
   const location = useLocation()
@@ -57,6 +63,8 @@ export default function App() {
           <Route path='/login' element={<LoginScreen />} />
           <Route path='/register' element={<RegisterScreen />} />
           <Route path='/profile' element={<ProfileScreen />} />
+          <Route path='/about' element={<AboutScreen />} />
+          <Route path='/contact' element={<ContactScreen />} />
 
           {/* User product routes*/}
 
@@ -78,7 +86,8 @@ export default function App() {
             element={<ProductEditScreen />}
           />
           <Route path='/admin/userlist' element={<UserListScreen />} />
-
+          <Route path='/admin/questionlist' element={<QuestionListScreen />} />
+          <Route path='/admin/question/:id' element={<QuestionScreen />} />
           {/* Cart Routes */}
           <Route path='/cart' element={<CartScreen />} />
 

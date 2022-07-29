@@ -12,20 +12,26 @@ import {
 export const addToCart = (id, qty, size) => async (dispatch, getState) => {
   const { data } = await axios.get(`/api/products/${id}`)
 
+  let sizeUpCharge = 0
+
+  if (size === '2XL' || size === '3XL') {
+    sizeUpCharge = 7
+  }
+
   dispatch({
     type: CART_ADD_ITEM,
     payload: {
       product: data._id,
       name: data.name,
       image: data.image,
-      price: data.price,
+      price: data.price + sizeUpCharge,
       qty: qty,
       size: size,
       category: data.category,
     },
   })
 
-  if (data.category == 'MISC') {
+  if (data.category === 'MISC') {
     dispatch({
       type: CART_ADD_STICKER,
       payload: {
@@ -44,7 +50,7 @@ export const removeFromCart = (id) => (dispatch, getState) => {
     payload: id,
   })
 
-  if (id == '62ca4506f38236e60cb3b2c1') {
+  if (id === '62ca4506f38236e60cb3b2c1') {
     dispatch({
       type: CART_REMOVE_STICKER,
       payload: {

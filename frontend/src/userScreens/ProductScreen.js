@@ -21,6 +21,7 @@ import Rating from '@mui/material/Rating'
 import StyledInput from '../components/StyledInput'
 import PageWrapper from '../components/PageWrapper'
 import Message from '../components/Message'
+import Sizing from '../components/Sizing'
 import Loader from '../components/Loader'
 // Icons
 import { HiMinusSm, HiPlusSm } from 'react-icons/hi'
@@ -88,6 +89,12 @@ const useStyles = makeStyles((theme) => ({
       color: '#ff0404',
     },
   },
+
+  bigSizing: {
+    padding: 6,
+    fontStyle: 'italic',
+    fontSize: 13,
+  },
 }))
 
 const ProductScreen = () => {
@@ -105,7 +112,7 @@ const ProductScreen = () => {
 
   // ----- get data from redux store ----- //
   const productDetails = useSelector((state) => state.productDetails)
-  const { success, loading, error, product } = productDetails
+  const { loading, error, product } = productDetails
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -216,66 +223,20 @@ const ProductScreen = () => {
             style={{ textAlign: 'left', margin: 'auto' }}
           >
             <Typography variant='h4'>{product.name}</Typography>
-            <Typography variant='h5'>${product.price}</Typography>
-
-            {product.category !== 'Hat' && product.category !== 'MISC' && (
-              <>
-                <Typography variant='h6' style={{ marginTop: '2rem' }}>
-                  Size
-                </Typography>
-                <Grid container>
-                  <Grid item>
-                    <IconButton
-                      style={{
-                        fontSize: '1rem',
-                        color: size === 'small' && 'black',
-                        padding: '.5rem 1rem .5rem 1rem',
-                      }}
-                      onClick={(e) => setSize('small')}
-                    >
-                      <Typography variant='h6'> S</Typography>
-                    </IconButton>
-                  </Grid>
-                  {product._id !== '61f4ec3ebf1a4e50d4532db1' && (
-                    <>
-                      <Grid item>
-                        <IconButton
-                          style={{
-                            color: size === 'medium' && 'black',
-                            padding: '.5rem 1rem .5rem 1rem',
-                          }}
-                          onClick={(e) => setSize('medium')}
-                        >
-                          <Typography variant='h6'> M</Typography>
-                        </IconButton>
-                      </Grid>
-                      <Grid item>
-                        <IconButton
-                          style={{
-                            color: size === 'large' && 'black',
-                            padding: '.5rem 1rem .5rem 1rem',
-                          }}
-                          onClick={(e) => setSize('large')}
-                        >
-                          <Typography variant='h6'> L</Typography>
-                        </IconButton>
-                      </Grid>
-                      <Grid item>
-                        <IconButton
-                          style={{
-                            color: size === 'xlarge' && 'black',
-                            padding: '.5rem .8rem .5rem .8rem',
-                          }}
-                          onClick={(e) => setSize('xlarge')}
-                        >
-                          <Typography variant='h6'> XL</Typography>
-                        </IconButton>
-                      </Grid>
-                    </>
-                  )}
-                </Grid>
-              </>
-            )}
+            <Typography variant='h5'>
+              $
+              {size === '3XL' || size === '2XL'
+                ? product.price + 7
+                : product.price}
+            </Typography>
+            {product.category === 'Hat' ||
+              (product.category === 'MISC' ? null : (
+                <Sizing
+                  category={product.category}
+                  setSize={setSize}
+                  size={size}
+                />
+              ))}
 
             <Typography variant='h5' style={{ marginTop: '2rem' }}>
               Quantity
@@ -333,9 +294,9 @@ const ProductScreen = () => {
                 <Button
                   style={{
                     backgroundColor:
-                      product.category == 'Hat' || product.category == 'MISC'
+                      product.category === 'Hat' || product.category === 'MISC'
                         ? '#007E33'
-                        : size != 'standard'
+                        : size !== 'standard'
                         ? '#007E33'
                         : '#bababa',
                   }}
@@ -351,9 +312,9 @@ const ProductScreen = () => {
                 style={{
                   width: '100%',
                   backgroundColor:
-                    product.category == 'Hat' || product.category == 'MISC'
+                    product.category === 'Hat' || product.category === 'MISC'
                       ? '#007E33'
-                      : size != 'standard'
+                      : size !== 'standard'
                       ? '#007E33'
                       : '#bababa',
                 }}

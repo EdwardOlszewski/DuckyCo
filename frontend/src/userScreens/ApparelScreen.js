@@ -7,6 +7,7 @@ import PageWrapper from '../components/PageWrapper'
 import Product from '../components/Product'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import Banner from '../components/Banner'
 //Types
 import { ORDER_DETAILS_RESET } from '../types/orderTypes'
 // Actions
@@ -54,7 +55,19 @@ const ApparelScreen = () => {
         <Message severity='error'>{error}</Message>
       ) : (
         <Box>
+          <Banner />
           <Grid className={classes.productCont} container spacing={5}>
+            <Grid item xs={12}>
+              <Typography
+                variant='h3'
+                style={{
+                  margin: 'auto',
+                  textAlign: 'center',
+                  color: '#ff0000',
+                }}
+              ></Typography>
+            </Grid>
+
             <Grid item xs={12}>
               <Typography variant='h4'>MISC</Typography>
             </Grid>

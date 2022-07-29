@@ -15,7 +15,11 @@ import MenuIcon from '@material-ui/icons/Menu'
 // Actions
 import { logout } from '../actions/userActions'
 //Icons
-import { IoCartOutline, IoShirtOutline } from 'react-icons/io5'
+import {
+  IoCartOutline,
+  IoShirtOutline,
+  IoNewspaperOutline,
+} from 'react-icons/io5'
 import { VscAccount } from 'react-icons/vsc'
 import { CgLogOut } from 'react-icons/cg'
 import { MdOutlinePhone } from 'react-icons/md'
@@ -23,6 +27,8 @@ import { AiOutlineMail } from 'react-icons/ai'
 import { FaFacebookF } from 'react-icons/fa'
 import { TiSocialInstagram } from 'react-icons/ti'
 import { GoPackage } from 'react-icons/go'
+import { BsChatRightDots, BsQuestionSquare } from 'react-icons/bs'
+import { FiUsers } from 'react-icons/fi'
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -113,6 +119,24 @@ export default function MobileMenu({ userInfo }) {
             </ListItem>
           </Link>
         )}
+
+        <Link to='/about' style={{ textDecoration: 'none' }}>
+          <ListItem button onClick={toggleDrawer('left', false)}>
+            <ListItemIcon>
+              <IoNewspaperOutline className={classes.btn} />
+            </ListItemIcon>
+            <ListItemText primary='About' style={{ color: 'black' }} />
+          </ListItem>
+        </Link>
+
+        <Link to='/contact' style={{ textDecoration: 'none' }}>
+          <ListItem button onClick={toggleDrawer('left', false)}>
+            <ListItemIcon>
+              <BsChatRightDots className={classes.btn} />
+            </ListItemIcon>
+            <ListItemText primary='Contact' style={{ color: 'black' }} />
+          </ListItem>
+        </Link>
       </List>
 
       <Divider />
@@ -164,6 +188,7 @@ export default function MobileMenu({ userInfo }) {
           </a>
         </Box>
       </ListItem>
+
       {userInfo && userInfo.isAdmin && (
         <>
           <Divider />
@@ -189,6 +214,24 @@ export default function MobileMenu({ userInfo }) {
                 <GoPackage className={classes.btn} />
               </ListItemIcon>
               <ListItemText primary='Products' style={{ color: '#eb5202' }} />
+            </ListItem>
+          </Link>
+
+          <Link to='/admin/userlist' style={{ textDecoration: 'none' }}>
+            <ListItem button onClick={toggleDrawer('left', false)}>
+              <ListItemIcon>
+                <FiUsers className={classes.btn} />
+              </ListItemIcon>
+              <ListItemText primary='Users' style={{ color: '#eb5202' }} />
+            </ListItem>
+          </Link>
+
+          <Link to='/admin/questionlist' style={{ textDecoration: 'none' }}>
+            <ListItem button onClick={toggleDrawer('left', false)}>
+              <ListItemIcon>
+                <BsQuestionSquare className={classes.btn} />
+              </ListItemIcon>
+              <ListItemText primary='Questions' style={{ color: '#eb5202' }} />
             </ListItem>
           </Link>
         </>
