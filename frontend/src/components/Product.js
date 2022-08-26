@@ -141,16 +141,6 @@ const Product = ({ product, priceCut }) => {
         <Link to={`/product/${product._id}`} className={classes.link}>
           <Typography variant='h6'>{product.name}</Typography>
 
-          {priceCut && (
-            <Typography
-              display='inline'
-              variant='h6'
-              className={classes.priceCut}
-            >
-              ${priceCut}
-            </Typography>
-          )}
-
           <Typography display='inline' variant='h6'>
             ${product.price}
           </Typography>
