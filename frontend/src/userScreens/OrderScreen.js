@@ -261,7 +261,9 @@ const OrderScreen = () => {
                     </Typography>
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography variant='h6'>${order.subTotal}</Typography>
+                    <Typography variant='h6'>
+                      ${order.subTotal.toFixed(2)}
+                    </Typography>
                   </Grid>
                 </Grid>
 
@@ -270,7 +272,9 @@ const OrderScreen = () => {
                     <Typography variant='subtitle1'>Shipping</Typography>
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography variant='h6'>${order.shippingPrice}</Typography>
+                    <Typography variant='h6'>
+                      ${order.shippingPrice.toFixed(2)}
+                    </Typography>
                   </Grid>
                 </Grid>
 
@@ -294,7 +298,7 @@ const OrderScreen = () => {
                       </Grid>
                       <Grid item xs={6}>
                         <Typography variant='h6'>
-                          ${order.totalPrice}
+                          ${order.totalPrice.toFixed(2)}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -307,7 +311,7 @@ const OrderScreen = () => {
                       </Grid>
                       <Grid item xs={6}>
                         <Typography variant='h6'>
-                          ${order.totalPrice}
+                          ${order.totalPrice.toFixed(2)}
                         </Typography>
                       </Grid>
                     </Grid>

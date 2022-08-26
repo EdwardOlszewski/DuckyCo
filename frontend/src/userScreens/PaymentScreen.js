@@ -277,7 +277,9 @@ const PaymentScreen = () => {
                   </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  <Typography variant='h6'>${order.subTotal}</Typography>
+                  <Typography variant='h6'>
+                    ${order.subTotal.toFixed(2)}
+                  </Typography>
                 </Grid>
               </Grid>
 
@@ -286,7 +288,9 @@ const PaymentScreen = () => {
                   <Typography variant='subtitle1'>Shipping</Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  <Typography variant='h6'>${order.shippingPrice}</Typography>
+                  <Typography variant='h6'>
+                    ${order.shippingPrice.toFixed(2)}
+                  </Typography>
                 </Grid>
               </Grid>
 
@@ -305,7 +309,9 @@ const PaymentScreen = () => {
                     <Typography variant='h5'>Total Due:</Typography>
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography variant='h6'>${order.totalPrice}</Typography>
+                    <Typography variant='h6'>
+                      ${order.totalPrice.toFixed(2)}
+                    </Typography>
                   </Grid>
 
                   <Grid container style={{ marginTop: '1rem' }}>

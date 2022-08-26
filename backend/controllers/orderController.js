@@ -170,8 +170,8 @@ const updateShipping = asyncHandler(async (req, res) => {
   if (order) {
     if (process.env.PROMO_CODE == promoCode) {
       order.promoCode = promoCode
-      order.totalPrice = order.totalPrice - order.shippingPrice
-      order.shippingPrice = 0
+      order.totalPrice = order.totalPrice * 0.85
+      order.totalPrice = order.totalPrice.toFixed(2)
 
       const updatedOrder = await order.save()
       res.json(updatedOrder)

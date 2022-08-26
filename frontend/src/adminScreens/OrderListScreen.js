@@ -165,7 +165,7 @@ const OrderListScreen = () => {
                           {DateFormat(filteredOrder.createdAt)}
                         </StyledTableCell>
                         <StyledTableCell align='center'>
-                          ${filteredOrder.totalPrice}
+                          ${filteredOrder.totalPrice.toFixed(2)}
                         </StyledTableCell>
 
                         <StyledTableCell align='center'>
@@ -242,7 +242,7 @@ const OrderListScreen = () => {
                           {DateFormat(filteredOrder.createdAt)}
                         </StyledTableCell>
                         <StyledTableCell align='center'>
-                          ${filteredOrder.totalPrice}
+                          ${filteredOrder.totalPrice.toFixed(2)}
                         </StyledTableCell>
 
                         <StyledTableCell align='center'>
