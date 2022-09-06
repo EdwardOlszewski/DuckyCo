@@ -230,13 +230,13 @@ const ProductScreen = () => {
                 : product.price}
             </Typography>
             {product.category === 'Hat' ||
-              (product.category === 'MISC' ? null : (
-                <Sizing
-                  category={product.category}
-                  setSize={setSize}
-                  size={size}
-                />
-              ))}
+            product.category === 'MISC' ? null : (
+              <Sizing
+                category={product.category}
+                setSize={setSize}
+                size={size}
+              />
+            )}
 
             <Typography variant='h5' style={{ marginTop: '2rem' }}>
               Quantity

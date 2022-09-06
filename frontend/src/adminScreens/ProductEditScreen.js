@@ -308,6 +308,7 @@ export default function Register({ match }) {
                 acceptedFiles={['image/png', 'image/svg']}
                 onSave={uploadFileHandler}
                 filesLimit={1}
+                maxFileSize={5000000}
                 onClose={(e) => setImgUpload(false)}
               />
             </FormControl>
