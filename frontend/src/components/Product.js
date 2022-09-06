@@ -18,7 +18,8 @@ const useStyles = makeStyles((theme) => ({
   },
   imgBox: {
     [theme.breakpoints.up('md')]: {
-      padding: '3rem',
+      marginTop: '-2rem',
+      padding: '2rem',
     },
   },
   imgShirt: {
