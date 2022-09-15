@@ -161,8 +161,39 @@ const OrderScreen = () => {
 
                 <Grid container>
                   <Grid item xs={6} md={6}>
+                    <Grid item xs={12} style={{ marginBottom: '1rem' }}>
+                      <Typography variant='h6'>User</Typography>
+                    </Grid>
                     <Grid item xs={12}>
-                      <Typography variant='h6'>Order Placed</Typography>
+                      <Typography
+                        variant='subtitle1'
+                        style={{ marginTop: '-.8rem' }}
+                      >
+                        {order.user.firstName} {order.user.lastName}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={6} md={6} style={{ marginBottom: '1rem' }}>
+                    <Grid item xs={12}>
+                      <Typography variant='h6'>Email</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant='subtitle1'>
+                        {order.user.email.toLowerCase()}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+
+                <Grid container style={{ marginTop: '1rem' }}>
+                  <Grid item xs={6} md={6}>
+                    <Grid item xs={12}>
+                      <Typography
+                        variant='h6'
+                        style={{ marginBottom: '.5rem' }}
+                      >
+                        Order Placed
+                      </Typography>
                     </Grid>
                     <Grid item xs={12}>
                       <Typography

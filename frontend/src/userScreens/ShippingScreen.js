@@ -73,6 +73,7 @@ const ShippingScreen = () => {
           _id: userInfo._id,
           firstName: userInfo.firstName,
           lastName: userInfo.lastName,
+          email: userInfo.email,
         },
         orderItems: cart.cartItems,
         shippingAddress: {

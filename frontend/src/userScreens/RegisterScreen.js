@@ -116,6 +116,7 @@ const RegisterScreen = () => {
 
         <Grid item xs={12}>
           <StyledInput
+            inputProps={{ style: { textTransform: 'lowercase' } }}
             label='Email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}

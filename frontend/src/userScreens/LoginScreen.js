@@ -96,6 +96,7 @@ const LoginScreen = () => {
 
         <Grid item xs={12}>
           <StyledInput
+            inputProps={{ style: { textTransform: 'lowercase' } }}
             label='Email'
             type='email'
             value={email}

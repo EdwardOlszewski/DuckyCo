@@ -142,6 +142,7 @@ const OrderListScreen = () => {
                 <TableRow>
                   <StyledTableCell align='center'>Id</StyledTableCell>
                   <StyledTableCell align='center'>User</StyledTableCell>
+                  <StyledTableCell align='center'>Email</StyledTableCell>
                   <StyledTableCell align='center'>Date</StyledTableCell>
                   <StyledTableCell align='center'>Total</StyledTableCell>
                   <StyledTableCell align='center'>Shipped</StyledTableCell>
@@ -160,6 +161,9 @@ const OrderListScreen = () => {
                         <StyledTableCell align='center'>
                           {filteredOrder.user.firstName}{' '}
                           {filteredOrder.user.lastName}
+                        </StyledTableCell>
+                        <StyledTableCell align='center'>
+                          {filteredOrder.user.email.toLowerCase()}
                         </StyledTableCell>
                         <StyledTableCell align='center'>
                           {DateFormat(filteredOrder.createdAt)}
@@ -219,6 +223,7 @@ const OrderListScreen = () => {
                 <TableRow>
                   <StyledTableCell align='center'>Id</StyledTableCell>
                   <StyledTableCell align='center'>User</StyledTableCell>
+                  <StyledTableCell align='center'>Email</StyledTableCell>
                   <StyledTableCell align='center'>Date</StyledTableCell>
                   <StyledTableCell align='center'>Total</StyledTableCell>
                   <StyledTableCell align='center'>Shipped</StyledTableCell>
@@ -237,6 +242,9 @@ const OrderListScreen = () => {
                         <StyledTableCell align='center'>
                           {filteredOrder.user.firstName}{' '}
                           {filteredOrder.user.lastName}
+                        </StyledTableCell>
+                        <StyledTableCell align='center'>
+                          {filteredOrder.user.email.toLowerCase()}
                         </StyledTableCell>
                         <StyledTableCell align='center'>
                           {DateFormat(filteredOrder.createdAt)}
