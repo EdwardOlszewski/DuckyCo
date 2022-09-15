@@ -1,3 +1,4 @@
+import { color } from '@mui/system'
 import axios from 'axios'
 import {
   CART_ADD_ITEM,
@@ -9,40 +10,42 @@ import {
   CART_REMOVE_STICKER,
 } from '../types/cartTypes'
 
-export const addToCart = (id, qty, size) => async (dispatch, getState) => {
-  const { data } = await axios.get(`/api/products/${id}`)
+export const addToCart =
+  (id, qty, size, color) => async (dispatch, getState) => {
+    const { data } = await axios.get(`/api/products/${id}`)
 
-  let sizeUpCharge = 0
+    let sizeUpCharge = 0
 
-  if (size === '2XL' || size === '3XL') {
-    sizeUpCharge = 7
-  }
+    if (size === '2XL' || size === '3XL') {
+      sizeUpCharge = 7
+    }
 
-  dispatch({
-    type: CART_ADD_ITEM,
-    payload: {
-      product: data._id,
-      name: data.name,
-      image: data.image,
-      price: data.price + sizeUpCharge,
-      qty: qty,
-      size: size,
-      category: data.category,
-    },
-  })
-
-  if (data.category === 'MISC') {
     dispatch({
-      type: CART_ADD_STICKER,
+      type: CART_ADD_ITEM,
       payload: {
-        rdyToCheckout: true,
+        product: data._id,
+        name: data.name,
+        image: data.image,
+        price: data.price + sizeUpCharge,
+        qty: qty,
+        size: size,
+        color: color,
+        category: data.category,
       },
     })
 
-    localStorage.setItem('rdyToCheckout', JSON.stringify(true))
+    if (data.category === 'MISC') {
+      dispatch({
+        type: CART_ADD_STICKER,
+        payload: {
+          rdyToCheckout: true,
+        },
+      })
+
+      localStorage.setItem('rdyToCheckout', JSON.stringify(true))
+    }
+    localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
   }
-  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
-}
 
 export const removeFromCart = (id) => (dispatch, getState) => {
   dispatch({

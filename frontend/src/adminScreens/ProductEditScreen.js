@@ -221,6 +221,7 @@ export default function Register({ match }) {
               >
                 <option>Sample Category</option>
                 <option>MISC</option>
+                <option>Beanie</option>
                 <option>Hat</option>
                 <option>Shorts</option>
                 <option>Shirt</option>

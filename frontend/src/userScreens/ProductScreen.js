@@ -22,6 +22,7 @@ import StyledInput from '../components/StyledInput'
 import PageWrapper from '../components/PageWrapper'
 import Message from '../components/Message'
 import Sizing from '../components/Sizing'
+import Color from '../components/Color'
 import Loader from '../components/Loader'
 // Icons
 import { HiMinusSm, HiPlusSm } from 'react-icons/hi'
@@ -106,7 +107,8 @@ const ProductScreen = () => {
 
   // ----- state variables ----- //
   const [qty, setQty] = useState(1)
-  const [size, setSize] = useState('standard')
+  const [size, setSize] = useState('')
+  const [color, setColor] = useState('')
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
 
@@ -129,7 +131,7 @@ const ProductScreen = () => {
     if (!userInfo) {
       navigate('/login', { replace: true })
     } else {
-      dispatch(addToCart(productId, qty, size))
+      dispatch(addToCart(productId, qty, size, color))
       navigate('/cart', { replace: true })
     }
   }
@@ -230,11 +232,20 @@ const ProductScreen = () => {
                 : product.price}
             </Typography>
             {product.category === 'Hat' ||
+            product.category === 'Beanie' ||
             product.category === 'MISC' ? null : (
               <Sizing
                 category={product.category}
                 setSize={setSize}
                 size={size}
+              />
+            )}
+
+            {product.category === 'Beanie' && (
+              <Color
+                category={product.category}
+                setColor={setColor}
+                color={color}
               />
             )}
 
@@ -294,9 +305,11 @@ const ProductScreen = () => {
                 <Button
                   style={{
                     backgroundColor:
-                      product.category === 'Hat' || product.category === 'MISC'
+                      product.category === 'Hat' ||
+                      product.category === 'Beanie' ||
+                      product.category === 'MISC'
                         ? '#007E33'
-                        : size !== 'standard'
+                        : size
                         ? '#007E33'
                         : '#bababa',
                   }}
@@ -314,7 +327,7 @@ const ProductScreen = () => {
                   backgroundColor:
                     product.category === 'Hat' || product.category === 'MISC'
                       ? '#007E33'
-                      : size !== 'standard'
+                      : size
                       ? '#007E33'
                       : '#bababa',
                 }}

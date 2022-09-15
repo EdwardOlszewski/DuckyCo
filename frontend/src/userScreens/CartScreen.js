@@ -148,31 +148,60 @@ const CartScreen = (props) => {
                     ${product.price.toFixed(2)}
                   </Typography>
                   <Typography variant='h6' className={classes.subText}>
-                    {product.category !== 'Hat' && product.category !== 'MISC' && (
+                    {product.category !== 'Hat' &&
+                      product.category !== 'Beanie' &&
+                      product.category !== 'MISC' && (
+                        <>
+                          Size:
+                          <FormControl className={classes.formControl}>
+                            <Select
+                              disableUnderline
+                              className={classes.select}
+                              native
+                              value={product.size}
+                              onChange={(e) =>
+                                dispatch(
+                                  addToCart(
+                                    product.product,
+                                    product.qty,
+                                    e.target.value
+                                  )
+                                )
+                              }
+                            >
+                              <option value={'small'}>small</option>
+                              <option value={'medium'}>medium</option>
+                              <option value={'large'}>large</option>
+                              <option value={'1XL'}>1XL</option>
+                              <option value={'2XL'}>2XL</option>
+                              <option value={'3XL'}>3XL</option>
+                            </Select>
+                          </FormControl>
+                        </>
+                      )}
+
+                    {product.color && (
                       <>
-                        Size:
+                        Color:
                         <FormControl className={classes.formControl}>
                           <Select
                             disableUnderline
                             className={classes.select}
                             native
-                            value={product.size}
+                            value={product.color}
                             onChange={(e) =>
                               dispatch(
                                 addToCart(
                                   product.product,
                                   product.qty,
+                                  product.size,
                                   e.target.value
                                 )
                               )
                             }
                           >
-                            <option value={'small'}>small</option>
-                            <option value={'medium'}>medium</option>
-                            <option value={'large'}>large</option>
-                            <option value={'1XL'}>1XL</option>
-                            <option value={'2XL'}>2XL</option>
-                            <option value={'3XL'}>3XL</option>
+                            <option value={'black'}>black</option>
+                            <option value={'gray'}>gray</option>
                           </Select>
                         </FormControl>
                       </>

@@ -80,6 +80,17 @@ const Product = ({ product, priceCut }) => {
                 layout={'responsive'}
               />
             </Box>
+          ) : product.category === 'Beanie' ? (
+            <Box className={classes.imgBox}>
+              <img
+                className={classes.imgHat}
+                src={product.image}
+                alt={product.name}
+                height='100%'
+                width='100%'
+                layout={'responsive'}
+              />
+            </Box>
           ) : product.category === 'Hat' ? (
             <Box className={classes.imgBox}>
               <img

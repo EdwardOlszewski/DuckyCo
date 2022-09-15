@@ -189,9 +189,18 @@ const PaymentScreen = () => {
                   <Typography className={classes.text}>
                     ${product.price.toFixed(2)}
                   </Typography>
-                  <Typography variant='h6' className={classes.subText}>
-                    Size: {product.size}
-                  </Typography>
+
+                  {product.size && (
+                    <Typography variant='h6' className={classes.subText}>
+                      Size: {product.size}
+                    </Typography>
+                  )}
+                  {product.color && (
+                    <Typography variant='h6' className={classes.subText}>
+                      Color: {product.color}
+                    </Typography>
+                  )}
+
                   <Typography variant='h6' className={classes.subText}>
                     Quantity: {product.qty}
                   </Typography>
