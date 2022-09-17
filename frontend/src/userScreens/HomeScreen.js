@@ -27,6 +27,8 @@ import { FaFacebookF } from 'react-icons/fa'
 import { TiSocialInstagram } from 'react-icons/ti'
 import background from '../components/background.png'
 
+import { useKlaviyo } from '@frontend-sdk/klaviyo'
+
 // ----- mui styles ----- //
 const useStyles = makeStyles((theme) => ({
   root: {

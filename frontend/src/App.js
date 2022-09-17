@@ -45,7 +45,7 @@ const Wrapper = ({ children }) => {
   return children
 }
 
-export default function App() {
+const App = () => {
   ReactGA.initialize('UA-223751483-1', {
     titleCase: false,
   })
@@ -100,3 +100,5 @@ export default function App() {
     </Router>
   )
 }
+
+export default App
