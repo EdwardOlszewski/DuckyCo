@@ -39,7 +39,7 @@ import QuestionScreen from './adminScreens/QuestionScreen'
 
 //Privacy
 import PrivacyStatement from './privacyScreens/PrivacyStatement'
-//import TermsAndConditions from './policyScreens/TermsAndConditions'
+import TermsAndConditions from './privacyScreens/TermsAndConditions'
 
 const Wrapper = ({ children }) => {
   const location = useLocation()
@@ -102,6 +102,7 @@ const App = () => {
 
           {/* Privacy */}
           <Route path='/privacystatement' element={<PrivacyStatement />} />
+          <Route path='/termsandconditions' element={<TermsAndConditions />} />
         </Routes>
       </Wrapper>
     </Router>
