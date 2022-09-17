@@ -37,6 +37,10 @@ import UserListScreen from './adminScreens/UserListScreen'
 import QuestionListScreen from './adminScreens/QuestionListScreen'
 import QuestionScreen from './adminScreens/QuestionScreen'
 
+//Privacy
+import PrivacyStatement from './privacyScreens/PrivacyStatement'
+//import TermsAndConditions from './policyScreens/TermsAndConditions'
+
 const Wrapper = ({ children }) => {
   const location = useLocation()
   useLayoutEffect(() => {
@@ -95,6 +99,9 @@ const App = () => {
           <Route path='/shipping' element={<ShippingScreen />} />
           <Route path='/payment/:id' element={<PaymentScreen />} />
           <Route path='/order/:id' element={<OrderScreen />} />
+
+          {/* Privacy */}
+          <Route path='/privacystatement' element={<PrivacyStatement />} />
         </Routes>
       </Wrapper>
     </Router>

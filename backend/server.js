@@ -13,7 +13,7 @@ import imageUploadRoutes from './routes/imageUploadRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
 import chargeRoutes from './routes/chargeRoutes.js'
 import questionRoutes from './routes/questionRoutes.js'
-
+import klavRoutes from './routes/klavRoutes.js'
 dotenv.config()
 
 connectDB()
@@ -32,6 +32,7 @@ app.use('/api/orders', orderRoutes)
 app.use('/api/image/upload', imageUploadRoutes)
 app.use('/api/charge', chargeRoutes)
 app.use('/api/questions', questionRoutes)
+app.use('/api/klav', klavRoutes)
 
 const __dirname = path.resolve()
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))

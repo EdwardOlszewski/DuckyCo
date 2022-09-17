@@ -2,7 +2,14 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 // Components
-import { makeStyles, Grid, Typography, Box, Divider } from '@material-ui/core'
+import {
+  makeStyles,
+  Grid,
+  Typography,
+  Box,
+  Divider,
+  Button,
+} from '@material-ui/core'
 import PageWrapper from '../components/PageWrapper'
 import Product from '../components/Product'
 import Message from '../components/Message'
@@ -12,6 +19,7 @@ import Banner from '../components/Banner'
 import { ORDER_DETAILS_RESET } from '../types/orderTypes'
 // Actions
 import { listProducts } from '../actions/productActions'
+import { addToList } from '../actions/klavActions'
 
 // ----- mui styles ----- //
 const useStyles = makeStyles((theme) => ({
@@ -46,6 +54,11 @@ const ApparelScreen = () => {
     dispatch({ type: ORDER_DETAILS_RESET })
     dispatch(listProducts())
   }, [dispatch])
+
+  const testKlav = (e) => {
+    e.preventDefault()
+    dispatch(addToList())
+  }
 
   return (
     <PageWrapper title={'Apparel'}>
