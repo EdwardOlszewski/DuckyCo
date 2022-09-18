@@ -6,12 +6,12 @@ import { Box, Typography, makeStyles } from '@material-ui/core'
 // ----- mui styles ----- //
 const useStyles = makeStyles((theme) => ({
   displayIMG: {
-    backgroundColor: '#fcfcfc',
+    backgroundColor: '#fbfbfb',
     '&:hover': {
       cursor: 'pointer',
     },
     overflow: 'hidden',
-    padding: '1rem',
+    padding: 5,
     [theme.breakpoints.up('md')]: {
       height: '80%',
     },

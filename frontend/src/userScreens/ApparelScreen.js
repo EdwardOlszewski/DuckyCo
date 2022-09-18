@@ -93,10 +93,10 @@ const ApparelScreen = () => {
                       <Grid
                         key={filteredProduct._id}
                         item
-                        xs={12}
+                        xs={6}
                         sm={6}
-                        md={6}
-                        lg={4}
+                        md={4}
+                        lg={3}
                       >
                         <Product
                           key={filteredProduct._id}
@@ -118,10 +118,10 @@ const ApparelScreen = () => {
                   <Grid
                     key={filteredProduct._id}
                     item
-                    xs={12}
+                    xs={6}
                     sm={6}
-                    md={6}
-                    lg={4}
+                    md={4}
+                    lg={3}
                   >
                     <Product
                       key={filteredProduct._id}
@@ -133,7 +133,7 @@ const ApparelScreen = () => {
 
           <Grid className={classes.productCont} container spacing={5}>
             <Grid item xs={12}>
-              <Typography variant='h4'>Hats</Typography>
+              <Typography variant='h4'>Hats/Beanies</Typography>
             </Grid>
             {products &&
               products
@@ -142,10 +142,10 @@ const ApparelScreen = () => {
                   <Grid
                     key={filteredProduct._id}
                     item
-                    xs={12}
+                    xs={6}
                     sm={6}
-                    md={6}
-                    lg={4}
+                    md={4}
+                    lg={3}
                   >
                     <Product
                       key={filteredProduct._id}
@@ -166,10 +166,10 @@ const ApparelScreen = () => {
                   <Grid
                     key={filteredProduct._id}
                     item
-                    xs={12}
+                    xs={6}
                     sm={6}
-                    md={6}
-                    lg={4}
+                    md={4}
+                    lg={3}
                   >
                     <Product
                       key={filteredProduct._id}
@@ -190,34 +190,10 @@ const ApparelScreen = () => {
                   <Grid
                     key={filteredProduct._id}
                     item
-                    xs={12}
+                    xs={6}
                     sm={6}
-                    md={6}
-                    lg={4}
-                  >
-                    <Product
-                      key={filteredProduct._id}
-                      product={filteredProduct}
-                    />
-                  </Grid>
-                ))}
-          </Grid>
-
-          <Grid container className={classes.productCont} spacing={5}>
-            <Grid item xs={12}>
-              <Typography variant='h4'>Shorts</Typography>
-            </Grid>
-            {products &&
-              products
-                .filter((product) => product.category.includes('Shorts'))
-                .map((filteredProduct) => (
-                  <Grid
-                    key={filteredProduct._id}
-                    item
-                    xs={12}
-                    sm={6}
-                    md={6}
-                    lg={4}
+                    md={4}
+                    lg={3}
                   >
                     <Product
                       key={filteredProduct._id}
@@ -238,10 +214,10 @@ const ApparelScreen = () => {
                   <Grid
                     key={filteredProduct._id}
                     item
-                    xs={12}
+                    xs={6}
                     sm={6}
-                    md={6}
-                    lg={4}
+                    md={4}
+                    lg={3}
                   >
                     <Product
                       key={filteredProduct._id}
@@ -263,10 +239,10 @@ const ApparelScreen = () => {
                   <Grid
                     key={filteredProduct._id}
                     item
-                    xs={12}
+                    xs={6}
                     sm={6}
-                    md={6}
-                    lg={4}
+                    md={4}
+                    lg={3}
                   >
                     <Product
                       key={filteredProduct._id}
@@ -317,6 +293,30 @@ export default ApparelScreen
           </Grid>
           <Divider className={classes.divider} />
 
+
+                    <Grid container className={classes.productCont} spacing={5}>
+            <Grid item xs={12}>
+              <Typography variant='h4'>Shorts</Typography>
+            </Grid>
+            {products &&
+              products
+                .filter((product) => product.category.includes('Shorts'))
+                .map((filteredProduct) => (
+                  <Grid
+                    key={filteredProduct._id}
+                    item
+                    xs={6}
+                    sm={4}
+                    md={4}
+                    lg={3}
+                  >
+                    <Product
+                      key={filteredProduct._id}
+                      product={filteredProduct}
+                    />
+                  </Grid>
+                ))}
+          </Grid>
 
 
 */
