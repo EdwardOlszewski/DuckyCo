@@ -68,7 +68,6 @@ const ApparelScreen = () => {
         <Message severity='error'>{error}</Message>
       ) : (
         <Box>
-          <Banner />
           <Grid className={classes.productCont} container spacing={5}>
             <Grid item xs={12}>
               <Typography

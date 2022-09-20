@@ -316,38 +316,35 @@ const OrderScreen = () => {
                   <Grid item xs={6}>
                     <Typography variant='h6'>{order.promoCode}</Typography>
                   </Grid>
+                  <Grid item xs={6}></Grid>
+                  <Grid item xs={6}>
+                    {order.promoCode === 'WELCOME15' ||
+                    order.promoCode === 'LUCKYDUCK' ||
+                    order.promoCode === 'COMEBACK15' ? (
+                      <Typography variant='subtitle1'>
+                        15% off with {order.promoCode}
+                      </Typography>
+                    ) : null}
+                    {order.promoCode === 'WILSON10' ? (
+                      <Typography variant='subtitle1'>
+                        10% off with {order.promoCode}
+                      </Typography>
+                    ) : null}
+                  </Grid>
                 </Grid>
 
-                {order.promoCode == 'WILSON10' ? (
-                  <Grid item xs={12}>
-                    <Grid container>
-                      <Grid item xs={6}>
-                        <Typography variant='h5'>Total:</Typography>
-                        <Typography variant='subtitle2' style={{}}>
-                          **10% Off With WILSON10
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={6}>
-                        <Typography variant='h6'>
-                          ${order.totalPrice.toFixed(2)}
-                        </Typography>
-                      </Grid>
+                <Grid item xs={12}>
+                  <Grid container>
+                    <Grid item xs={6}>
+                      <Typography variant='h5'>Total:</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant='h6'>
+                        ${order.totalPrice.toFixed(2)}
+                      </Typography>
                     </Grid>
                   </Grid>
-                ) : (
-                  <Grid item xs={12}>
-                    <Grid container>
-                      <Grid item xs={6}>
-                        <Typography variant='h5'>Total:</Typography>
-                      </Grid>
-                      <Grid item xs={6}>
-                        <Typography variant='h6'>
-                          ${order.totalPrice.toFixed(2)}
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                )}
+                </Grid>
 
                 {userInfo.isAdmin && !order.isDelivered ? (
                   <Grid item xs={12} style={{ marginTop: '1rem' }}>

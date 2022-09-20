@@ -310,6 +310,21 @@ const PaymentScreen = () => {
                 <Grid item xs={6}>
                   <Typography variant='h6'>{order.promoCode}</Typography>
                 </Grid>
+                <Grid item xs={6}></Grid>
+                <Grid item xs={6}>
+                  {order.promoCode === 'WELCOME15' ||
+                  order.promoCode === 'LUCKYDUCK' ||
+                  order.promoCode === 'COMEBACK15' ? (
+                    <Typography variant='subtitle1'>
+                      15% off with {order.promoCode}
+                    </Typography>
+                  ) : null}
+                  {order.promoCode === 'WILSON10' ? (
+                    <Typography variant='subtitle1'>
+                      10% off with {order.promoCode}
+                    </Typography>
+                  ) : null}
+                </Grid>
               </Grid>
 
               <Grid item xs={12}>
@@ -357,7 +372,6 @@ const PaymentScreen = () => {
                       </Box>
                     )}
                   </Grid>
-
                   <Grid item xs={12}>
                     <Elements stripe={stripePromise}>
                       <PaymentForm

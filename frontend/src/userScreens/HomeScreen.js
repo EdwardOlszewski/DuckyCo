@@ -118,7 +118,6 @@ const HomeScreen = () => {
       ) : (
         <>
           <Box className={classes.topGrid}>
-            <Banner />
             <Grid container>
               <Grid item xs={12} lg={6}>
                 <Box className={classes.imgBox}>

@@ -168,10 +168,14 @@ const updateShipping = asyncHandler(async (req, res) => {
   const { promoCode } = req.body
 
   if (order) {
-    if (process.env.PROMO_CODE == promoCode) {
+    if (
+      process.env.PROMO_CODE == promoCode ||
+      process.env.PROMO_CODE3 == promoCode ||
+      process.env.PROMO_CODE4 == promoCode
+    ) {
       order.promoCode = promoCode
-      order.totalPrice = order.totalPrice * 0.85
-      order.totalPrice = order.totalPrice.toFixed(2)
+      order.subTotal = order.subTotal * 0.85
+      order.subTotal = order.subTotal.toFixed(2)
 
       const updatedOrder = await order.save()
       res.json(updatedOrder)
@@ -182,6 +186,7 @@ const updateShipping = asyncHandler(async (req, res) => {
 
       const updatedOrder = await order.save()
       res.json(updatedOrder)
+    } else if (process.env.PROMO_CODE3) {
     } else {
       res.status(404)
       throw new Error('Promo Code ' + promoCode + ' Not Found')
