@@ -25,8 +25,7 @@ const Nav = (props) => {
       </Typography>
       <Typography variant={'subtitle2'} className={classes.text}>
         <Box fontWeight={400} style={{ marginTop: '.5rem' }}>
-          DUE TO HIGH VOLUME ALL ORDERS PLACED BEFORE 9/20/22 WILL BE PROCESSED
-          9/26/22
+          DUE TO HIGH VOLUME ALL NEW ORDERS WILL BE PROCESSED 9/27/22
         </Box>
       </Typography>
     </Box>
