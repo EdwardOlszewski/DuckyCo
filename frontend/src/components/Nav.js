@@ -40,7 +40,7 @@ import { logout } from '../actions/userActions'
 // ----- mui styles ----- //
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '12rem',
+    height: '13rem',
     boxShadow: 'none',
     backgroundColor: '#272829',
     color: 'white',
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
   secondBox: {
     [theme.breakpoints.up('xs')]: {
-      padding: '0 2rem 0 0',
+      padding: '0 4rem 0 2rem',
     },
     [theme.breakpoints.up('md')]: {
       padding: '0 4rem 0 4rem',
