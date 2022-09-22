@@ -2,14 +2,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 // Components
-import {
-  makeStyles,
-  Grid,
-  Typography,
-  Box,
-  Divider,
-  Button,
-} from '@material-ui/core'
+import { makeStyles, Grid, Typography, Box } from '@material-ui/core'
 import PageWrapper from '../components/PageWrapper'
 import Product from '../components/Product'
 import Message from '../components/Message'
