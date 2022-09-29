@@ -146,7 +146,7 @@ const Nav = () => {
           style={{
             backgroundColor: 'red',
             width: '100%',
-            marginBottom: '1rem',
+            marginBottom: '.5rem',
           }}
         >
           <Banner />

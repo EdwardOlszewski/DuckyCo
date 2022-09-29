@@ -176,6 +176,7 @@ const updateShipping = asyncHandler(async (req, res) => {
       order.promoCode = promoCode
       order.subTotal = order.subTotal * 0.85
       order.subTotal = order.subTotal.toFixed(2)
+      order.totalPrice = order.subTotal + order.shippingPrice
 
       const updatedOrder = await order.save()
       res.json(updatedOrder)
@@ -190,6 +191,7 @@ const updateShipping = asyncHandler(async (req, res) => {
       order.promoCode = promoCode
       order.subTotal = order.subTotal * 0.8
       order.subTotal = order.subTotal.toFixed(2)
+      order.totalPrice = order.subTotal + order.shippingPrice
 
       const updatedOrder = await order.save()
       res.json(updatedOrder)
