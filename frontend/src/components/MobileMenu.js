@@ -39,8 +39,8 @@ const useStyles = makeStyles((theme) => ({
   },
   hamburgerIcon: {
     color: 'white',
-    width: '4rem',
-    height: '4rem',
+    width: '5rem',
+    height: '5rem',
   },
   btn: {
     color: '#222222',

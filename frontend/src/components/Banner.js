@@ -23,11 +23,6 @@ const Nav = (props) => {
       <Typography variant={'subtitle2'} className={classes.text}>
         <Box fontWeight={500}>FREE SHIPPING ON ORDERS $50 OR MORE!</Box>
       </Typography>
-      <Typography variant={'subtitle2'} className={classes.text}>
-        <Box fontWeight={400} style={{ marginTop: '.5rem' }}>
-          DUE TO HIGH VOLUME ALL NEW ORDERS WILL BE PROCESSED 9/27/22
-        </Box>
-      </Typography>
     </Box>
   )
 }

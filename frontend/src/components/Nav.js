@@ -40,15 +40,14 @@ import { logout } from '../actions/userActions'
 // ----- mui styles ----- //
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '15rem',
     boxShadow: 'none',
     backgroundColor: '#272829',
     color: 'white',
     [theme.breakpoints.up('xs')]: {
-      height: '15rem',
+      height: '13rem',
     },
     [theme.breakpoints.up('md')]: {
-      height: '13rem',
+      height: '12rem',
     },
   },
 
@@ -60,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 
   secondBox: {
     [theme.breakpoints.up('xs')]: {
-      padding: '0 2rem 0 2rem',
+      padding: '0 3rem 0 2rem',
     },
     [theme.breakpoints.up('md')]: {
       padding: '0 4rem 0 4rem',
@@ -143,7 +142,13 @@ const Nav = () => {
   return (
     <>
       <AppBar className={classes.root} position='sticky'>
-        <Box style={{ backgroundColor: 'red', width: '100%' }}>
+        <Box
+          style={{
+            backgroundColor: 'red',
+            width: '100%',
+            marginBottom: '1rem',
+          }}
+        >
           <Banner />
         </Box>
 
