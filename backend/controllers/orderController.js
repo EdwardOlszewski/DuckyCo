@@ -186,7 +186,13 @@ const updateShipping = asyncHandler(async (req, res) => {
 
       const updatedOrder = await order.save()
       res.json(updatedOrder)
-    } else if (process.env.PROMO_CODE3) {
+    } else if (process.env.PROMO_CODE5 == promoCode) {
+      order.promoCode = promoCode
+      order.subTotal = order.subTotal * 0.8
+      order.subTotal = order.subTotal.toFixed(2)
+
+      const updatedOrder = await order.save()
+      res.json(updatedOrder)
     } else {
       res.status(404)
       throw new Error('Promo Code ' + promoCode + ' Not Found')
