@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
   text: {
     color: 'white',
+    fontSize: '.8rem',
   },
 }))
 

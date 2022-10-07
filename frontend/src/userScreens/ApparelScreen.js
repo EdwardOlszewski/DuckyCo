@@ -101,11 +101,11 @@ const ApparelScreen = () => {
 
           <Grid className={classes.productCont} container spacing={5}>
             <Grid item xs={12}>
-              <Typography variant='h4'>Beanies</Typography>
+              <Typography variant='h4'>Hats/Beanies</Typography>
             </Grid>
             {products &&
               products
-                .filter((product) => product.category.includes('Beanie'))
+                .filter((product) => product.category.includes('Hat'))
                 .map((filteredProduct) => (
                   <Grid
                     key={filteredProduct._id}
@@ -121,15 +121,9 @@ const ApparelScreen = () => {
                     />
                   </Grid>
                 ))}
-          </Grid>
-
-          <Grid className={classes.productCont} container spacing={5}>
-            <Grid item xs={12}>
-              <Typography variant='h4'>Hats/Beanies</Typography>
-            </Grid>
             {products &&
               products
-                .filter((product) => product.category.includes('Hat'))
+                .filter((product) => product.category.includes('Beanie'))
                 .map((filteredProduct) => (
                   <Grid
                     key={filteredProduct._id}
@@ -253,6 +247,32 @@ const ApparelScreen = () => {
 export default ApparelScreen
 
 /*
+
+          <Grid className={classes.productCont} container spacing={5}>
+            <Grid item xs={12}>
+              <Typography variant='h4'>Beanies</Typography>
+            </Grid>
+            {products &&
+              products
+                .filter((product) => product.category.includes('Beanie'))
+                .map((filteredProduct) => (
+                  <Grid
+                    key={filteredProduct._id}
+                    item
+                    xs={6}
+                    sm={6}
+                    md={4}
+                    lg={3}
+                  >
+                    <Product
+                      key={filteredProduct._id}
+                      product={filteredProduct}
+                    />
+                  </Grid>
+                ))}
+          </Grid>
+
+
       <Grid container className={classes.productCont} spacing={3}>
             <Grid item xs={12}>
               <Typography variant='h4'>Hats</Typography>

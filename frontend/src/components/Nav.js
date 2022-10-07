@@ -144,7 +144,6 @@ const Nav = () => {
       <AppBar className={classes.root} position='sticky'>
         <Box
           style={{
-            backgroundColor: 'red',
             width: '100%',
             marginBottom: '.5rem',
           }}
