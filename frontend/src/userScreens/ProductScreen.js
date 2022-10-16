@@ -284,16 +284,32 @@ const ProductScreen = () => {
             <Typography variant='h5' style={{ marginTop: '2rem' }}>
               Description:
             </Typography>
-            <List style={{ marginTop: '-1rem' }}>
-              {product.description.map((desc) => (
-                <ListItem key={desc} style={{ marginBottom: '-1rem' }}>
-                  <Typography>
-                    <GiPlasticDuck style={{ marginRight: '.5rem' }} />
-                  </Typography>
-                  <Typography>{desc}</Typography>
-                </ListItem>
-              ))}
-            </List>
+
+            {product.category === 'MISC' ? (
+              <List style={{ marginTop: '-1rem' }}>
+                {product.description.map((desc) => (
+                  <ListItem key={desc} style={{ marginBottom: '-1rem' }}>
+                    <Typography
+                      variant='subtitle2'
+                      style={{ marginTop: '1rem' }}
+                    >
+                      {desc}
+                    </Typography>
+                  </ListItem>
+                ))}
+              </List>
+            ) : (
+              <List style={{ marginTop: '-1rem' }}>
+                {product.description.map((desc) => (
+                  <ListItem key={desc} style={{ marginBottom: '-1rem' }}>
+                    <Typography>
+                      <GiPlasticDuck style={{ marginRight: '.5rem' }} />
+                    </Typography>
+                    <Typography>{desc}</Typography>
+                  </ListItem>
+                ))}
+              </List>
+            )}
 
             <Box
               style={{
