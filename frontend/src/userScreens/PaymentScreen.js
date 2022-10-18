@@ -108,6 +108,7 @@ const PaymentScreen = () => {
 
   // ----- state variables ----- //
   const [promoCode, setPromoCode] = useState('')
+  const [hasCup, setHasCup] = useState(false)
 
   // ----- get data from redux store ----- //
   const userLogin = useSelector((state) => state.userLogin)
@@ -132,7 +133,17 @@ const PaymentScreen = () => {
   // ----- function called for promo codes ----- //
   const promoCodeSubmit = (e) => {
     e.preventDefault()
-    dispatch(updateShipping(orderId, promoCode))
+    for (let i = 0; i < order.orderItems.length; i++) {
+      if (order.orderItems[i].product == '634c58a1260c1a516ab928fd') {
+        setHasCup(true)
+      } else if (order.orderItems[i].product == '634c6d993804522bac7c8eda') {
+        setHasCup(true)
+      } else if (order.orderItems[i].product == '634c6d9b3804522bac7c8edb') {
+        setHasCup(true)
+      } else {
+        dispatch(updateShipping(orderId, promoCode))
+      }
+    }
   }
 
   // ----- useEffect hook ----- //
@@ -312,18 +323,26 @@ const PaymentScreen = () => {
                 </Grid>
                 <Grid item xs={6}></Grid>
                 <Grid item xs={6}>
-                  {order.promoCode === 'WELCOME15' ||
-                  order.promoCode === 'LUCKYDUCK' ||
-                  order.promoCode === 'COMEBACK15' ? (
-                    <Typography variant='subtitle1'>
-                      15% off with {order.promoCode}
-                    </Typography>
-                  ) : null}
-                  {order.promoCode === 'WILSON10' ? (
-                    <Typography variant='subtitle1'>
-                      10% off with {order.promoCode}
-                    </Typography>
-                  ) : null}
+                  <>
+                    {order.promoCode === 'WELCOME15' ||
+                    order.promoCode === 'LUCKYDUCK' ||
+                    order.promoCode === 'COMEBACK15' ? (
+                      <Typography variant='subtitle1'>
+                        15% off with {order.promoCode}
+                      </Typography>
+                    ) : null}
+                    {order.promoCode === 'WILSON10' ? (
+                      <Typography variant='subtitle1'>
+                        10% off with {order.promoCode}
+                      </Typography>
+                    ) : null}
+
+                    {hasCup && (
+                      <Typography variant='subtitle1'>
+                        PROMO CODE EXCLUDES ICE SHAKERS
+                      </Typography>
+                    )}
+                  </>
                 </Grid>
               </Grid>
 

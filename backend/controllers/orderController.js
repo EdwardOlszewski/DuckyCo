@@ -167,6 +167,26 @@ const updateShipping = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id)
   const { promoCode } = req.body
 
+  let hasCup = false
+  let cupPrice = 0
+
+  for (let i = 0; i < order.orderItems.length; i++) {
+    if (order.orderItems[i].product.toString() == '634c58a1260c1a516ab928fd') {
+      hasCup = true
+      cupPrice += order.orderItems[i].price * order.orderItems[i].qty
+    } else if (
+      order.orderItems[i].product.toString() == '634c6d993804522bac7c8eda'
+    ) {
+      hasCup = true
+      cupPrice += order.orderItems[i].price * order.orderItems[i].qty
+    } else if (
+      order.orderItems[i].product.toString() == '634c6d9b3804522bac7c8edb'
+    ) {
+      hasCup = true
+      cupPrice += order.orderItems[i].price * order.orderItems[i].qty
+    }
+  }
+
   if (order) {
     if (
       process.env.PROMO_CODE == promoCode ||
@@ -174,23 +194,44 @@ const updateShipping = asyncHandler(async (req, res) => {
       process.env.PROMO_CODE4 == promoCode
     ) {
       order.promoCode = promoCode
+
+      //subtact cup price
+      order.subTotal = order.subTotal - cupPrice
+
       order.subTotal = order.subTotal * 0.85
       order.subTotal = order.subTotal.toFixed(2)
+
+      //add back in cup price
+      order.subTotal += cupPrice
+
       order.totalPrice = order.subTotal + order.shippingPrice
 
       const updatedOrder = await order.save()
       res.json(updatedOrder)
     } else if (process.env.PROMO_CODE2 == promoCode) {
       order.promoCode = promoCode
+
+      //subtract cup price
+      order.subTotal = order.subTotal - cupPrice
       order.subTotal = order.subTotal * 0.9
+
+      //add back in cup price
+      order.subTotal = order.subTotal + cupPrice
       order.totalPrice = order.subTotal + order.shippingPrice
 
       const updatedOrder = await order.save()
       res.json(updatedOrder)
     } else if (process.env.PROMO_CODE5 == promoCode) {
       order.promoCode = promoCode
+      //subtract cup price
+      order.subTotal = order.subTotal - cupPrice
+
       order.subTotal = order.subTotal * 0.8
       order.subTotal = order.subTotal.toFixed(2)
+
+      //add back in cup price
+      order.subtotal = order.subTotal + cupPrice
+
       order.totalPrice = order.subTotal + order.shippingPrice
 
       const updatedOrder = await order.save()
