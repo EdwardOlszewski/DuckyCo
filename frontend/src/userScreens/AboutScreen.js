@@ -28,8 +28,21 @@ import { TiSocialInstagram } from 'react-icons/ti'
 import background from '../components/background.png'
 
 // ----- mui styles ----- //
-const useStyles = makeStyles(() => ({
-  root: {},
+const useStyles = makeStyles((theme) => ({
+  textContainer: {
+    [theme.breakpoints.up('xs')]: {
+      width: '90%',
+    },
+    [theme.breakpoints.up('sm')]: {
+      width: '80%',
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '60%',
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: '55%',
+    },
+  },
 }))
 
 const HomeScreen = () => {
@@ -44,12 +57,12 @@ const HomeScreen = () => {
 
   return (
     <PageWrapper>
-      <Container maxWidth='lg'>
+      <Container maxWidth='lg' style={{ paddingBottom: '3rem' }}>
         <Grid container spacing={10} className={classes.root}>
           <Grid item xs={12}>
             <Container
               maxWidth='sm'
-              style={{ textAlign: 'center', marginTop: '2rem' }}
+              style={{ textAlign: 'center', marginTop: '3rem' }}
             >
               <img
                 src='/images/DuckyLogin.png'
@@ -61,28 +74,38 @@ const HomeScreen = () => {
             </Container>
           </Grid>
 
-          <Grid item xs={12} md={6}>
-            <Typography variant='h6' className={classes.text}>
-              Ducky {'&'} Co. was founded by Devin Whitty and Ed Olszewski in
-              2022. It started with Devin{"'"}s collection and liking of rubber
-              ducks and real ducks since he was a child. Rubber ducks to Devin
-              meant happiness, not to worry, and to do what you love to do no
-              matter what other people think. Devin wanted to share that meaning
-              with other people and talked to Eddie about how that could be
-              possible.
+          <Container className={classes.textContainer} maxWidth='false'>
+            <Typography
+              variant='h5'
+              className={classes.text}
+              style={{ textAlign: 'center', fontWeight: 500 }}
+            >
+              Ducky {'&'} Co. was founded in 2022.
             </Typography>
-          </Grid>
 
-          <Grid item xs={12} md={6}>
-            <Typography variant='h6' className={classes.text}>
-              Eddie brought up the idea of a clothing brand along with the
-              design of our logo. Ducky {'&'} Co. was born. We started with two
-              iterations of shirt designs and planned to add more over time with
-              limited time drops for holidays. We want to make Ducky {'&'} Co.
-              clothing memorable and what better way to do that than to use the
-              highest and most comfortable clothing materials available.
+            <Typography
+              variant='h6'
+              className={classes.text}
+              style={{ marginTop: '2rem', fontWeight: 400 }}
+            >
+              Ducky & Co. provides unique products that reflect embracing hard
+              work and never giving up. We strive to pass those messages along
+              with all those who join The Flock.
             </Typography>
-          </Grid>
+
+            <Typography
+              variant='h6'
+              className={classes.text}
+              style={{ marginTop: '2rem', fontWeight: 400 }}
+            >
+              The Ducky & Co. crew understands the mindset that is needed for
+              hard work and not to give up based on our personal experiences. We
+              are more than happy to help others achieve that mindset to better
+              themselves. All of our products directly reflect what working hard
+              and never giving up will lead you to in your lifetime. Grow with
+              us.
+            </Typography>
+          </Container>
         </Grid>
       </Container>
     </PageWrapper>

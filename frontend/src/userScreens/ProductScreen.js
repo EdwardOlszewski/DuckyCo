@@ -289,12 +289,14 @@ const ProductScreen = () => {
               <List style={{ marginTop: '-1rem' }}>
                 {product.description.map((desc) => (
                   <ListItem key={desc} style={{ marginBottom: '-1rem' }}>
-                    <Typography
-                      variant='subtitle2'
-                      style={{ marginTop: '1rem' }}
-                    >
-                      {desc}
-                    </Typography>
+                    <Grid container spacing={0}>
+                      <Grid item xs={2} sm={1}>
+                        <Typography variant='h6'>-</Typography>
+                      </Grid>
+                      <Grid item xs={10} sm={11} style={{ marginTop: '1rem' }}>
+                        <Typography variant='subtitle2'>{desc}</Typography>
+                      </Grid>
+                    </Grid>
                   </ListItem>
                 ))}
               </List>
@@ -302,10 +304,10 @@ const ProductScreen = () => {
               <List style={{ marginTop: '-1rem' }}>
                 {product.description.map((desc) => (
                   <ListItem key={desc} style={{ marginBottom: '-1rem' }}>
-                    <Typography>
+                    <Typography style={{ marginTop: 5 }}>
                       <GiPlasticDuck style={{ marginRight: '.5rem' }} />
                     </Typography>
-                    <Typography>{desc}</Typography>
+                    <Typography style={{ marginTop: 5 }}>{desc}</Typography>
                   </ListItem>
                 ))}
               </List>
