@@ -166,9 +166,7 @@ const ApparelScreen = () => {
           </Grid>
 
           <Grid className={classes.productCont} container spacing={5}>
-            <Grid item xs={12}>
-              <Typography variant='h4'>Tanktops</Typography>
-            </Grid>
+            <Grid item xs={12}></Grid>
             {products &&
               products
                 .filter((product) => product.category.includes('Tanktop'))
